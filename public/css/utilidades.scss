@@ -1,0 +1,146 @@
+// Variáveis do projeto
+@import "variaveis";
+
+// Fontes
+@import url('https://fonts.googleapis.com/css2?family=Montserrat+Alternates:wght@400;500;600;700&display=swap');
+
+// Reset
+html,
+body {
+	padding: 0;
+	margin: 0;
+	font-family: 'Montserrat Alternates', sans-serif;
+	background-color: $c-lightGray;
+	color: $c-dark;
+	font-size: 16px;
+	font-weight: 400;
+}
+
+a {
+	color: inherit;
+	text-decoration: none;
+	transition: all ease 0.4s;
+}
+
+p{
+	margin: 0;
+}
+
+* {
+	box-sizing: border-box;
+}
+
+img{
+	max-width: 100%;
+}
+
+ul{
+	list-style: none;
+	padding-left: 0;
+}
+
+fieldset{
+	margin: 0;
+	padding: 0;
+	border: none;
+}
+
+// Classes úteis
+
+// Fonts
+.fw-400{
+	font-weight: 400;
+}
+.fw-500{
+	font-weight: 500;
+}
+.fw-600{
+	font-weight: 600;
+}
+.fw-700{
+	font-weight: 700;
+}
+
+// Tamanho
+.fs-12{ font-size: 12px !important; }
+
+// Cores
+.c-azul{ color: $c-primary; }
+
+// Margins
+.mb-2{ margin-bottom: 16px !important; }
+
+// Display
+.d-flex{ display: flex; }
+
+// Alinhamento
+.align-items-end{ align-items: flex-end !important; }
+.justify-content-between{ justify-content: space-between !important; }
+
+// Gerais
+.link{
+	text-decoration: underline;
+
+	&:hover,
+	&:focus{
+		text-decoration: underline;
+		opacity: 0.7;
+	}
+}
+
+.titulo{
+	margin: 0;
+	font-weight: 700;
+
+	&.h1{
+		font-size: 20px;
+	}
+
+	&.h2{
+		font-size: 18px;
+	}
+
+	&.h3{
+		font-size: 16px;
+	}
+}
+
+.input{
+	margin-top: 4px;
+	width: 100%;
+	height: 40px;
+	padding: 0 16px;
+	border-radius: 8px;
+	border: none;
+
+	&:focus{
+		border: none;
+		box-shadow: 0 0 0 1px $c-primary;
+		outline: none;
+	}
+}
+
+.btn{
+	padding: 12px 24px;
+	text-align: center;
+	font-family: inherit;
+	font-size: 1rem;
+	border: none;
+	border-radius: 16px;
+	transition: all ease 0.4s;
+	cursor: pointer;
+
+	&-primary{
+		background-color: $c-primary;
+		color: white;
+
+		&:hover,
+		&:focus{
+			background-color: darken($c-primary, 8%)
+		}
+	}
+
+	&.small{
+		padding: 12px;
+	}
+}

@@ -1,0 +1,92 @@
+@import "variaveis";
+
+.wrapper{
+	display: flex;
+	height: 100vh;
+}
+
+.dir{
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	flex: 1;
+	padding: 32px;
+
+	@media (min-width: 992px) {
+		padding: 64px;
+	}
+
+	.msgFlutuante{
+		max-width: 330px;
+		margin-bottom: 32px;
+		width: 100%;
+
+		@media (min-width: 992px) {
+			position: absolute;
+			top: 64px;
+			right: 64px;
+			width: inherit;
+			max-width: inherit;
+			margin-bottom: 0;
+		}
+	}
+
+}
+
+.esq{
+	display: none;
+	position: relative;
+	align-items: flex-end;
+	justify-content: flex-end;
+	width: 50%;
+	max-width: 770px;
+	padding: 64px;
+	background-color: white;
+
+	@media (min-width: 992px){
+		display: flex;
+	}
+
+	&Img{
+		position: absolute;
+		top: 50%;
+		left: 0;
+		z-index: 1;
+		width: 100%;
+		transform: translateY(-50%);
+	}
+
+	.ilustracaoDireitos{
+		position: relative;
+		z-index: 2;
+	}
+}
+
+.info{
+	width: 100%;
+	max-width: 330px;
+}
+
+.label{
+	display: block;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.error{
+	.label{
+		color: $c-red;
+	}
+
+	.input{
+		box-shadow: 0 0 0 1px $c-red;
+	}
+
+	&Msg{
+		margin-top: 12px;
+		margin-bottom: 12px;
+		color: $c-red;
+	}
+}
