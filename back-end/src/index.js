@@ -6,14 +6,14 @@ const { ApolloServer, gql } = require("apollo-server");
 const typeDefs = require("./typeDefs");
 const resolvers = require("./resolvers/userResolver");
 
-const db = {
-    host: process.env.DB_HOST,
-    user: process.env.DB_USER,
-    pass: process.env.DB_PASS,
-    name: process.env.DB_NAME,
-};
+// const db = {
+//     host: process.env.DB_HOST,
+//     user: process.env.DB_USER,
+//     pass: process.env.DB_PASS,
+//     name: process.env.DB_NAME,
+// };
 
-const dbUri = `mongodb+srv://${db.user}:${db.pass}@${db.host}/${db.name}?retryWrites=true&w=majority`;
+// const dbUri = `mongodb+srv://${db.user}:${db.pass}@${db.host}/${db.name}?retryWrites=true&w=majority`;
 const dbUriF = 'mongodb+srv://admin:Andrey@14@cluster0.sxqq8.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
 
 const dbOptions = {

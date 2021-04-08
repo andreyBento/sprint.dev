@@ -8,7 +8,8 @@ const type = gql `
         password: String!
         username: String
         email: String!
-        loginAuth: Boolean
+        job: String
+        colorBg: String
     }
 `;
 

@@ -21,6 +21,7 @@ const CREATE_USER = gql`
     $password: String!
     $firstName: String!
     $lastName: String!
+    $colorBg: String
   ) {
     createUser(
       user: {
@@ -28,6 +29,7 @@ const CREATE_USER = gql`
          password: $password
          firstName: $firstName
          lastName: $lastName
+         colorBg: $colorBg
       }
     ) {
       id
@@ -43,6 +45,19 @@ export default function CadastroAuth() {
     const [lastName, setLastName] = useState('');
     const [error, setError] = useState(false);
 
+    const colors = [
+        '#ADE498',
+        '#EDE682',
+        '#FE91CA',
+        '#FEBF63',
+        '#7FDBDA'
+    ];
+    let color = randomIntFromInterval(0, (colors.length - 1));
+
+    function randomIntFromInterval(min, max) {
+        return Math.floor(Math.random() * (max - min + 1) + min);
+    }
+
     const router = useRouter();
 
     const { data } = useQuery(USERS);
@@ -52,7 +67,8 @@ export default function CadastroAuth() {
             email: email,
             password: password,
             firstName: firstName,
-            lastName: lastName
+            lastName: lastName,
+            colorBg: colors[color]
         },
         onCompleted: ({ createUser }) => {
             localStorage.setItem(AUTH_TOKEN, createUser.id);

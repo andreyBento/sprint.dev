@@ -1,0 +1,35 @@
+@import "variaveis";
+
+.wrapper{
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+
+.esferaUser{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 40px;
+	width: 40px;
+	font-weight: 700;
+	font-size: 14px;
+	border-radius: 50%;
+}
+
+.infoUser{
+	flex: 1;
+	margin-left: 8px;
+
+	.nome{
+		margin-bottom: 2px;
+		font-size: 14px;
+		color: $c-dark;
+	}
+
+	.job{
+		margin-bottom: 0;
+		font-size: 12px;
+		color: $c-gray;
+	}
+}

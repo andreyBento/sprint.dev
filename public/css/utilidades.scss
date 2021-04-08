@@ -48,6 +48,8 @@ fieldset{
 // Classes úteis
 
 // Fonts
+
+// Peso
 .fw-400{
 	font-weight: 400;
 }
@@ -63,9 +65,10 @@ fieldset{
 
 // Tamanho
 .fs-12{ font-size: 12px !important; }
+.fs-14{ font-size: 14px !important; }
 
 // Cores
-.c-azul{ color: $c-primary; }
+.c-azul{ color: $c-primary !important; }
 
 // Margins
 .mb-2{ margin-bottom: 16px !important; }
@@ -75,6 +78,7 @@ fieldset{
 
 // Alinhamento
 .align-items-end{ align-items: flex-end !important; }
+.align-items-center{ align-items: center !important; }
 .justify-content-between{ justify-content: space-between !important; }
 
 // Gerais

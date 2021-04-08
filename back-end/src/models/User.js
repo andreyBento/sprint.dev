@@ -6,7 +6,8 @@ const UserSchema = new Schema({
     password: String,
     email: String,
     username: String,
-    loginAuth: Boolean
+    job: String,
+    colorBg: String
 });
 
 module.exports = model("User", UserSchema);
