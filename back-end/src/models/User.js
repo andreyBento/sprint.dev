@@ -7,7 +7,8 @@ const UserSchema = new Schema({
     email: String,
     username: String,
     job: String,
-    colorBg: String
+    colorBg: String,
+    projects: [String]
 });
 
 module.exports = model("User", UserSchema);

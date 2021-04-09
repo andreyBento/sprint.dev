@@ -5,7 +5,18 @@ const mutations = gql `
         createUser(user: UserInput): User
         updateUser(id: ID, user: UpdateUser): User
         deleteUser(id: ID): User
-        findLoginUser(user: LoginInput): User
+        
+        createProject(project: ProjectInput): Project
+        updateProject(id: ID, project: UpdateProject): Project
+        deleteProject(id: ID): Project
+        
+        createBox(box: BoxInput): Box
+        updateBox(id: ID, box: UpdateBox): Box
+        deleteBox(id: ID): Box
+        
+        createSprint(box: SprintInput): Sprint
+        updateSprint(id: ID, sprint: UpdateSprint): Sprint
+        deleteSprint(id: ID): Sprint
     }
     
     input UserInput {
@@ -24,11 +35,43 @@ const mutations = gql `
         email: String
         username: String
         colorBg: String
+        projects: [ID]
     }
     
-    input LoginInput {
-        email: String!
-        password: String!
+    input ProjectInput {
+        name: String!
+        colorBg: String!
+        user: String!
+    }
+    
+    input UpdateProject {
+        name: String
+        colorBg: String
+        boxes: [ID]
+        imageBg: String
+    }
+    
+    input BoxInput {
+        name: String!
+        project: ID!
+    }
+    
+    input UpdateBox {
+        name: String
+        sprints: [ID]
+    }
+    
+    input SprintInput {
+        name: String!
+        creationDate: String!
+        finalDate: String!
+        box: ID!
+    }
+    
+    input UpdateSprint {
+        name: String
+        finalDate: String
+        box: ID
     }
 `;
 

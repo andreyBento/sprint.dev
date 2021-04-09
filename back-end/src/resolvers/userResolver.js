@@ -27,12 +27,6 @@ const userResolver = {
             return User.findByIdAndRemove(id, {
                 useFindAndModify: false,
             });
-        },
-        findLoginUser(_, {email, password}) {
-            return User.findOneAndUpdate({email, password}, {loginAuth: true}, {
-                new: true,
-                useFindAndModify: false,
-            });
         }
     },
 };

@@ -4,7 +4,12 @@ const mongoose = require("mongoose");
 const { ApolloServer, gql } = require("apollo-server");
 
 const typeDefs = require("./typeDefs");
-const resolvers = require("./resolvers/userResolver");
+const userResolver = require("./resolvers/userResolver");
+const projectResolver = require("./resolvers/projectResolver");
+const sprintResolver = require("./resolvers/sprintResolver");
+const boxResolver = require("./resolvers/boxResolver");
+
+const resolvers = [userResolver, projectResolver, sprintResolver, boxResolver];
 
 // const db = {
 //     host: process.env.DB_HOST,
