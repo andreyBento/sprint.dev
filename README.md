@@ -10,19 +10,8 @@ npm run dev
 yarn dev
 ```
 
-Para rodar o servidor do Back-End:
-
-```bash
-npm run back
-```
-
 Tecnologias sendo usadas até o momento:
 
 - Next.js
 - ReactJS
-- Apollo
-- GraphQl
-- MongoDB
-- Dotenv
-- Mongoose
 - Sass
