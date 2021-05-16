@@ -1,0 +1,68 @@
+package br.sprintdev.controller;
+
+import java.net.URI;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import br.sprintdev.model.service.UserService;
+import br.sprintdev.controller.dto.UserDto;
+import br.sprintdev.controller.form.UpdateUserForm;
+import br.sprintdev.controller.form.UserForm;
+import br.sprintdev.model.entity.User;
+
+@RestController
+@RequestMapping("/users")
+public class UserController {
+
+	@Autowired
+	private UserService service;
+	
+	@GetMapping("/")
+	public List<UserDto> listAll() {
+		List<User> users = service.findAll();
+		return UserDto.converter(users);
+	}
+	
+	@GetMapping("/{id}")
+	public UserDto detail(@PathVariable Long id) {
+		User user = service.findById(id);
+		return new UserDto(user);
+	}
+	
+	@PostMapping("/add")
+	@Transactional
+	public ResponseEntity<UserDto> create(@RequestBody UserForm form, UriComponentsBuilder uriBuilder) {
+		User user = form.convert();
+		service.create(user);
+		
+		URI uri = uriBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri();
+		
+		return ResponseEntity.created(uri).body(new UserDto(user));
+	}
+	
+	@PutMapping("/{id}")
+	@Transactional
+	public ResponseEntity<UserDto> update(@PathVariable Long id, @RequestBody UpdateUserForm form) {
+		User user = form.update(id, service);
+		return ResponseEntity.ok(new UserDto(user));
+	}
+	
+	@DeleteMapping("/{id}")
+	@Transactional
+	public ResponseEntity<?> delete(@PathVariable Long id) {
+		service.delete(id);
+		return ResponseEntity.ok().build();
+	}
+}
