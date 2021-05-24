@@ -1,0 +1,81 @@
+package br.sprintdev.model.entity;
+
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "SPRINTS")
+public class Sprint extends AbstractEntity<Long> {
+	
+	@NotBlank
+	private String name;
+	
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "owner_id")
+	private Box sprint_owner;
+	
+	@ManyToMany
+	@JoinTable(
+			  name = "sprint_teams", 
+			  joinColumns = @JoinColumn(name = "sprint_id"), 
+			  inverseJoinColumns = @JoinColumn(name = "team_id"))
+	private List<Team> teams;
+
+	@OneToMany(mappedBy = "owner")
+	private List<Task> tasks;
+	
+	@OneToMany(mappedBy = "owner")
+	private List<Meeting> meetings;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public Box getOwner() {
+		return owner;
+	}
+
+	public void setOwner(Box owner) {
+		this.owner = owner;
+	}
+
+	public List<Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(List<Team> teams) {
+		this.teams = teams;
+	}
+
+	public List<Task> getTasks() {
+		return tasks;
+	}
+
+	public void setTasks(List<Task> tasks) {
+		this.tasks = tasks;
+	}
+
+	public List<Meeting> getMeetings() {
+		return meetings;
+	}
+
+	public void setMeetings(List<Meeting> meetings) {
+		this.meetings = meetings;
+	}
+
+}

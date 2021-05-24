@@ -1,0 +1,7 @@
+package br.sprintdev.model.dao;
+
+import br.sprintdev.model.entity.Comment;
+
+public class CommentDaoImpl extends AbstractDao<Comment, Long> implements CommentDao {
+
+}

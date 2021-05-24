@@ -1,0 +1,30 @@
+package br.sprintdev.model.entity;
+
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "BOXES")
+public class Box extends AbstractEntity<Long> {
+	
+	@NotBlank
+	private String name;
+	
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "owner_id")
+	private Project owner;
+	
+	@NotNull
+	@OneToMany(mappedBy = "owner")
+	private List<Sprint> sprints;
+
+}

@@ -1,41 +1,7 @@
 import styles from '../public/css/Login.module.scss';
-import {useQuery, gql, useMutation} from '@apollo/client';
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 import { useRouter } from 'next/router';
-import {AUTH_TOKEN} from "../back-end/src/constants";
 import PasswordInput from "./PasswordInput";
-
-const USERS = gql`
-  {
-    users{
-        email
-        password
-        id
-    }
-  }
-`;
-
-const CREATE_USER = gql`
-  mutation createUser(
-    $email: String!
-    $password: String!
-    $firstName: String!
-    $lastName: String!
-    $colorBg: String
-  ) {
-    createUser(
-      user: {
-         email: $email
-         password: $password
-         firstName: $firstName
-         lastName: $lastName
-         colorBg: $colorBg
-      }
-    ) {
-      id
-    }
-  }
-`;
 
 export default function CadastroAuth() {
     const [email, setEmail] = useState('');
@@ -60,20 +26,50 @@ export default function CadastroAuth() {
 
     const router = useRouter();
 
-    const { data } = useQuery(USERS);
+    function createUser() {
+        let firstNameFirstWord = firstName.split(' ')[0];
+        let lastNameFirstWord = lastName.split(' ')[0];
+        const username = `@${firstNameFirstWord.toLowerCase() + lastNameFirstWord.toLowerCase()}`;
+        const user = {
+            firstName,
+            lastName,
+            email,
+            password,
+            username,
+            bgColor: colors[color]
+        };
+        const options = {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        };
 
-    const [createUser] = useMutation(CREATE_USER, {
-        variables: {
-            email: email,
-            password: password,
-            firstName: firstName,
-            lastName: lastName,
-            colorBg: colors[color]
-        },
-        onCompleted: ({ createUser }) => {
-            localStorage.setItem(AUTH_TOKEN, createUser.id);
-        }
-    });
+        fetch(`http://localhost:8080/users/add`, options)
+            .then((res) => res.json())
+            .then((res) => {
+                console.log(res);
+                window.localStorage.setItem('AUTH_TOKEN', res.id);
+                router.push('/home')
+            })
+            .catch(err => console.error(err))
+    }
+
+    const [existingUsers, setExistingUsers] = useState([]);
+    useEffect(() => {
+        const options = {
+            method: 'GET'
+        };
+
+        fetch(`http://localhost:8080/users/`, options)
+            .then((res) => res.json())
+            .then((res) => {
+                setExistingUsers(res);
+            })
+            .catch(err => console.error(err))
+    }, []);
 
     const validarCadastro = (event) => {
         event.preventDefault();
@@ -82,7 +78,7 @@ export default function CadastroAuth() {
         } else {
             if(email.includes('@')){
                 let exist = false;
-                data.users.map((item) => {
+                existingUsers.map((item) => {
                     if(item.email === email){
                         exist = true;
                     }

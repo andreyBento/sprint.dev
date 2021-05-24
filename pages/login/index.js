@@ -1,6 +1,5 @@
 import styles from '../../public/css/Login.module.scss';
 import React  from 'react';
-import ClientOnly from "../../components/ClientOnly";
 import Link from "next/link";
 import LoginAuth from "../../components/loginAuth";
 
@@ -12,9 +11,7 @@ export default function Login() {
                 <p className={`fw-600 ${styles.msgFlutuante}`}>Ainda não é cadastrado? <Link href="/cadastro"><a className="link c-azul">Cadastre-se agora.</a></Link></p>
                 <div className={styles.info}>
                     <h1 className="titulo h1 mb-2">entrar no <strong>Sprint.dev</strong></h1>
-                    <ClientOnly>
-                        <LoginAuth/>
-                    </ClientOnly>
+                    <LoginAuth/>
                 </div>
             </div>
             <div className={styles.esq}>

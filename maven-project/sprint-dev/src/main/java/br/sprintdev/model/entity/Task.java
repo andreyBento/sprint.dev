@@ -28,16 +28,15 @@ public class Task extends AbstractEntity<Long> {
 	@OneToMany(mappedBy = "task")
 	private List<Comment> comments;
 
-	private List<String> documents;
-
 	public Task() {
 		
 	}
 	
-	public Task(String name, String msg, Sprint sprint) {
+	public Task(String name, String msg, Sprint sprint, String status) {
 		this.name = name;
 		this.msg = msg;
 		this.task_owner = sprint;
+		this.status = status;
 	}
 
 	public String getName() {
@@ -94,13 +93,5 @@ public class Task extends AbstractEntity<Long> {
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
-	}
-
-	public List<String> getDocuments() {
-		return documents;
-	}
-
-	public void setDocuments(List<String> documents) {
-		this.documents = documents;
 	}
 }

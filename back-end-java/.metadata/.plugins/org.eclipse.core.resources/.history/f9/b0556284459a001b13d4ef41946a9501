@@ -1,0 +1,10 @@
+
+# datasource
+spring.datasource.driverClassName=org.h2.Driver
+spring.datasource.url=jdbc:mysql://localhost:3306/sprintdevDB
+spring.datasource.username=admin
+spring.datasource.password=fogoletal14
+
+# jpa
+spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
+spring.jpa.hibernate.ddl-auto=update

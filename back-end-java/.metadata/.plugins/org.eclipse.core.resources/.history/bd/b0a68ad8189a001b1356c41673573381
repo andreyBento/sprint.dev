@@ -1,0 +1,35 @@
+package br.sprintdev.controller.dto;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+import br.sprintdev.model.entity.Box;
+import br.sprintdev.model.entity.Project;
+
+public class ProjectDto {
+
+	private String name;
+	private String bgColor;
+	private List<Box> boxes;
+	
+	public ProjectDto(Project project) {
+		this.name = project.getName();
+		this.bgColor = project.getBgColor();
+		this.boxes = project.getBoxes();
+	}
+	
+	public String getName() {
+		return name;
+	}
+	public String getBgColor() {
+		return bgColor;
+	}
+	public List<Box> getBoxes() {
+		return boxes;
+	}
+
+	public static List<ProjectDto> converter(List<Project> projects) {
+		return projects.stream().map(ProjectDto::new).collect(Collectors.toList());
+	}
+	
+}

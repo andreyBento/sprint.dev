@@ -1,0 +1,45 @@
+package br.sprintdev.model.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
+
+import br.sprintdev.model.dao.TeamDao;
+import br.sprintdev.model.entity.Team;
+
+@Service @Transactional(readOnly = false)
+public class TeamServiceImpl implements TeamService {
+
+	@Autowired
+	private TeamDao dao;
+
+	@Override
+	public void create(Team team) {
+		dao.save(team);
+	}
+
+	@Override
+	public void update(Team team) {
+		dao.update(team);
+	}
+
+	@Override
+	public void delete(Long id) {
+		dao.delete(id);
+	}
+
+	@Override
+	public Team findById(Long id) {
+		dao.findById(id);
+		return null;
+	}
+
+	@Override
+	public List<Team> findAll() {
+		dao.findAll();
+		return null;
+	}
+	
+}

@@ -1,0 +1,33 @@
+.project{
+	display: flex;
+	align-items: flex-end;
+	width: 120px;
+	height: 140px;
+	border-radius: 20px;
+	cursor: pointer;
+	opacity: 0.5;
+	transition: all ease 0.4s;
+
+	&:hover,
+	&:focus,
+	&.active{
+		opacity: 1;
+	}
+
+	.nomeWrapper{
+		width: 100%;
+		text-align: center;
+		padding: 16px 0;
+		background: rgb(27,28,37);
+		background: -moz-linear-gradient(0deg, rgba(27,28,37,0.5) 0%, rgba(27,28,37,0) 70%);
+		background: -webkit-linear-gradient(0deg, rgba(27,28,37,0.5) 0%, rgba(27,28,37,0) 70%);
+		background: linear-gradient(0deg, rgba(27,28,37,0.5) 0%, rgba(27,28,37,0) 70%);
+		filter: progid:DXImageTransform.Microsoft.gradient(startColorstr="#1b1c25",endColorstr="#1b1c25",GradientType=1);
+		border-radius: 20px;
+	}
+
+	.nome{
+		font-size: 16px;
+		color: white;
+	}
+}

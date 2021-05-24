@@ -1,0 +1,54 @@
+package br.sprintdev.model.entity;
+
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "TEAMS")
+public class Team extends AbstractEntity<Long> {
+	
+	@NotBlank
+	private String name;
+	
+	@NotNull
+	@ManyToMany(mappedBy = "teams")
+	private List<User> users;
+	
+	@NotNull
+	@ManyToMany(mappedBy = "teams")
+	private List<Sprint> sprints;
+	
+	@ManyToMany(mappedBy = "teams")
+	private List<Meeting> meetings;
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public List<User> getUsers() {
+		return users;
+	}
+
+	public void setUsers(List<User> users) {
+		this.users = users;
+	}
+
+	public List<Sprint> getSprints() {
+		return sprints;
+	}
+
+	public void setSprints(List<Sprint> sprints) {
+		this.sprints = sprints;
+	}
+
+}

@@ -69,6 +69,7 @@ fieldset{
 
 // Cores
 .c-azul{ color: $c-primary !important; }
+.c-dark{ color: $c-dark !important; }
 
 // Margins
 .mb-2{ margin-bottom: 16px !important; }
@@ -81,6 +82,8 @@ fieldset{
 .align-items-center{ align-items: center !important; }
 .justify-content-between{ justify-content: space-between !important; }
 
+.position-relative{ position: relative !important; }
+
 // Gerais
 .link{
 	text-decoration: underline;
@@ -90,6 +93,15 @@ fieldset{
 		text-decoration: underline;
 		opacity: 0.7;
 	}
+}
+
+.btn-link{
+	background-color: transparent;
+	color: inherit;
+	font-size: inherit;
+	border: none;
+	cursor: pointer;
+	font-family: inherit;
 }
 
 .titulo{
@@ -109,18 +121,35 @@ fieldset{
 	}
 }
 
+.subtitulo{
+	margin-top: 8px;
+	font-size: 14px;
+	color: $c-gray;
+}
+
 .input{
 	margin-top: 4px;
 	width: 100%;
 	height: 40px;
 	padding: 0 16px;
+	background-color: white;
 	border-radius: 8px;
 	border: none;
+	transition: all ease 0.4s;
 
 	&:focus{
 		border: none;
 		box-shadow: 0 0 0 1px $c-primary;
 		outline: none;
+	}
+
+	&.input-bordered{
+		border: 1px solid $c-gray;
+
+		&:focus{
+			border-color: $c-primary;
+			box-shadow: none;
+		}
 	}
 }
 
@@ -146,5 +175,15 @@ fieldset{
 
 	&.small{
 		padding: 12px;
+	}
+
+	&-icone{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 24px;
+		height: 24px;
+		padding: 0;
+		border-radius: 4px;
 	}
 }

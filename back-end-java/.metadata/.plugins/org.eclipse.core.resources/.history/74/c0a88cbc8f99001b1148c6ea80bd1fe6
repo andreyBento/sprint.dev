@@ -1,0 +1,7 @@
+package br.sprintdev.model.dao;
+
+import br.sprintdev.model.entity.Box;
+
+public class BoxDaoImpl extends AbstractDao<Box, Long> implements BoxDao {
+
+}

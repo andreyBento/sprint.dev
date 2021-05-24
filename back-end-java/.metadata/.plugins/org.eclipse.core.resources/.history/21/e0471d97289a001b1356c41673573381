@@ -1,0 +1,15 @@
+package br.sprintdev.controller.form;
+
+public class UpdateUserForm {
+	
+	private String firstName;
+
+	private String lastName;
+	
+	private String email;
+	
+	private String password;
+	
+	private String bgColor;
+
+}

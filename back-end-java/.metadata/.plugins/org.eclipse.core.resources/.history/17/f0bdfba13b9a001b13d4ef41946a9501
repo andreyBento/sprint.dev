@@ -1,0 +1,21 @@
+package br.sprintdev;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
+import com.mongodb.client.MongoDatabase;
+
+@SpringBootApplication
+public class JavaSpringApplication {
+
+	public static void main(String[] args) {
+		MongoClientURI uri = new MongoClientURI(
+			    "mongodb+srv://admin:Fogoletal@14@cluster0.sxqq8.mongodb.net/sprint.dev?retryWrites=true&w=majority");
+		MongoClient mongoClient = new MongoClient(uri);
+		MongoDatabase database = mongoClient.getDatabase("test");
+		SpringApplication.run(JavaSpringApplication.class, args);
+	}
+
+}

@@ -9,6 +9,7 @@ public class TaskForm {
 	private String name;
 	private String desc;
 	private Long idSprint;
+	private String status;
 	
 	public String getName() {
 		return name;
@@ -19,10 +20,13 @@ public class TaskForm {
 	public Long getIdSprint() {
 		return idSprint;
 	}
-	
+	public String getStatus() {
+		return status;
+	}
+
 	public Task convert(SprintService service) {
 		Sprint sprint = service.findById(idSprint);
-		return new Task(name, desc, sprint);
+		return new Task(name, desc, sprint, status);
 	}
 
 }

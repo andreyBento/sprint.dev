@@ -1,4 +1,4 @@
-Este é o Projeto Sprint.dev, projeto de conclusão de curso da minha pós graduação em desenvolvimento Full-stack.
+Este é o Project Sprint.dev, projeto de conclusão de curso da minha pós graduação em desenvolvimento Full-stack.
 
 ## Comandos Iniciais
 
@@ -15,3 +15,5 @@ Tecnologias sendo usadas até o momento:
 - Next.js
 - ReactJS
 - Sass
+- Java
+- Spring

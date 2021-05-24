@@ -1,9 +1,15 @@
 import styles from "../public/css/Aside.module.scss";
-import ClientOnly from "./ClientOnly";
 import UserBar from "./UserBar";
 import Link from "next/link";
+import {useRouter} from "next/router";
 
-export default function Aside() {
+export default function Aside({user}) {
+    const router = useRouter();
+
+    function logout() {
+        window.localStorage.removeItem('AUTH_TOKEN');
+        router.push(`/login`);
+    }
 
     return(
         <aside className={styles.aside}>
@@ -13,10 +19,11 @@ export default function Aside() {
                 </h1>
             </div>
             <div className={`${styles.box}`}>
-                <ClientOnly>
-                    <UserBar/>
-                </ClientOnly>
+                <UserBar user={user}/>
             </div>
+            <ul className={styles.listaLinks}>
+                <li className={styles.link}><button className={`btn-link ${styles.action}`} onClick={() => logout()}>Sair</button></li>
+            </ul>
         </aside>
     )
 }

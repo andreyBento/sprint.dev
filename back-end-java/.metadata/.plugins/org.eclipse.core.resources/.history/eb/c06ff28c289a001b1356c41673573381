@@ -1,0 +1,5 @@
+package br.sprintdev.controller.form;
+
+public class UpdateUserForm {
+
+}

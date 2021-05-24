@@ -13,4 +13,26 @@
 		background-color: white;
 		border-radius: 0 16px 16px 0;
 	}
+
+	.listaLinks{
+		margin-top: 32px;
+		margin-left: 32px;
+	}
+
+	.link{
+		font-size: 16px;
+
+		& + .link{
+			margin-top: 16px;
+		}
+	}
+
+	.action{
+		transition: all ease 0.6s;
+
+		&:hover,
+		&:focus{
+			opacity: 0.7;
+		}
+	}
 }

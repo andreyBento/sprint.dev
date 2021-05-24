@@ -1,14 +1,13 @@
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { AUTH_TOKEN } from '../back-end/src/constants';
 
 export default function Index() {
     const router = useRouter();
 
     useEffect(() => {
-        const authToken = localStorage.getItem(AUTH_TOKEN);
+        const authToken = localStorage.getItem('AUTH_TOKEN');
 
-        if(authToken !== undefined){
+        if(authToken !== undefined && authToken !== null){
             router.push(`/home`);
         } else {
             router.push(`/login`);

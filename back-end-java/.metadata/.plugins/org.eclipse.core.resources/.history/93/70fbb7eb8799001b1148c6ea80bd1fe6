@@ -1,0 +1,5 @@
+package br.sprintdev.model.entity;
+
+public class Task {
+
+}

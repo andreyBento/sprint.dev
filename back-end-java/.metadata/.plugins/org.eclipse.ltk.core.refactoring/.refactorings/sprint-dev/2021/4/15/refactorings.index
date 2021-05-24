@@ -1,0 +1,19 @@
+1617999591109	Rename package 'br.pucminas'
+1617999616930	Rename package 'br.pucminas.config'
+1617999630046	Rename package 'br.pucminas.controller'
+1617999642196	Rename package 'br.pucminas.model.dao'
+1617999653033	Rename package 'br.pucminas.model.entity'
+1617999664990	Rename package 'br.pucminas.model.service'
+1618010336486	Delete element
+1618011359103	Delete element
+1618012274615	Delete element
+1618012707817	Delete element
+1618057853180	Delete elements
+1618058025328	Delete element
+1618058038522	Delete element
+1618058434942	Delete element
+1618058486223	Delete element
+1618058529676	Delete element
+1618058542119	Delete element
+1618058565074	Delete element
+1618069728217	Encapsulate field 'id'

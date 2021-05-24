@@ -31,11 +31,13 @@ public class User extends AbstractEntity<Long> {
 	@OneToMany(mappedBy = "owner")
 	private List<Project> projects;
 
-	@ManyToMany(mappedBy = "workers")
+	@ManyToMany
 	private List<Task> tasks;
 
 	@OneToMany(mappedBy = "user")
 	private List<Comment> comments;
+
+	private Boolean online;
 	
 	public User() {
 		
@@ -122,5 +124,13 @@ public class User extends AbstractEntity<Long> {
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+
+	public Boolean getOnline() {
+		return online;
+	}
+
+	public void setOnline(Boolean online) {
+		this.online = online;
 	}
 }

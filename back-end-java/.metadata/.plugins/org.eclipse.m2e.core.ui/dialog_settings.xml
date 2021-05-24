@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="MavenProjectImportWizardPage">
+		<list key="rootDirectory">
+			<item value="C:\Users\PICHAU\Documents\Projetos próprios\sprint-dev-back"/>
+			<item value="C:\Users\PICHAU\Documents\Projetos próprios\java-spring-final\java-spring"/>
+			<item value="C:\Users\PICHAU\Documents\Projetos próprios\1236-springapi-aula1\forum"/>
+			<item value="C:\Users\PICHAU\Documents\Projetos próprios\java-spring"/>
+			<item value="C:\Users\PICHAU\Documents\Projetos próprios\forum"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+</section>

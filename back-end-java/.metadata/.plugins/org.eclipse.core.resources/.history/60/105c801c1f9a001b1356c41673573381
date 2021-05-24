@@ -1,0 +1,50 @@
+package br.sprintdev.controller;
+
+import java.net.URI;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import br.sprintdev.model.service.UserService;
+import br.sprintdev.controller.dto.UserDto;
+import br.sprintdev.controller.form.UserForm;
+import br.sprintdev.model.entity.User;
+
+@Controller
+@RequestMapping("/users")
+public class UserController {
+
+	@Autowired
+	private UserService service;
+	
+	@GetMapping(value = "/all")
+	public List<UserDto> listUsers() {
+		List<User> users = service.findAll();
+		return UserDto.converter(users);
+	}
+	
+	@GetMapping("/{id}")
+	public UserDto findUser(@PathVariable Long id) {
+		User user = service.findById(id);
+		return new UserDto(user);
+	}
+	
+	@PostMapping("/add")
+	public ResponseEntity<UserDto> createProject(@RequestBody UserForm form, UriComponentsBuilder uriBuilder) {
+		User user = form.convert();
+		service.create(user);
+		
+		URI uri = uriBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri();
+		
+		return ResponseEntity.created(uri).body(new UserDto(user));
+	}
+	
+}

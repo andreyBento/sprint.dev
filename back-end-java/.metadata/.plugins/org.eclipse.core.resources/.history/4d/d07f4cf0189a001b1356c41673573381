@@ -1,0 +1,52 @@
+package br.sprintdev.controller;
+
+import java.net.URI;
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.util.UriComponentsBuilder;
+
+import br.sprintdev.controller.dto.ProjectDto;
+import br.sprintdev.controller.form.ProjectForm;
+import br.sprintdev.model.entity.Project;
+import br.sprintdev.model.service.ProjectService;
+import br.sprintdev.model.service.UserService;
+
+@Controller
+@RequestMapping("/projects")
+public class ProjectController {
+	
+	@Autowired
+	private ProjectService service;
+	
+	@Autowired
+	private UserService userService;
+	
+	@GetMapping("/")
+	public List<ProjectDto> listProjects() {
+		return ProjectDto.converter(service.findAll());
+	}
+	
+	@GetMapping("/{id}")
+	public ProjectDto findProject(@PathVariable Long id) {
+		return service.findById(id);
+	}
+	
+	@PostMapping("/add")
+	public ResponseEntity<ProjectDto> createProject(@RequestBody ProjectForm form, UriComponentsBuilder uriBuilder) {
+		Project project = form.convert(userService);
+		service.create(project);
+		
+		URI uri = uriBuilder.path("/projects/{id}").buildAndExpand(project.getId()).toUri();
+		
+		return ResponseEntity.created(uri).body(project);
+	}
+
+}

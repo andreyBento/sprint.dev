@@ -1,20 +1,8 @@
 import styles from '../public/css/Login.module.scss';
-import {useQuery, gql} from '@apollo/client';
 import React, {useState} from "react";
 import Link from "next/link";
 import { useRouter } from 'next/router';
-import {AUTH_TOKEN} from "../back-end/src/constants";
 import PasswordInput from "./PasswordInput";
-
-const USERS = gql`
-  {
-    users{
-        email
-        password
-        id
-    }
-  }
-`;
 
 export default function LoginAuth() {
     const [email, setEmail] = useState('');
@@ -23,14 +11,12 @@ export default function LoginAuth() {
 
     const router = useRouter();
 
-    const { data } = useQuery(USERS);
-
     const validarLogin = (event) => {
         event.preventDefault();
         let exist = false;
-        data.users.map((item, index) => {
+        existingUsers.map((item, index) => {
             if(item.email === email && item.password === password){
-                localStorage.setItem(AUTH_TOKEN, item.id);
+                localStorage.setItem('AUTH_TOKEN', item.id);
                 exist = true;
             }
         });
@@ -40,6 +26,20 @@ export default function LoginAuth() {
             setError("e-mail ou senha incorretos");
         }
     };
+
+    const [existingUsers, setExistingUsers] = useState([]);
+    useEffect(() => {
+        const options = {
+            method: 'GET'
+        };
+
+        fetch(`http://localhost:8080/users/`, options)
+            .then((res) => res.json())
+            .then((res) => {
+                setExistingUsers(res);
+            })
+            .catch(err => console.error(err))
+    }, []);
 
     return (
         <form onSubmit={(event) => validarLogin(event)}>

@@ -1,0 +1,40 @@
+package br.sprintdev.model.entity;
+
+import java.time.LocalDate;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.format.annotation.DateTimeFormat.ISO;
+
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "COMMENTS")
+public class Comment extends AbstractEntity<Long> {
+	
+	@NotBlank
+	private String desc;
+	
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "owner_id")
+	private Task owner;
+	
+	@NotNull
+	@ManyToOne
+	@JoinColumn(name = "creator_id")
+	private User creator;
+	
+	@NotNull
+	@DateTimeFormat(iso = ISO.DATE, pattern = "")
+	private LocalDate createdAt;
+
+}

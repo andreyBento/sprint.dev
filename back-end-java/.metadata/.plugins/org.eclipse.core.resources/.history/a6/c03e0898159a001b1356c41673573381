@@ -1,0 +1,45 @@
+package br.sprintdev.controller.dto;
+
+import java.util.List;
+
+public class UserDto {
+	
+	private String firstName;
+	private String lastName;
+	private String username;
+	private String email;
+	private String password;
+	private List<Long> projects;
+	private List<Long> teams;
+	private List<Long> tasks;
+	private List<Long> comments;
+	
+	public String getFirstName() {
+		return firstName;
+	}
+	public String getLastName() {
+		return lastName;
+	}
+	public String getUsername() {
+		return username;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public String getPassword() {
+		return password;
+	}
+	public List<Long> getProjects() {
+		return projects;
+	}
+	public List<Long> getTeams() {
+		return teams;
+	}
+	public List<Long> getTasks() {
+		return tasks;
+	}
+	public List<Long> getComments() {
+		return comments;
+	}
+
+}

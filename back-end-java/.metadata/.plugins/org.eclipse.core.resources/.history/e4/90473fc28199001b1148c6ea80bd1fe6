@@ -1,0 +1,36 @@
+package br.sprintdev.model.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "PROJECTS")
+public class Project extends AbstractEntity<Long> {
+	
+	@NotBlank
+	private String name;
+	
+	@NotBlank
+	private String bgColor;
+	
+	private String imgColor;
+	
+	@NotBlank
+	@ManyToOne
+	private User owner;
+	
+
+	public String getBgColor() {
+		return bgColor;
+	}
+
+	public void setBgColor(String bgColor) {
+		this.bgColor = bgColor;
+	}
+	
+
+}

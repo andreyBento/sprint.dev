@@ -87,6 +87,9 @@
 	&Msg{
 		margin-top: 12px;
 		margin-bottom: 12px;
-		color: $c-red;
+		padding: 8px 12px;
+		background-color: $c-red;
+		color: white;
+		border-radius: 8px;
 	}
 }

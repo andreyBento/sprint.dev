@@ -9,7 +9,8 @@ public class TaskDto {
 	
 	private Long id;
 	private String name;
-	private String desc;
+	private String msg;
+	private String status;
 	
 	public Long getId() {
 		return id;
@@ -17,14 +18,16 @@ public class TaskDto {
 	public String getName() {
 		return name;
 	}
-	public String getDesc() {
-		return desc;
+	public String getMsg() { return msg; }
+	public String getStatus() {
+		return status;
 	}
-	
+
 	public TaskDto(Task task) {
 		this.id = task.getId();
 		this.name = task.getName();
-		this.desc = task.getMsg();
+		this.msg = task.getMsg();
+		this.status = task.getStatus();
 	}
 	
 	public static List<TaskDto> converter(List<Task> tasksP) {

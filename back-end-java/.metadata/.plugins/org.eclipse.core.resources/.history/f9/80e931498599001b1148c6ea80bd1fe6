@@ -1,0 +1,25 @@
+package br.sprintdev.model.entity;
+
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.Table;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+@SuppressWarnings("serial")
+@Entity
+@Table(name = "TEAMS")
+public class Team extends AbstractEntity<Long> {
+	
+	@NotBlank
+	private String name;
+	
+	@NotNull
+	@ManyToMany
+	private List<User> users;
+	
+
+}
