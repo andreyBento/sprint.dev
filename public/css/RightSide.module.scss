@@ -1,18 +1,32 @@
 @import "variaveis";
 
 .rightSide{
-	width: calc(50vw - 155px);
-	padding: 32px 64px 0;
+	width: 100%;
+	//width: calc(50vw - 155px);
+	padding: 16px 16px 0;
+
+	@media (min-width: 992px){
+		padding: 32px 64px 0;
+	}
 }
 
 .btnAdd{
+	display: none;
 	margin-left: 12px;
+
+	@media (min-width: 1200px) {
+		display: block;
+	}
 }
 
 .projectsList{
 	display: flex;
 	align-items: center;
-	margin-top: 32px;
+	margin-top: 16px;
+
+	@media (min-width: 992px){
+		margin-top: 32px;
+	}
 
 	.project{
 
@@ -23,7 +37,11 @@
 }
 
 .boxesList{
-	margin-top: 32px;
+	margin-top: 16px;
+
+	@media (min-width: 992px){
+		margin-top: 32px;
+	}
 }
 
 .empty{

@@ -43,14 +43,14 @@ export default function LoginAuth() {
 
     return (
         <form onSubmit={(event) => validarLogin(event)}>
-            <p className={styles.errorMsg} style={error !== false ? {display: 'block'} : {display: 'none'}}>{error}</p>
+            <p className="errorMsg" style={error !== false ? {display: 'block'} : {display: 'none'}}>{error}</p>
             <fieldset className={`mb-2 ${error !== false ? styles.error : ''}`}>
-                <label htmlFor="user" className={styles.label}>e-mail</label>
+                <label htmlFor="user" className="label">e-mail</label>
                 <input type="email" className="input" id="user" onKeyUp={(item) => setEmail(item.target.value)} />
             </fieldset>
             <fieldset className={`mb-2 ${error !== false ? styles.error : ''}`}>
                 <div className="d-flex align-items-end justify-content-between">
-                    <label htmlFor="password" className={styles.label}>senha</label>
+                    <label htmlFor="password" className="label">senha</label>
                     <p className="fs-12"><Link href="/esq-senha"><a className="link c-azul">esqueceu sua senha?</a></Link></p>
                 </div>
                 <PasswordInput onKeyUp={(value) => setPassword(value)} id="password" />

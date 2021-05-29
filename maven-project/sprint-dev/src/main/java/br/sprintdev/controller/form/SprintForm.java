@@ -16,7 +16,6 @@ public class SprintForm {
 	public Long getIdBox() {
 		return idBox;
 	}
-	
 	public String getExpiresAt() {
 		return expiresAt;
 	}

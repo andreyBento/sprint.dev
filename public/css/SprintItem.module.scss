@@ -1,0 +1,63 @@
+@import "variaveis";
+
+.sprint{
+	position: relative;
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 16px;
+	background-color: $c-lightGray;
+	border-radius: 16px;
+
+	@media (min-width: 992px){
+		padding: 32px 32px 37px;
+	}
+
+	&Name{
+		font-size: 18px;
+		font-weight: 600;
+		color: $c-dark;
+	}
+
+	&Time{
+		font-size: 14px;
+		color: $c-gray;
+	}
+
+	.nav{
+		display: none;
+		position: absolute;
+		bottom: 0;
+		padding: 12px 16px;
+		background-color: white;
+		border-radius: 20px;
+		transform: translateY(50%);
+
+		@media (min-width: 1200px){
+			display: block;
+		}
+
+		.listaLinks{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			.linkItem{
+				& + .linkItem{
+					margin-left: 16px;
+				}
+			}
+
+			.link{
+				color: $c-gray;
+				font-size: 18px;
+				transition: all ease 0.4s;
+
+				&:hover,
+				&:focus{
+					color: $c-primary;
+				}
+			}
+		}
+	}
+}

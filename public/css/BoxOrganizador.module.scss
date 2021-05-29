@@ -1,13 +1,21 @@
 @import "variaveis";
 
 .box{
-	padding: 32px;
+	padding: 16px;
 	background-color: white;
 	border-radius: 20px;
 
+	@media (min-width: 992px){
+		padding: 32px;
+	}
+
 	.boxName{
-		margin-bottom: 32px;
+		margin-bottom: 16px;
 		font-size: 16px;
 		color: $c-gray;
+
+		@media (min-width: 992px) {
+			margin-bottom: 32px;
+		}
 	}
 }

@@ -24,7 +24,6 @@ export default function Home() {
     return (
         <div className="d-flex">
             <Aside user={user}/>
-            <p>Home</p>
             <RightSide user={user} />
         </div>
     )

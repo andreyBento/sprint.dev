@@ -1,6 +1,11 @@
 .aside{
+	display: none;
 	width: 310px;
 	height: 100vh;
+
+	@media (min-width: 1200px){
+		display: block;
+	}
 
 	.logo{
 		margin-top: 32px;

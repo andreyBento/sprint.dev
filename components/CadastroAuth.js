@@ -97,25 +97,25 @@ export default function CadastroAuth() {
 
     return (
         <form onSubmit={(event) => validarCadastro(event)}>
-            <p className={styles.errorMsg} style={error !== false ? {display: 'block'} : {display: 'none'}}>{error}</p>
+            <p className="errorMsg" style={error !== false ? {display: 'block'} : {display: 'none'}}>{error}</p>
             <fieldset className={`mb-2 ${error !== false ? styles.error : ''}`}>
-                <label htmlFor="name" className={styles.label}>nome</label>
+                <label htmlFor="name" className="label">nome</label>
                 <input type="text" className="input" id="name" onKeyUp={(item) => setFirstName(item.target.value)} />
             </fieldset>
             <fieldset className={`mb-2 ${error !== false ? styles.error : ''}`}>
-                <label htmlFor="lastName" className={styles.label}>sobrenome</label>
+                <label htmlFor="lastName" className="label">sobrenome</label>
                 <input type="text" className="input" id="lastName" onKeyUp={(item) => setLastName(item.target.value)} />
             </fieldset>
             <fieldset className={`mb-2 ${error !== false ? styles.error : ''}`}>
-                <label htmlFor="email" className={styles.label}>e-mail</label>
+                <label htmlFor="email" className="label">e-mail</label>
                 <input type="email" className="input" id="email" onKeyUp={(item) => setEmail(item.target.value)} />
             </fieldset>
             <fieldset className={`mb-2 ${error !== false ? styles.error : ''}`}>
-                <label htmlFor="password" className={styles.label}>senha</label>
+                <label htmlFor="password" className="label">senha</label>
                 <PasswordInput onKeyUp={(value) => setPassword(value)} id="password" />
             </fieldset>
             <fieldset className={`mb-2 ${error !== false ? styles.error : ''}`}>
-                <label htmlFor="passwordConf" className={styles.label}>confirme sua senha</label>
+                <label htmlFor="passwordConf" className="label">confirme sua senha</label>
                 <PasswordInput onKeyUp={(value) => setPasswordConf(value)} id="passwordConf" />
             </fieldset>
             <button className="btn btn-primary">cadastrar</button>

@@ -153,6 +153,31 @@ fieldset{
 	}
 }
 
+.label{
+	display: block;
+	font-weight: 600;
+	font-size: 14px;
+}
+
+.error{
+	.label{
+		color: $c-red;
+	}
+
+	.input{
+		box-shadow: 0 0 0 1px $c-red;
+	}
+
+	&Msg{
+		margin-top: 12px;
+		margin-bottom: 12px;
+		padding: 8px 12px;
+		background-color: $c-red;
+		color: white;
+		border-radius: 8px;
+	}
+}
+
 .btn{
 	padding: 12px 24px;
 	text-align: center;
