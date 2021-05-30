@@ -1,0 +1,36 @@
+@import "variaveis";
+
+.task{
+	padding: 16px;
+	background-color: white;
+	border-radius: 16px;
+
+	&Area{
+		display: inline-block;
+		margin: 0;
+		padding: 6px 16px;
+		background-color: $c-orange;
+		font-size: 12px;
+		border-radius: 16px;
+	}
+
+	&Name{
+		display: block;
+		margin-top: 8px;
+		margin-bottom: 4px;
+		font-size: 16px;
+		font-weight: 700;
+	}
+
+	.priority{
+		font-size: 14px;
+
+		&.alta{
+			color: $c-red;
+		}
+
+		&.baixa{
+			color: $c-gray;
+		}
+	}
+}

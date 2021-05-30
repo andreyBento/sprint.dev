@@ -15,6 +15,12 @@ public class Task extends AbstractEntity<Long> {
 	@NotNull
 	private String msg;
 
+	@NotNull
+	private String priority;
+
+	@NotNull
+	private String area;
+
 	@ManyToOne
 	@JoinColumn(name = "task_owner_id")
 	private Sprint task_owner;
@@ -32,11 +38,13 @@ public class Task extends AbstractEntity<Long> {
 		
 	}
 	
-	public Task(String name, String msg, Sprint sprint, String status) {
+	public Task(String name, String msg, Sprint sprint, String status, String priority, String area) {
 		this.name = name;
 		this.msg = msg;
 		this.task_owner = sprint;
 		this.status = status;
+		this.priority = priority;
+		this.area = area;
 	}
 
 	public String getName() {
@@ -53,14 +61,6 @@ public class Task extends AbstractEntity<Long> {
 
 	public void setMsg(String desc) {
 		this.msg = desc;
-	}
-
-	public Sprint getTarefas_owner() {
-		return task_owner;
-	}
-
-	public void setTarefas_owner(Sprint task_owner) {
-		this.task_owner = task_owner;
 	}
 
 	public Sprint getTask_owner() {
@@ -93,5 +93,21 @@ public class Task extends AbstractEntity<Long> {
 
 	public void setComments(List<Comment> comments) {
 		this.comments = comments;
+	}
+
+	public String getPriority() {
+		return priority;
+	}
+
+	public void setPriority(String priority) {
+		this.priority = priority;
+	}
+
+	public String getArea() {
+		return area;
+	}
+
+	public void setArea(String area) {
+		this.area = area;
 	}
 }

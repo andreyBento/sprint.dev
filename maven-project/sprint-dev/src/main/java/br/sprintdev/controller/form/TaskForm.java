@@ -10,6 +10,8 @@ public class TaskForm {
 	private String desc;
 	private Long idSprint;
 	private String status;
+	private String priority;
+	private String area;
 	
 	public String getName() {
 		return name;
@@ -23,10 +25,16 @@ public class TaskForm {
 	public String getStatus() {
 		return status;
 	}
+	public String getPriority() {
+		return priority;
+	}
+	public String getArea() {
+		return area;
+	}
 
 	public Task convert(SprintService service) {
 		Sprint sprint = service.findById(idSprint);
-		return new Task(name, desc, sprint, status);
+		return new Task(name, desc, sprint, status, priority, area);
 	}
 
 }
