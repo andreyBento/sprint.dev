@@ -12,7 +12,10 @@ export default function SprintInterna() {
 
     const [user, setUser] = useState([]);
     const [sprint, setSprint] = useState({});
-    const [sprintTasks, setSprintTasks] = useState([]);
+    const [colunm1Tasks, setColunm1Tasks] = useState([]);
+    const [colunm2Tasks, setColunm2Tasks] = useState([]);
+    const [colunm3Tasks, setColunm3Tasks] = useState([]);
+    const [colunm4Tasks, setColunm4Tasks] = useState([]);
     useEffect(() => {
         const options = {
             method: 'GET'
@@ -38,8 +41,25 @@ export default function SprintInterna() {
             .then((res) => res.json())
             .then((res) => {
                 setSprint(res);
-                setSprintTasks(res.tasks);
-                console.log(res)
+                let array1 = [];
+                let array2 = [];
+                let array3 = [];
+                let array4 = [];
+                res.tasks.map((item, index) => {
+                    if(item.status === 'backlog'){
+                        array1.push(item)
+                    } else if(item.status === 'andamento'){
+                        array2.push(item)
+                    } else if(item.status === 'revisao'){
+                        array3.push(item)
+                    } else if(item.status === 'feito'){
+                        array4.push(item)
+                    }
+                });
+                setColunm1Tasks(array1);
+                setColunm2Tasks(array2);
+                setColunm3Tasks(array3);
+                setColunm4Tasks(array4);
             })
             .catch(err => console.error(err))
     }
@@ -117,7 +137,7 @@ export default function SprintInterna() {
             const loserChildrens = [...loser.childNodes];
 
             loserChildrens.map((item, index) => {
-                if(Number(item.getAttribute('id')) === result.source.index){
+                if(index === result.source.index){
                     const myId = Number(item.getAttribute('id'));
                     const options = {
                         method: 'GET'
@@ -127,33 +147,67 @@ export default function SprintInterna() {
                         .then((res) => res.json())
                         .then((res) => {
 
-                            let workersArray = res.workers;
+                            const newStatus = result.destination.droppableId;
+
+                            let taskUpdate,
+                                taskStatus,
+                                workersArray = [],
+                                option = 0,
+                                urlFetch = '';
+
                             if(workersArray.length > 0){
                                 workersArray.map((worker) => {
-                                    if(worker.id !== user.id){
+                                    if(newStatus === 'backlog'){
+                                        option = 1;
+                                        urlFetch = `http://localhost:8080/tasks/${res.id}`;
                                         workersArray.push(user.id);
+                                    } else {
+                                        if(worker.id !== user.id){
+                                            option = 1;
+                                            urlFetch = `http://localhost:8080/tasks/${res.id}`;
+                                            workersArray.push(user.id);
+                                        } else {
+                                            option = 2;
+                                            urlFetch = `http://localhost:8080/tasks/${res.id}/status`;
+                                        }
                                     }
                                 });
                             } else {
+                                option = 1;
+                                urlFetch = `http://localhost:8080/tasks/${res.id}`;
                                 workersArray.push(user.id);
                             }
-                            const taskUpdate = {
+
+                            taskUpdate = {
                                 name: res.name,
                                 desc: res.msg,
                                 priority: res.priority,
                                 area: res.area,
-                                status: result.destination.droppableId,
+                                status: newStatus,
                                 workers: workersArray
                             };
+                            taskStatus = {
+                                status: newStatus
+                            };
 
-                            fetch(`http://localhost:8080/tasks/${res.id}`, {
+                            const optionsFetch = {
                                 method: 'put',
                                 headers: {
                                     'Accept': 'application/json',
                                     'Content-Type': 'application/json'
                                 },
                                 body: JSON.stringify(taskUpdate)
-                            })
+                            };
+                            const optionsStatusFetch = {
+                                method: 'put',
+                                headers: {
+                                    'Accept': 'application/json',
+                                    'Content-Type': 'application/json'
+                                },
+                                body: JSON.stringify(taskStatus)
+                            };
+
+                            fetch(urlFetch, option === 1 ? optionsFetch : optionsStatusFetch )
                                 .then((incomming) => incomming.json())
                                 .then((incomming) => {
                                     updateSprint();
@@ -165,6 +219,19 @@ export default function SprintInterna() {
                 }
             });
         }
+    }
+
+    function disableDrag(status, taskIncomming, array, updateArray) {
+        let newArray = [];
+        array.map((item) => {
+            if(item.id === taskIncomming.id){
+                item.disabled = status;
+                newArray.push(item);
+            } else {
+                newArray.push(item);
+            }
+        });
+        updateArray(newArray);
     }
 
     return (
@@ -207,7 +274,10 @@ export default function SprintInterna() {
                 <DragDropContext onDragEnd={(result) => dragEnd(result)}>
                     <div className={styles.tasksWrapper}>
                         <div className={styles.column}>
-                            <h2 className={`titulo h2 ${styles.columnTitulo}`}>Tarefas</h2>
+                            <div className={styles.columnHeader}>
+                                <h2 className={`titulo h2 ${styles.columnTitulo}`}>Tarefas</h2>
+                                {colunm1Tasks.length > 0 && <span className={styles.columnLength}>{colunm1Tasks.length}</span>}
+                            </div>
                             <div className={styles.overflow} style={{maxHeight: maxHeight}}>
                                 <div className={styles.btnAddTask}>
                                     <form ref={form} className={`${styles.btnAddTaskForm} ${taskForm === true ? styles.active : ''}`} onSubmit={(event) => createTask(event)}>
@@ -242,15 +312,15 @@ export default function SprintInterna() {
                                     </button>
                                 </div>
                                 {
-                                    sprintTasks !== undefined &&
+                                    colunm1Tasks !== undefined &&
                                         <Droppable droppableId="backlog">
                                             {(provided) => (
                                                 <ul id="backlog" className={styles.listaTasks} {...provided.droppableProps} ref={provided.innerRef}>
                                                     {
-                                                        sprintTasks.map((item, index) => {
+                                                        colunm1Tasks.map((item, index) => {
                                                             if(item.status === 'backlog'){
                                                                 return (
-                                                                    <Draggable key={`t${item.id}`} draggableId={`bt${item.id}`} index={item.id}>
+                                                                    <Draggable key={`t${index}`} draggableId={`bt${index}`} index={index} isDragDisabled={item.disabled === true}>
                                                                         {
                                                                             (providedDraggable) => (
                                                                                 <li
@@ -260,7 +330,7 @@ export default function SprintInterna() {
                                                                                     {...providedDraggable.dragHandleProps}
                                                                                     ref={providedDraggable.innerRef}
                                                                                 >
-                                                                                    <TaskItem task={item} />
+                                                                                    <TaskItem task={item} click={(status) => disableDrag(status, item, colunm1Tasks, setColunm1Tasks)} />
                                                                                 </li>
                                                                             )
                                                                         }
@@ -277,18 +347,21 @@ export default function SprintInterna() {
                             </div>
                         </div>
                         <div className={styles.column}>
-                            <h2 className={`titulo h2 ${styles.columnTitulo}`}>Em andamento</h2>
+                            <div className={styles.columnHeader}>
+                                <h2 className={`titulo h2 ${styles.columnTitulo}`}>Em andamento</h2>
+                                {colunm2Tasks.length > 0 && <span className={styles.columnLength}>{colunm2Tasks.length}</span>}
+                            </div>
                             <div className={styles.overflow} style={{maxHeight: maxHeight}}>
                                 {
-                                    sprintTasks !== undefined &&
+                                    colunm2Tasks !== undefined &&
                                     <Droppable droppableId="andamento">
                                         {(provided) => (
                                             <ul id="andamento" className={`${styles.listaTasks} ${styles.listaTasksAlt}`} {...provided.droppableProps} ref={provided.innerRef}>
                                                 {
-                                                    sprintTasks.map((item, index) => {
+                                                    colunm2Tasks.map((item, index) => {
                                                         if(item.status === 'andamento'){
                                                             return (
-                                                                <Draggable key={`t${item.id}`} draggableId={`bt${item.id}`} index={item.id}>
+                                                                <Draggable key={`at${index}`} draggableId={`at${index}`} index={index} isDragDisabled={item.disabled === true}>
                                                                     {
                                                                         (providedDraggable) => (
                                                                             <li
@@ -298,7 +371,7 @@ export default function SprintInterna() {
                                                                                 {...providedDraggable.dragHandleProps}
                                                                                 ref={providedDraggable.innerRef}
                                                                             >
-                                                                                <TaskItem task={item} />
+                                                                                <TaskItem task={item} click={(status) => disableDrag(status, item, colunm2Tasks, setColunm2Tasks)} />
                                                                             </li>
                                                                         )
                                                                     }
@@ -315,45 +388,21 @@ export default function SprintInterna() {
                             </div>
                         </div>
                         <div className={styles.column}>
-                            <h2 className={`titulo h2 ${styles.columnTitulo}`}>Em revisão</h2>
+                            <div className={styles.columnHeader}>
+                                <h2 className={`titulo h2 ${styles.columnTitulo}`}>Em revisão</h2>
+                                {colunm3Tasks.length > 0 && <span className={styles.columnLength}>{colunm3Tasks.length}</span>}
+                            </div>
                             <div className={styles.overflow} style={{maxHeight: maxHeight}}>
-                                {
-                                    sprintTasks !== undefined &&
-                                    <ul className={styles.listaTasks}>
-                                        {
-                                            sprintTasks.map((item, index) => {
-                                                if(item.status === 'revisao'){
-                                                    return (
-                                                        <li className={styles.listaTasksItem} key={`t${index}`}>
-                                                            <TaskItem task={item} />
-                                                        </li>
-                                                    );
-                                                }
-                                            })
-                                        }
-                                    </ul>
-                                }
+
                             </div>
                         </div>
                         <div className={styles.column}>
-                            <h2 className={`titulo h2 ${styles.columnTitulo}`}>Feito</h2>
+                            <div className={styles.columnHeader}>
+                                <h2 className={`titulo h2 ${styles.columnTitulo}`}>Feito</h2>
+                                {colunm4Tasks.length > 0 && <span className={styles.columnLength}>{colunm4Tasks.length}</span>}
+                            </div>
                             <div className={styles.overflow} style={{maxHeight: maxHeight}}>
-                                {
-                                    sprintTasks !== undefined &&
-                                    <ul className={styles.listaTasks}>
-                                        {
-                                            sprintTasks.map((item, index) => {
-                                                if(item.status === 'feito'){
-                                                    return (
-                                                        <li className={styles.listaTasksItem} key={`t${index}`}>
-                                                            <TaskItem task={item} />
-                                                        </li>
-                                                    );
-                                                }
-                                            })
-                                        }
-                                    </ul>
-                                }
+
                             </div>
                         </div>
                     </div>

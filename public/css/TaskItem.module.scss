@@ -22,15 +22,38 @@
 		font-weight: 700;
 	}
 
-	.priority{
-		font-size: 14px;
-
-		&.alta{
-			color: $c-red;
-		}
-
-		&.baixa{
-			color: $c-gray;
-		}
+	&Desc{
+		margin-top: 8px;
+		margin-bottom: 8px;
 	}
+}
+
+.priority{
+	font-size: 14px;
+
+	&.alta{
+		color: $c-red;
+	}
+
+	&.baixa{
+		color: $c-gray;
+	}
+}
+
+.worker{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	margin-top: 4px;
+	width: 24px;
+	height: 24px;
+	background-color: $c-lightGray;
+	font-size: 12px;
+	font-weight: 700;
+	border-radius: 50%;
+}
+
+.label{
+	font-size: 12px;
+	font-weight: 700;
 }

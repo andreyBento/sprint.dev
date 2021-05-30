@@ -25,7 +25,7 @@ public class Task extends AbstractEntity<Long> {
 	@JoinColumn(name = "task_owner_id")
 	private Sprint task_owner;
 
-	@ManyToMany(mappedBy = "tasks")
+	@ManyToMany
 	private List<User> workers;
 
 	@NotNull

@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import br.sprintdev.controller.dto.TaskDtoAlt;
+import br.sprintdev.controller.form.UpdateTaskStatusForm;
 import br.sprintdev.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -59,6 +60,13 @@ public class TaskController {
 	@Transactional
 	public ResponseEntity<TaskDto> update(@PathVariable Long id, @RequestBody UpdateTaskForm form) {
 		Task task = form.update(id, service, userService);
+		return ResponseEntity.ok(new TaskDto(task));
+	}
+
+	@PutMapping("/{id}/status")
+	@Transactional
+	public ResponseEntity<TaskDto> updateStatus(@PathVariable Long id, @RequestBody UpdateTaskStatusForm form) {
+		Task task = form.update(id, service);
 		return ResponseEntity.ok(new TaskDto(task));
 	}
 	

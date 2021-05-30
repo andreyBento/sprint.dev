@@ -31,7 +31,7 @@ public class User extends AbstractEntity<Long> {
 	@OneToMany(mappedBy = "owner")
 	private List<Project> projects;
 
-	@ManyToMany
+	@ManyToMany(mappedBy = "workers")
 	private List<Task> tasks;
 
 	@OneToMany(mappedBy = "user")

@@ -47,8 +47,11 @@ public class UpdateTaskForm {
 
 		List<User> listUser = new ArrayList<User>();
 
-		for(Long idWorker:workers)
-			listUser.add(userService.findById(idWorker));
+		if(!this.status.equals("backlog")){
+			for(Long idIncommingWorker:workers){
+				listUser.add(userService.findById(idIncommingWorker));
+			}
+		}
 
 		task.setWorkers(listUser);
 
