@@ -1,6 +1,6 @@
 import styles from "../public/css/RightSide.module.scss";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlus } from '@fortawesome/free-solid-svg-icons';
 import Project from "./Project";
 import React, {useState, useEffect} from "react";
 import Modal from "./Modal";

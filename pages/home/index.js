@@ -2,6 +2,7 @@ import styles from '../../public/css/Home.module.scss';
 import Aside from "../../components/Aside";
 import React, {useState, useEffect} from "react";
 import RightSide from "../../components/RightSide";
+import MobileMenu from "../../components/MobileMenu";
 
 export default function Home() {
 
@@ -25,6 +26,7 @@ export default function Home() {
         <div className="d-flex">
             <Aside user={user}/>
             <RightSide user={user} />
+            <MobileMenu user={user}/>
         </div>
     )
 }

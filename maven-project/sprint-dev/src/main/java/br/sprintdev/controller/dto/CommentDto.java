@@ -1,6 +1,7 @@
 package br.sprintdev.controller.dto;
 
 import br.sprintdev.model.entity.Comment;
+import br.sprintdev.model.entity.User;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,11 +16,14 @@ public class CommentDto {
 
     private String updatedDate;
 
+    private UserDtoAlt owner;
+
     public CommentDto(Comment comment) {
         this.msg = comment.getMsg();
         this.date = comment.getDate();
         this.status = comment.getStatus();
         this.updatedDate = comment.getUpdatedDate();
+        this.owner = new UserDtoAlt(comment.getUser());
     }
 
     public String getMsg() {
@@ -36,6 +40,10 @@ public class CommentDto {
 
     public String getUpdatedDate() {
         return updatedDate;
+    }
+
+    public UserDtoAlt getOwner() {
+        return owner;
     }
 
     public static List<CommentDto> converter(List<Comment> comments) {

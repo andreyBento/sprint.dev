@@ -40,7 +40,25 @@
 
 	.btnClose{
 		position: absolute;
-		top: 16px;
-		right: 16px;
+		top: 0;
+		right: -16px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 48px;
+		height: 48px;
+		padding: 0;
+		background-color: white;
+		border-radius: 50%;
+		transform: translateX(100%);
+	}
+
+	&.bigModal{
+
+		.modalContent{
+			width: 70vw;
+			height: 70vh;
+			color: $c-dark;
+		}
 	}
 }

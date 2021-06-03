@@ -14,6 +14,7 @@ public class TaskDto {
 	private String priority;
 	private String area;
 	private List<WorkerDto> workers;
+    private List<CommentDto> comments;
 	
 	public Long getId() {
 		return id;
@@ -31,9 +32,12 @@ public class TaskDto {
 	public String getArea() {
 		return area;
 	}
-	public List<WorkerDto> getWorkers() {
-		return workers;
-	}
+    public List<WorkerDto> getWorkers() {
+        return workers;
+    }
+    public List<CommentDto> getComments() {
+        return comments;
+    }
 
 	public TaskDto(Task task) {
 		this.id = task.getId();
@@ -43,6 +47,7 @@ public class TaskDto {
 		this.priority = task.getPriority();
 		this.area = task.getArea();
 		this.workers = WorkerDto.converter(task.getWorkers());
+		this.comments = CommentDto.converter(task.getComments());
 	}
 	
 	public static List<TaskDto> converter(List<Task> tasksP) {

@@ -57,3 +57,50 @@
 	font-size: 12px;
 	font-weight: 700;
 }
+
+.modalTask{
+	display: flex;
+	height: 100%;
+
+	.infoSide,
+	.commentsSide{
+		flex: 1;
+	}
+
+	.infoSide{
+		margin-right: 16px;
+
+		.taskName{
+			margin-top: 16px;
+			margin-bottom: 16px;
+			font-size: 28px;
+		}
+
+		.taskDesc{
+			margin-top: 0;
+			margin-bottom: 16px;
+			color: $c-gray;
+		}
+	}
+
+	.commentsSide{
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		padding: 16px;
+		background-color: $c-lightGray;
+		border-radius: 16px;
+
+		.comments{
+			flex-direction: column;
+			display: flex;
+			justify-content: flex-end;
+			flex: 1;
+			margin-bottom: 16px;
+		}
+
+		.comment{
+			transform: rotate(-180deg);
+		}
+	}
+}

@@ -330,7 +330,7 @@ export default function SprintInterna() {
                                                                                     {...providedDraggable.dragHandleProps}
                                                                                     ref={providedDraggable.innerRef}
                                                                                 >
-                                                                                    <TaskItem task={item} click={(status) => disableDrag(status, item, colunm1Tasks, setColunm1Tasks)} />
+                                                                                    <TaskItem userId={user.id} task={item} click={(status) => disableDrag(status, item, colunm1Tasks, setColunm1Tasks)} />
                                                                                 </li>
                                                                             )
                                                                         }
@@ -371,7 +371,7 @@ export default function SprintInterna() {
                                                                                 {...providedDraggable.dragHandleProps}
                                                                                 ref={providedDraggable.innerRef}
                                                                             >
-                                                                                <TaskItem task={item} click={(status) => disableDrag(status, item, colunm2Tasks, setColunm2Tasks)} />
+                                                                                <TaskItem userId={user.id} task={item} click={(status) => disableDrag(status, item, colunm2Tasks, setColunm2Tasks)} />
                                                                             </li>
                                                                         )
                                                                     }
