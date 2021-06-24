@@ -12,7 +12,7 @@ public class TaskDto {
 	private String msg;
 	private String status;
 	private String priority;
-	private String area;
+	private TeamDtoAlt area;
 	private List<WorkerDto> workers;
     private List<CommentDto> comments;
 	
@@ -29,7 +29,7 @@ public class TaskDto {
 	public String getPriority() {
 		return priority;
 	}
-	public String getArea() {
+	public TeamDtoAlt getArea() {
 		return area;
 	}
     public List<WorkerDto> getWorkers() {
@@ -45,7 +45,7 @@ public class TaskDto {
 		this.msg = task.getMsg();
 		this.status = task.getStatus();
 		this.priority = task.getPriority();
-		this.area = task.getArea();
+		this.area = new TeamDtoAlt(task.getArea());
 		this.workers = WorkerDto.converter(task.getWorkers());
 		this.comments = CommentDto.converter(task.getComments());
 	}

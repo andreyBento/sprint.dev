@@ -38,6 +38,9 @@ public class User extends AbstractEntity<Long> {
 	private List<Comment> comments;
 
 	private Boolean online;
+
+	@ManyToMany(mappedBy = "people")
+	private List<Team> teams;
 	
 	public User() {
 		
@@ -132,5 +135,13 @@ public class User extends AbstractEntity<Long> {
 
 	public void setOnline(Boolean online) {
 		this.online = online;
+	}
+
+	public List<Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(List<Team> teams) {
+		this.teams = teams;
 	}
 }

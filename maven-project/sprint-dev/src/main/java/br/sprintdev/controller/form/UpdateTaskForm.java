@@ -1,8 +1,10 @@
 package br.sprintdev.controller.form;
 
 import br.sprintdev.model.entity.Task;
+import br.sprintdev.model.entity.Team;
 import br.sprintdev.model.entity.User;
 import br.sprintdev.model.service.TaskService;
+import br.sprintdev.model.service.TeamService;
 import br.sprintdev.model.service.UserService;
 
 import java.util.ArrayList;
@@ -13,7 +15,7 @@ public class UpdateTaskForm {
 	private String name;
 	private String desc;
 	private String priority;
-	private String area;
+	private Long area;
 	private String status;
 	private List<Long> workers;
 
@@ -26,7 +28,7 @@ public class UpdateTaskForm {
 	public String getPriority() {
 		return priority;
 	}
-	public String getArea() {
+	public Long getArea() {
 		return area;
 	}
 	public List<Long> getWorkers() {
@@ -36,13 +38,16 @@ public class UpdateTaskForm {
 		return status;
 	}
 
-	public Task update(Long id, TaskService service, UserService userService) {
+	public Task update(Long id, TaskService service, UserService userService, TeamService teamService) {
 		Task task = service.findById(id);
 		
 		task.setName(this.name);
 		task.setMsg(this.desc);
 		task.setPriority(this.priority);
-		task.setArea(this.area);
+
+		Team team = teamService.findById(this.area);
+		task.setArea(team);
+
 		task.setStatus(this.status);
 
 		List<User> listUser = new ArrayList<User>();

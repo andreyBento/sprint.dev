@@ -1,6 +1,7 @@
 
 .comment{
 	display: flex;
+	margin-top: 16px;
 
 	&Texto{
 		max-width: 80%;
@@ -29,9 +30,5 @@
 		.commentTexto{
 			background-color: rgba(white, 0.6);
 		}
-	}
-
-	& + .comment{
-		margin-top: 16px;
 	}
 }

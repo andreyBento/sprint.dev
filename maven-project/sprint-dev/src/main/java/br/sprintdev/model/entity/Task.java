@@ -19,7 +19,9 @@ public class Task extends AbstractEntity<Long> {
 	private String priority;
 
 	@NotNull
-	private String area;
+    @ManyToOne
+    @JoinColumn(name = "task_team_id")
+	private Team area;
 
 	@ManyToOne
 	@JoinColumn(name = "task_owner_id")
@@ -38,7 +40,7 @@ public class Task extends AbstractEntity<Long> {
 		
 	}
 	
-	public Task(String name, String msg, Sprint sprint, String status, String priority, String area) {
+	public Task(String name, String msg, Sprint sprint, String status, String priority, Team area) {
 		this.name = name;
 		this.msg = msg;
 		this.task_owner = sprint;
@@ -103,11 +105,11 @@ public class Task extends AbstractEntity<Long> {
 		this.priority = priority;
 	}
 
-	public String getArea() {
+	public Team getArea() {
 		return area;
 	}
 
-	public void setArea(String area) {
+	public void setArea(Team area) {
 		this.area = area;
 	}
 }

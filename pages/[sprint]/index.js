@@ -1,14 +1,13 @@
 import styles from '../../public/css/SprintInterna.module.scss';
 import Aside from "../../components/Aside";
-import React, {useState, useEffect, useRef} from "react";
+import React, {useState, useEffect} from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft, faPlus } from '@fortawesome/free-solid-svg-icons'
-import TaskItem from "../../components/TaskItem";
-import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
+import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import BacklogPage from "../../components/BacklogPage";
+import TeamsPage from "../../components/TeamsPage";
 
 export default function SprintInterna() {
-    const form = useRef(null);
 
     const [user, setUser] = useState([]);
     const [sprint, setSprint] = useState({});
@@ -56,6 +55,12 @@ export default function SprintInterna() {
                         array4.push(item)
                     }
                 });
+
+                array1 = shuffleTasks(array1);
+                array2 = shuffleTasks(array2);
+                array3 = shuffleTasks(array3);
+                array4 = shuffleTasks(array4);
+
                 setColunm1Tasks(array1);
                 setColunm2Tasks(array2);
                 setColunm3Tasks(array3);
@@ -64,160 +69,147 @@ export default function SprintInterna() {
             .catch(err => console.error(err))
     }
 
-    const [taskName, setTaskName] = useState('');
-    const [taskArea, setTaskArea] = useState('');
-    const [taskDesc, setTaskDesc] = useState('');
-    const [taskPrioridade, setTaskPrioridade] = useState('');
-    function createTask(event) {
-        event.preventDefault();
-
-        if(taskName === '' || taskName === false){
-            setTaskName(false);
-        } else if(taskDesc === '' || taskDesc === false){
-            setTaskDesc(false);
-        } else if(taskArea === '' || taskArea === false){
-            setTaskArea(false);
-        } else if(taskPrioridade === '' || taskPrioridade === false || taskPrioridade === 'null'){
-            setTaskPrioridade(false);
-        } else {
-            const task = {
-                name: taskName,
-                desc: taskDesc,
-                idSprint: sprint.id,
-                status: 'backlog',
-                priority: taskPrioridade,
-                area: taskArea,
-            };
-
-            const options = {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(task)
-            };
-            fetch(`http://localhost:8080/tasks/add`, options)
-                .then((res) => res.json())
-                .then((res) => {
-                    updateSprint();
-                    setTaskArea('');
-                    setTaskName('');
-                    setTaskDesc('');
-                    setTaskPrioridade('');
-                    setTaskForm(false);
-                    form.current.reset();
-                })
-                .catch(err => console.error(err));
-        }
-
+    function shuffleTasks(array){
+        let newArray = [];
+        let arrayBaixas = array.filter((item) => item.priority === 'baixa');
+        let arrayNormais = array.filter((item) => item.priority === 'normal');
+        let arrayAltas = array.filter((item) => item.priority === 'alta');
+        return newArray = arrayAltas.concat(arrayNormais).concat(arrayBaixas);
     }
 
-    const [taskForm, setTaskForm] = useState(false);
-    function toggleTaskForm(event) {
-        if(event){
-            setTaskArea('');
-            setTaskName('');
-            setTaskDesc('');
-            setTaskPrioridade('');
+    async function updateColumn(number, value){
+        switch (number){
+            case 1:
+                await setColunm1Tasks(value);
+                break;
+            case 2:
+                await setColunm2Tasks(value);
+                break;
+            case 3:
+                await setColunm3Tasks(value);
+                break;
+            case 4:
+                await setColunm4Tasks(value);
+                break;
         }
-        setTaskForm(!taskForm);
     }
 
-    const [maxHeight, setMaxHeight] = useState(0);
-    useEffect(() => {
-        const value = 32 + document.querySelector(`.${styles.conteudo} > div`).getBoundingClientRect().height + 32 + document.querySelector(`.${styles.columnTitulo}`).getBoundingClientRect().height + 16;
-        const height = window.innerHeight - value;
-        setMaxHeight(height);
-    }, []);
+    function defineColumn(id){
+        let obj = {};
+        switch (id){
+            case 'backlog':
+                obj = {
+                    value: colunm1Tasks,
+                    array: 1
+                };
+                break;
 
-    function dragEnd(result) {
-        if(result.source.droppableId !== result.destination.droppableId){
-            const loser = document.getElementById(result.source.droppableId);
-            const loserChildrens = [...loser.childNodes];
+            case 'andamento':
+                obj = {
+                    value: colunm2Tasks,
+                    array: 2
+                };
+                break;
 
-            loserChildrens.map((item, index) => {
-                if(index === result.source.index){
-                    const myId = Number(item.getAttribute('id'));
-                    const options = {
-                        method: 'GET'
-                    };
+            case 'revisão':
+                obj = {
+                    value: colunm3Tasks,
+                    array: 3
+                };
+                break;
 
-                    fetch(`http://localhost:8080/tasks/${myId}`, options)
-                        .then((res) => res.json())
-                        .then((res) => {
+            case 'feito':
+                obj = {
+                    value: colunm4Tasks,
+                    array: 4
+                };
+                break;
+        }
+        return obj;
+    }
 
-                            const newStatus = result.destination.droppableId;
+    function fetchWorkers(value, id) {
+        const updateWorkers = {
+            workers: value
+        };
+        const optionsWorkersStatus = {
+            method: 'PUT',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updateWorkers)
+        };
+        return fetch(`http://localhost:8080/tasks/${id}/workers`, optionsWorkersStatus)
+            .then((res) => res.json())
+            .then((res) => {
+                return res.workers;
+            })
+            .catch(err => console.error(err));
+    }
 
-                            let taskUpdate,
-                                taskStatus,
-                                workersArray = [],
-                                option = 0,
-                                urlFetch = '';
+    async function dragEnd(result) {
+        if(result.destination !== null){
+            if(result.source.droppableId !== result.destination.droppableId){
+                let sourceArray = defineColumn(result.source.droppableId),
+                    destinationArray = defineColumn(result.destination.droppableId);
 
-                            if(workersArray.length > 0){
-                                workersArray.map((worker) => {
-                                    if(newStatus === 'backlog'){
-                                        option = 1;
-                                        urlFetch = `http://localhost:8080/tasks/${res.id}`;
-                                        workersArray.push(user.id);
-                                    } else {
-                                        if(worker.id !== user.id){
-                                            option = 1;
-                                            urlFetch = `http://localhost:8080/tasks/${res.id}`;
-                                            workersArray.push(user.id);
-                                        } else {
-                                            option = 2;
-                                            urlFetch = `http://localhost:8080/tasks/${res.id}/status`;
-                                        }
+                let loser = [],
+                    winner = [];
+
+                const updateStatus = {
+                    status: result.destination.droppableId
+                }
+                const optionsUpdateStatus = {
+                    method: 'PUT',
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(updateStatus)
+                };
+
+                sourceArray.value.map(async (item, index) => {
+                    if (index === result.source.index) {
+                        destinationArray.value.map((destItem) => {
+                            if(destItem.id !== item.id){
+                                winner.push(destItem);
+                            }
+                        });
+                        item.status = result.destination.droppableId;
+                        winner.push(item);
+                        fetch(`http://localhost:8080/tasks/${item.id}/status`, optionsUpdateStatus)
+                            .catch(err => console.error(err));
+
+                        let newWorkers = [];
+                        let isNew = true;
+
+                        if(item.status !== 'backlog'){
+                            if (item.workers.length > 0) {
+                                item.workers.map((worker) => {
+                                    if (worker.id === user.id) {
+                                        isNew = false;
                                     }
+                                    newWorkers.push(item.id);
                                 });
                             } else {
-                                option = 1;
-                                urlFetch = `http://localhost:8080/tasks/${res.id}`;
-                                workersArray.push(user.id);
+                                newWorkers.push(user.id);
                             }
+                        }
 
-                            taskUpdate = {
-                                name: res.name,
-                                desc: res.msg,
-                                priority: res.priority,
-                                area: res.area,
-                                status: newStatus,
-                                workers: workersArray
-                            };
-                            taskStatus = {
-                                status: newStatus
-                            };
+                        if(isNew === true){
+                            item.workers = await fetchWorkers(newWorkers, item.id);
+                        }
 
-                            const optionsFetch = {
-                                method: 'put',
-                                headers: {
-                                    'Accept': 'application/json',
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify(taskUpdate)
-                            };
-                            const optionsStatusFetch = {
-                                method: 'put',
-                                headers: {
-                                    'Accept': 'application/json',
-                                    'Content-Type': 'application/json'
-                                },
-                                body: JSON.stringify(taskStatus)
-                            };
+                    } else {
+                        loser.push(item);
+                    }
+                });
 
-                            fetch(urlFetch, option === 1 ? optionsFetch : optionsStatusFetch )
-                                .then((incomming) => incomming.json())
-                                .then((incomming) => {
-                                    updateSprint();
-                                })
-                                .catch(error => console.error(error))
-
-                        })
-                        .catch(err => console.error(err))
-                }
-            });
+                await updateColumn(sourceArray.array, loser);
+                await updateColumn(destinationArray.array, winner);
+                updateSprint();
+            }
         }
     }
 
@@ -226,13 +218,72 @@ export default function SprintInterna() {
         array.map((item) => {
             if(item.id === taskIncomming.id){
                 item.disabled = status;
+                item.modal = status;
                 newArray.push(item);
             } else {
                 newArray.push(item);
             }
         });
-        updateArray(newArray);
+        switch (updateArray) {
+            case 'setColunm1Tasks':
+                setColunm1Tasks(newArray);
+                break;
+
+            case 'setColunm2Tasks':
+                setColunm2Tasks(newArray);
+                break;
+
+            case 'setColunm3Tasks':
+                setColunm3Tasks(newArray);
+                break;
+
+            case 'setColunm4Tasks':
+                setColunm4Tasks(newArray);
+                break;
+        }
+        // updateArray(newArray);
     }
+
+    const [activeUrl, setActiveUrl] = useState('backlog');
+    function changeUrl(url) {
+        setActiveUrl(url);
+    }
+
+    const [teams, setTeams] = useState([]);
+    function loadTeams() {
+        const options = {
+            method: 'GET'
+        };
+        fetch(`http://localhost:8080/teams/`, options)
+            .then((res) => res.json())
+            .then((res) => {
+                setTeams(res);
+            })
+            .catch(err => console.error(err));
+    }
+    useEffect(() => {
+        loadTeams();
+    }, []);
+
+    const Content = function () {
+        switch (activeUrl) {
+            case 'backlog':
+                return <BacklogPage dragEnd={(result) => dragEnd(result)}
+                                    colunm1Tasks={colunm1Tasks}
+                                    colunm2Tasks={colunm2Tasks}
+                                    colunm3Tasks={colunm3Tasks}
+                                    colunm4Tasks={colunm4Tasks}
+                                    user={user}
+                                    teams={teams}
+                                    sprint={sprint}
+                                    updateTeams={() => loadTeams()}
+                                    disableDrag={(status, taskIncomming, array, updateArray) => disableDrag(status, taskIncomming, array, updateArray)}
+                                    updateSprint={() => updateSprint()}/>;
+
+            case 'teams':
+                return <TeamsPage teams={teams} />;
+        }
+    };
 
     return (
         <div className="d-flex">
@@ -248,165 +299,22 @@ export default function SprintInterna() {
                     <h2 className={`titulo h2 ${styles.titulo}`}>{sprint.name}</h2>
                     <nav className={styles.navPrincipal}>
                         <ul className={styles.listaLinks}>
-                            <li className={`${styles.item} ${styles.active}`}>
-                                <Link href={"/"}>
-                                    <a tabIndex={0} aria-label={"Clique para acessar a área de tarefas deste sprint"} className={styles.link}>Tarefas do sprint</a>
-                                </Link>
+                            <li className={`${styles.item} ${activeUrl === 'backlog' ? styles.active : ''}`}>
+                                <button onClick={() => changeUrl('backlog')} tabIndex={0} aria-label={"Clique para acessar a área de tarefas deste sprint"} className={styles.link}>Tarefas do sprint</button>
                             </li>
-                            <li className={`${styles.item}`}>
-                                <Link href={"/"}>
-                                    <a tabIndex={0} aria-label={"Clique para acessar a área de gráficos deste sprint"} className={styles.link}>Gráficos de rendimento</a>
-                                </Link>
+                            <li className={`${styles.item} ${activeUrl === 'graphs' ? styles.active : ''}`}>
+                                <button onClick={() => changeUrl('graphs')} tabIndex={0} aria-label={"Clique para acessar a área de gráficos deste sprint"} className={styles.link}>Gráficos de rendimento</button>
                             </li>
-                            <li className={`${styles.item}`}>
-                                <Link href={"/"}>
-                                    <a tabIndex={0} aria-label={"Clique para acessar a área de times deste sprint"} className={styles.link}>Times</a>
-                                </Link>
+                            <li className={`${styles.item} ${activeUrl === 'teams' ? styles.active : ''}`}>
+                                <button onClick={() => changeUrl('teams')} tabIndex={0} aria-label={"Clique para acessar a área de times deste sprint"} className={styles.link}>Times</button>
                             </li>
-                            <li className={`${styles.item}`}>
-                                <Link href={"/"}>
-                                    <a tabIndex={0} aria-label={"Clique para acessar a área de reuniões deste sprint"} className={styles.link}>Reuniões</a>
-                                </Link>
+                            <li className={`${styles.item} ${activeUrl === 'meetings' ? styles.active : ''}`}>
+                                <button onClick={() => changeUrl('meetings')} tabIndex={0} aria-label={"Clique para acessar a área de reuniões deste sprint"} className={styles.link}>Reuniões</button>
                             </li>
                         </ul>
                     </nav>
                 </div>
-                <DragDropContext onDragEnd={(result) => dragEnd(result)}>
-                    <div className={styles.tasksWrapper}>
-                        <div className={styles.column}>
-                            <div className={styles.columnHeader}>
-                                <h2 className={`titulo h2 ${styles.columnTitulo}`}>Tarefas</h2>
-                                {colunm1Tasks.length > 0 && <span className={styles.columnLength}>{colunm1Tasks.length}</span>}
-                            </div>
-                            <div className={styles.overflow} style={{maxHeight: maxHeight}}>
-                                <div className={styles.btnAddTask}>
-                                    <form ref={form} className={`${styles.btnAddTaskForm} ${taskForm === true ? styles.active : ''}`} onSubmit={(event) => createTask(event)}>
-                                        <fieldset className={`mt-1 ${taskName === false ? styles.error : ''}`}>
-                                            <label className={styles.label} htmlFor="name">Título</label>
-                                            <input type="text" className={styles.input} id="name" onKeyUp={(item) => setTaskName(item.target.value)}/>
-                                        </fieldset>
-                                        <fieldset className={`mt-1 ${taskDesc === false ? styles.error : ''}`}>
-                                            <label className={styles.label} htmlFor="desc">Descrição</label>
-                                            <textarea id="desc" className={styles.input} onKeyUp={(item) => setTaskDesc(item.target.value)} />
-                                        </fieldset>
-                                        <fieldset className={`mt-1 ${taskArea === false ? styles.error : ''}`}>
-                                            <label className={styles.label} htmlFor="area">Qual time deve pegar essa tarefa?</label>
-                                            <input type="text" className={styles.input} id="area" onKeyUp={(item) => setTaskArea(item.target.value)}/>
-                                        </fieldset>
-                                        <fieldset className={`mt-1 ${taskPrioridade === false ? styles.error : ''}`}>
-                                            <label className={styles.label} htmlFor="prioridade">Prioridade</label>
-                                            <select className={styles.input} id="prioridade" onChange={(item) => setTaskPrioridade(item.target.value)}>
-                                                <option value="null">Qual a prioridade dessa tarefa?</option>
-                                                <option value="baixa">Prioridade baixa</option>
-                                                <option value="normal">Prioridade normal</option>
-                                                <option value="alta">Prioridade alta</option>
-                                            </select>
-                                        </fieldset>
-                                        <fieldset className={`mt-1`}>
-                                            <button type="submit" className="btn btn-primary btn-sm">Criar</button>
-                                            <button type="reset" className="btn btn-cinza btn-sm ml-1" onClick={(event) => toggleTaskForm(event)}>Cancelar</button>
-                                        </fieldset>
-                                    </form>
-                                    <button className={`${styles.btnAddTaskPlus} ${taskForm === false ? styles.active : ''}`} onClick={() => toggleTaskForm()}>
-                                        <FontAwesomeIcon icon={faPlus} />
-                                    </button>
-                                </div>
-                                {
-                                    colunm1Tasks !== undefined &&
-                                        <Droppable droppableId="backlog">
-                                            {(provided) => (
-                                                <ul id="backlog" className={styles.listaTasks} {...provided.droppableProps} ref={provided.innerRef}>
-                                                    {
-                                                        colunm1Tasks.map((item, index) => {
-                                                            if(item.status === 'backlog'){
-                                                                return (
-                                                                    <Draggable key={`t${index}`} draggableId={`bt${index}`} index={index} isDragDisabled={item.disabled === true}>
-                                                                        {
-                                                                            (providedDraggable) => (
-                                                                                <li
-                                                                                    id={item.id}
-                                                                                    className={styles.listaTasksItem}
-                                                                                    {...providedDraggable.draggableProps}
-                                                                                    {...providedDraggable.dragHandleProps}
-                                                                                    ref={providedDraggable.innerRef}
-                                                                                >
-                                                                                    <TaskItem userId={user.id} task={item} click={(status) => disableDrag(status, item, colunm1Tasks, setColunm1Tasks)} />
-                                                                                </li>
-                                                                            )
-                                                                        }
-                                                                    </Draggable>
-                                                                );
-                                                            }
-                                                        })
-                                                    }
-                                                    { provided.placeholder }
-                                                </ul>
-                                            )}
-                                        </Droppable>
-                                }
-                            </div>
-                        </div>
-                        <div className={styles.column}>
-                            <div className={styles.columnHeader}>
-                                <h2 className={`titulo h2 ${styles.columnTitulo}`}>Em andamento</h2>
-                                {colunm2Tasks.length > 0 && <span className={styles.columnLength}>{colunm2Tasks.length}</span>}
-                            </div>
-                            <div className={styles.overflow} style={{maxHeight: maxHeight}}>
-                                {
-                                    colunm2Tasks !== undefined &&
-                                    <Droppable droppableId="andamento">
-                                        {(provided) => (
-                                            <ul id="andamento" className={`${styles.listaTasks} ${styles.listaTasksAlt}`} {...provided.droppableProps} ref={provided.innerRef}>
-                                                {
-                                                    colunm2Tasks.map((item, index) => {
-                                                        if(item.status === 'andamento'){
-                                                            return (
-                                                                <Draggable key={`at${index}`} draggableId={`at${index}`} index={index} isDragDisabled={item.disabled === true}>
-                                                                    {
-                                                                        (providedDraggable) => (
-                                                                            <li
-                                                                                id={item.id}
-                                                                                className={styles.listaTasksItem}
-                                                                                {...providedDraggable.draggableProps}
-                                                                                {...providedDraggable.dragHandleProps}
-                                                                                ref={providedDraggable.innerRef}
-                                                                            >
-                                                                                <TaskItem userId={user.id} task={item} click={(status) => disableDrag(status, item, colunm2Tasks, setColunm2Tasks)} />
-                                                                            </li>
-                                                                        )
-                                                                    }
-                                                                </Draggable>
-                                                            );
-                                                        }
-                                                    })
-                                                }
-                                                { provided.placeholder }
-                                            </ul>
-                                        )}
-                                    </Droppable>
-                                }
-                            </div>
-                        </div>
-                        <div className={styles.column}>
-                            <div className={styles.columnHeader}>
-                                <h2 className={`titulo h2 ${styles.columnTitulo}`}>Em revisão</h2>
-                                {colunm3Tasks.length > 0 && <span className={styles.columnLength}>{colunm3Tasks.length}</span>}
-                            </div>
-                            <div className={styles.overflow} style={{maxHeight: maxHeight}}>
-
-                            </div>
-                        </div>
-                        <div className={styles.column}>
-                            <div className={styles.columnHeader}>
-                                <h2 className={`titulo h2 ${styles.columnTitulo}`}>Feito</h2>
-                                {colunm4Tasks.length > 0 && <span className={styles.columnLength}>{colunm4Tasks.length}</span>}
-                            </div>
-                            <div className={styles.overflow} style={{maxHeight: maxHeight}}>
-
-                            </div>
-                        </div>
-                    </div>
-                </DragDropContext>
+                <Content />
             </div>
         </div>
     )

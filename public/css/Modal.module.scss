@@ -2,7 +2,7 @@
 
 .modal{
 	display: none;
-	position: absolute;
+	position: fixed;
 	top: 0;
 	left: 0;
 	align-items: center;
@@ -16,7 +16,7 @@
 	}
 
 	.overlay{
-		position: absolute;
+		position: fixed;
 		top: 0;
 		left: 0;
 		width: 100vw;
@@ -29,7 +29,8 @@
 	.modalContent{
 		position: relative;
 		z-index: 2;
-		width: 30vw;
+		width: 90vw;
+		max-width: 600px;
 		max-height: 80vh;
 		padding: 32px;
 		background-color: white;
@@ -40,8 +41,8 @@
 
 	.btnClose{
 		position: absolute;
-		top: 0;
-		right: -16px;
+		top: -16px;
+		right: 0;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -50,7 +51,13 @@
 		padding: 0;
 		background-color: white;
 		border-radius: 50%;
-		transform: translateX(100%);
+		transform: translateY(-100%);
+
+		@media (min-width: 1200px){
+			top: 0;
+			right: -16px;
+			transform: translateX(100%);
+		}
 	}
 
 	&.bigModal{
@@ -58,6 +65,7 @@
 		.modalContent{
 			width: 70vw;
 			height: 70vh;
+			max-width: 100%;
 			color: $c-dark;
 		}
 	}

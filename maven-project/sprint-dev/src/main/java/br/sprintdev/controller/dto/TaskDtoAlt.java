@@ -11,7 +11,6 @@ public class TaskDtoAlt {
     private String msg;
     private String status;
     private String priority;
-    private String area;
 
     public Long getId() {
         return id;
@@ -26,9 +25,6 @@ public class TaskDtoAlt {
     public String getPriority() {
         return priority;
     }
-    public String getArea() {
-        return area;
-    }
 
     public TaskDtoAlt(Task task) {
         this.id = task.getId();
@@ -36,7 +32,6 @@ public class TaskDtoAlt {
         this.msg = task.getMsg();
         this.status = task.getStatus();
         this.priority = task.getPriority();
-        this.area = task.getArea();
     }
 
     public static List<TaskDtoAlt> converter(List<Task> tasksP) {

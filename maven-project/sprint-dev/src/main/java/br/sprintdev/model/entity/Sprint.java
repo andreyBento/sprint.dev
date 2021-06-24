@@ -29,6 +29,9 @@ public class Sprint extends AbstractEntity<Long> {
 
 	@OneToMany(mappedBy = "sprint")
 	private List<Event> events;
+
+	@ManyToMany(mappedBy = "team_sprints")
+	private List<Team> teams;
 	
 	public Sprint() {
 		
@@ -86,5 +89,13 @@ public class Sprint extends AbstractEntity<Long> {
 
 	public void setEvents(List<Event> events) {
 		this.events = events;
+	}
+
+	public List<Team> getTeams() {
+		return teams;
+	}
+
+	public void setTeams(List<Team> teams) {
+		this.teams = teams;
 	}
 }

@@ -1,10 +1,8 @@
 package br.sprintdev.model.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @SuppressWarnings("serial")
 @Entity
@@ -24,6 +22,9 @@ public class Event extends AbstractEntity<Long> {
     @ManyToOne
     @JoinColumn(name = "event_sprint_id")
     private Sprint sprint;
+
+    @ManyToMany(mappedBy = "team_events")
+    private List<Team> teams;
 
     public Event(){
 
@@ -66,5 +67,13 @@ public class Event extends AbstractEntity<Long> {
 
     public void setSprint(Sprint sprint) {
         this.sprint = sprint;
+    }
+
+    public List<Team> getTeams() {
+        return teams;
+    }
+
+    public void setTeams(List<Team> teams) {
+        this.teams = teams;
     }
 }

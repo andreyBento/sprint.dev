@@ -1,3 +1,4 @@
+@import "variaveis";
 
 .menu{
 	position: fixed;
@@ -16,6 +17,7 @@
 
 	.btnAdd,
 	.btnUser{
+		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -47,6 +49,22 @@
 
 		&Link{
 			font-size: 20px;
+		}
+	}
+
+	.link{
+		padding: 8px 16px;
+		color: $c-gray;
+		transition: all ease 0.6s;
+		white-space: nowrap;
+
+		&:hover{
+			background-color: $c-primary;
+			color: white;
+		}
+
+		& + .link{
+			margin-top: 8px;
 		}
 	}
 

@@ -5,6 +5,8 @@ import java.util.List;
 
 import br.sprintdev.controller.dto.TaskDtoAlt;
 import br.sprintdev.controller.form.UpdateTaskStatusForm;
+import br.sprintdev.controller.form.UpdateTaskWorkerForm;
+import br.sprintdev.model.service.TeamService;
 import br.sprintdev.model.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -32,6 +34,9 @@ public class TaskController {
 
 	@Autowired
 	private UserService userService;
+
+	@Autowired
+	private TeamService teamService;
 	
 	@GetMapping("/")
 	public List<TaskDto> listAll() {
@@ -48,7 +53,7 @@ public class TaskController {
 	@PostMapping("/add")
 	@Transactional
 	public ResponseEntity<TaskDtoAlt> create(@RequestBody TaskForm form, UriComponentsBuilder uriBuilder) {
-		Task task = form.convert(sprintService);
+		Task task = form.convert(sprintService, teamService);
 		service.create(task);
 	
 		URI uri = uriBuilder.path("/tasks/{id}").buildAndExpand(task.getId()).toUri();
@@ -59,6 +64,13 @@ public class TaskController {
 	@PutMapping("/{id}")
 	@Transactional
 	public ResponseEntity<TaskDto> update(@PathVariable Long id, @RequestBody UpdateTaskForm form) {
+		Task task = form.update(id, service, userService, teamService);
+		return ResponseEntity.ok(new TaskDto(task));
+	}
+
+	@PutMapping("/{id}/workers")
+	@Transactional
+	public ResponseEntity<TaskDto> updateStatus(@PathVariable Long id, @RequestBody UpdateTaskWorkerForm form) {
 		Task task = form.update(id, service, userService);
 		return ResponseEntity.ok(new TaskDto(task));
 	}
