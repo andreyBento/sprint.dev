@@ -75,19 +75,23 @@ export default function BacklogPage({dragEnd, colunm1Tasks, colunm2Tasks, colunm
                     idTeam: idTeam,
                 };
             }
-            console.log(task);
             fetchCreateTask(task);
         }
     }
 
     function fetchCreateTeam(){
+        const newTeam = {
+            name: teamBox.name,
+            bgColor: teamBox.bgColor,
+            team_sprints: [sprint.id]
+        };
         const optionsTeam = {
             method: 'POST',
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify(teamBox)
+            body: JSON.stringify(newTeam)
         };
         return fetch(`http://localhost:8080/teams/add`, optionsTeam)
             .then((res) => res.json())
@@ -107,7 +111,6 @@ export default function BacklogPage({dragEnd, colunm1Tasks, colunm2Tasks, colunm
             },
             body: JSON.stringify(task)
         };
-        console.log(task);
         fetch(`http://localhost:8080/tasks/add`, optionsTask)
             .then((res) => res.json())
             .then((res) => {

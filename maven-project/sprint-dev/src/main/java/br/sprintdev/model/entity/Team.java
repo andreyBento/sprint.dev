@@ -30,9 +30,10 @@ public class Team extends AbstractEntity<Long> {
 
     }
 
-    public Team(String name, String bgColor) {
+    public Team(String name, String bgColor, List<Sprint> team_sprints) {
         this.name = name;
         this.bgColor = bgColor;
+        this.team_sprints = team_sprints;
     }
 
     public Team(String name, String bgColor, List<User> people, List<Sprint> team_sprints) {

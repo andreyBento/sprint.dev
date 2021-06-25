@@ -117,7 +117,6 @@ export default function TeamCard({team, updateTeams, updateSprint}) {
         return fetch(`http://localhost:8080/teams/${team.id}`, optionsTeam)
             .then((res) => res.json())
             .then((res) => {
-                console.log(res);
                 updateTeams();
                 updateSprint();
             })

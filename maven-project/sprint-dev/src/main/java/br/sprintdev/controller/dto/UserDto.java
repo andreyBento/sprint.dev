@@ -15,8 +15,8 @@ public class UserDto {
 	private String password;
 	private List<ProjectDto> projects;
 	private String bgColor;
-	private Boolean online;
-	
+	private List<TeamDtoComplete> teams;
+
 	public UserDto(User user) {
 		this.id = user.getId();
 		this.firstName = user.getFirstName();
@@ -26,7 +26,7 @@ public class UserDto {
 		this.password = user.getPassword();
 		this.projects = ProjectDto.converter(user.getProjects());
 		this.bgColor = user.getBgColor();
-		this.online = user.getOnline();
+		this.teams = TeamDtoComplete.converter(user.getTeams());
 	}
 	
 	public String getFirstName() {
@@ -53,8 +53,8 @@ public class UserDto {
 	public String getBgColor() {
 		return bgColor;
 	}
-	public Boolean getOnline() {
-		return online;
+	public List<TeamDtoComplete> getTeams() {
+		return teams;
 	}
 
 	public static List<UserDto> converter(List<User> users) {

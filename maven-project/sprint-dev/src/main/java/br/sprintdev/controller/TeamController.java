@@ -49,7 +49,7 @@ public class TeamController {
     @PostMapping("/add")
     @Transactional
     public ResponseEntity<TeamDtoAlt> create(@RequestBody TeamForm form, UriComponentsBuilder uriBuilder) {
-        Team team = form.convert();
+        Team team = form.convert(sprintService);
         service.create(team);
 
         URI uri = uriBuilder.path("/teams/{id}").buildAndExpand(team.getId()).toUri();

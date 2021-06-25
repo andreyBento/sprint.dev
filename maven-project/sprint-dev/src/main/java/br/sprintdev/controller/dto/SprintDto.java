@@ -11,12 +11,14 @@ public class SprintDto {
 	private String name;
 	private String expiresAt;
 	private List<TaskDto> tasks;
+	private List<TeamDto> teams;
 	
 	public SprintDto(Sprint sprint) {
 		this.id = sprint.getId();
 		this.name = sprint.getName();
 		this.expiresAt = sprint.getExpiresAt();
 		this.tasks = TaskDto.converter(sprint.getTasks());
+		this.teams = TeamDto.converter(sprint.getTeams());
 	}
 	
 	public Long getId() {
@@ -28,7 +30,9 @@ public class SprintDto {
 	public String getExpiresAt() {
 		return expiresAt;
 	}
-	
+	public List<TeamDto> getTeams() {
+		return teams;
+	}
 	public List<TaskDto> getTasks() {
 		return tasks;
 	}

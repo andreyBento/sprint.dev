@@ -70,6 +70,7 @@ fieldset{
 // Cores
 .c-azul{ color: $c-primary !important; }
 .c-dark{ color: $c-dark !important; }
+.c-danger{ color: $c-red !important; }
 
 // Margins
 .mt-0{ margin-top: 0 !important; }
@@ -232,9 +233,11 @@ fieldset{
 .px-10{ padding-left: 5rem !important; padding-right: 5rem !important; }
 
 // Display
-.d-flex{ display: flex; }
-.d-none{ display: none; }
-.d-block{ display: block; }
+.d-flex{ display: flex !important; }
+.d-none{ display: none !important; }
+.d-block{ display: block !important; }
+
+.flex-grow-1{ flex-grow: 1; }
 
 // Alinhamento
 .align-items-end{ align-items: flex-end !important; }
@@ -337,6 +340,37 @@ fieldset{
 	}
 }
 
+.conteudo {
+	padding: 16px;
+	width: 100%;
+	flex: 1;
+
+	@media (min-width: 992px) {
+		padding: 32px 64px;
+	}
+}
+
+.btnVoltar{
+	display: flex;
+	align-items: center;
+	max-width: 112px;
+	padding: 16px;
+	background-color: white;
+	font-size: 18px;
+	font-weight: 700;
+	border-radius: 32px;
+	transition: all ease 0.4s;
+
+	&Icone{
+		margin-right: 8px;
+	}
+
+	&:hover,
+	&:focus{
+		opacity: 0.7;
+	}
+}
+
 .btn{
 	padding: 12px 24px;
 	text-align: center;
@@ -404,5 +438,36 @@ fieldset{
 	&.btn-sm{
 		padding: 8px 12px;
 		font-size: 0.8rem;
+	}
+}
+
+.row{
+	display: flex;
+	flex-direction: column;
+
+	@media (min-width: 992px) {
+		flex-direction: row;
+	}
+
+	.col{
+		flex: 1;
+		width: 100%;
+
+		@media (min-width: 992px) {
+			width: calc(50% - 8px);
+		}
+
+		& + .col {
+			margin-top: 16px;
+
+			@media (min-width: 992px) {
+				margin-top: 0;
+				margin-left: 16px;
+			}
+		}
+	}
+
+	& + .row{
+		margin-top: 16px;
 	}
 }

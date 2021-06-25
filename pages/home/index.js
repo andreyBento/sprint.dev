@@ -8,6 +8,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import ModalSimple from "../../components/ModalSimple";
 import Modal from "../../components/Modal";
+import UserBar from "../../components/UserBar";
 
 export default function Home() {
 
@@ -23,25 +24,29 @@ export default function Home() {
             .then((res) => res.json())
             .then((res) => {
                 setUser(res);
+                updateProjects(res)
             })
             .catch(err => console.error(err))
     }, []);
 
     const [ projects, setProjects ] = useState(user.projects);
-    function updateProjects() {
-        const userID = window.localStorage.getItem('AUTH_TOKEN');
-
-        fetch(`http://localhost:8080/users/${userID}`, { method: 'GET' })
-            .then((res) => res.json())
-            .then((res) => {
-                setProjects(res.projects);
-                // console.log(res.projects);
-            })
-            .catch(err => console.error(err))
+    function updateProjects(res) {
+        if(res !== undefined){
+            fetch(`http://localhost:8080/users/${res.id}`, { method: 'GET' })
+                .then((res) => res.json())
+                .then((res) => {
+                    setProjects(res.projects);
+                })
+                .catch(err => console.error(err))
+        } else {
+            fetch(`http://localhost:8080/users/${user.id}`, { method: 'GET' })
+                .then((res) => res.json())
+                .then((res) => {
+                    setProjects(res.projects);
+                })
+                .catch(err => console.error(err))
+        }
     }
-    useEffect(() => {
-        updateProjects();
-    }, []);
 
     const [projectName, setProjectName] = useState('');
     const [color, setColor] = useState('');
@@ -69,14 +74,46 @@ export default function Home() {
     }
 
     function selectProject(project) {
-        setProjectActive(project);
+        if(project.boxes !== undefined){
+            setProjectActive(project);
+        } else {
+            let newProject = project;
+            let newBox;
+            user.teams.map((team) => {
+                team.sprints.map((otherSprint) => {
+                    if(otherSprint.project.id === project.id){
+                        newBox = otherSprint.box;
+                        newBox.sprints = team.sprints;
+                        newProject.boxes = [newBox];
+                    }
+                });
+            });
+            setProjectActive(newProject);
+        }
     }
 
     const [projectActive, setProjectActive] = useState(false);
     const ListProjects = ({listProjects}) => {
+        let projectsArray = listProjects;
+
+        user.teams.map((team) => {
+            if(team.sprints.length > 0){
+                team.sprints.map((notMine) => {
+                    let newProject = true;
+                    projectsArray.map((item) => {
+                        if(item.id === notMine.project.id){
+                            newProject = false;
+                        }
+                    })
+                    if(newProject === true){
+                        projectsArray.push(notMine.project)
+                    }
+                });
+            }
+        });
 
         return (
-            listProjects.length === 0 ?
+            projectsArray.length === 0 ?
                 <ul className={styles.projectsList}>
                     <li>
                         <p className={styles.empty}>Olá <strong>{user.firstName.split(' ')[0]}</strong>, você ainda não possui projetos.</p>
@@ -136,8 +173,8 @@ export default function Home() {
             fetch(`http://localhost:8080/projects/add`, options)
                 .then((res) => res.json())
                 .then((res) => {
-                    console.log(res);
                     updateProjects();
+                    location.reload();
                 })
                 .catch(err => console.error(err))
 
@@ -196,8 +233,8 @@ export default function Home() {
             fetch(`http://localhost:8080/boxes/add`, options)
                 .then((res) => res.json())
                 .then((res) => {
-                    console.log(res);
                     updateProjects();
+                    location.reload();
                 })
                 .catch(err => console.error(err))
 
@@ -243,8 +280,8 @@ export default function Home() {
             fetch(`http://localhost:8080/sprints/add`, options)
                 .then((res) => res.json())
                 .then((res) => {
-                    console.log(res);
                     updateProjects();
+                    location.reload();
                 })
                 .catch(err => console.error(err));
 
@@ -271,9 +308,12 @@ export default function Home() {
 
     return (
         <div className="d-flex">
-            <Aside user={user}/>
+            <Aside/>
 
-            <div className={styles.rightSide}>
+            <div className={`conteudo`}>
+                <div className={styles.userbarMobile}>
+                    <UserBar user={user}/>
+                </div>
                 <h2 className="titulo h2 d-flex align-items-center">
                     <span>Crie algo novo!</span>
                     <button className={`btn btn-primary btn-icone ${styles.btnAdd} position-relative`} onClick={() => toggleModalNew()}>
@@ -287,7 +327,9 @@ export default function Home() {
                 </h2>
                 <p className="subtitulo">Seus projetos, pastas organizadoras e sprints</p>
                 {
-                    projects !== undefined && <ListProjects listProjects={projects}/>
+                    projects !== undefined && user.teams !== undefined ?
+                        <ListProjects listProjects={projects}/>
+                        : ''
                 }
                 {
                     projectActive !== false && <ListBoxes boxes={projectActive.boxes} />

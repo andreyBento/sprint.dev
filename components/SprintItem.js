@@ -38,38 +38,6 @@ export default function SprintItem({sprint, keyValue}) {
         <div className={styles.sprint} key={keyValue} onClick={() => changePage()}>
             <p className={styles.sprintName}>{sprint.name}</p>
             <p className={styles.sprintTime}>Faltam {diasRestantes()} dias pro fim do Sprint!</p>
-            <nav className={styles.nav}>
-                <ul className={styles.listaLinks}>
-                    <li className={styles.linkItem}>
-                        <Link href={`/sprints/${url}`}>
-                            <a onClick={(event) => changePage(event)} className={styles.link} tabIndex={0} aria-label={"Clique para acessar a página de tarefas deste sprint."}>
-                                <FontAwesomeIcon icon={faColumns} className={styles.addIcon} />
-                            </a>
-                        </Link>
-                    </li>
-                    <li className={styles.linkItem}>
-                        <Link href={`/sprints/${url}`}>
-                            <a onClick={(event) => changePage(event)} className={styles.link} tabIndex={0} aria-label={"Clique para acessar a página de times deste sprint."}>
-                                <FontAwesomeIcon icon={faUsers} className={styles.addIcon} />
-                            </a>
-                        </Link>
-                    </li>
-                    <li className={styles.linkItem}>
-                        <Link href={`/sprints/${url}`}>
-                            <a onClick={(event) => changePage(event)} className={styles.link} tabIndex={0} aria-label={"Clique para acessar a página de gráficos deste sprint."}>
-                                <FontAwesomeIcon icon={faChartBar} className={styles.addIcon} />
-                            </a>
-                        </Link>
-                    </li>
-                    <li className={styles.linkItem}>
-                        <Link href={`/sprints/${url}`}>
-                            <a onClick={(event) => changePage(event)} className={styles.link} tabIndex={0} aria-label={"Clique para acessar a página de reuniões deste sprint."}>
-                                <FontAwesomeIcon icon={faCalendar} className={styles.addIcon} />
-                            </a>
-                        </Link>
-                    </li>
-                </ul>
-            </nav>
         </div>
     )
 }

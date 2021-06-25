@@ -13,7 +13,7 @@ public class TeamFormCreateAlt {
     private String name;
     private String bgColor;
     private List<Long> people;
-    private List<Long> teams_sprints;
+    private List<Long> team_sprints;
 
     public String getName() {
         return name;
@@ -24,8 +24,8 @@ public class TeamFormCreateAlt {
     public List<Long> getPeople() {
         return people;
     }
-    public List<Long> getTeams_sprints() {
-        return teams_sprints;
+    public List<Long> getTeam_sprints() {
+        return team_sprints;
     }
 
     public Team convert (UserService userService, SprintService sprintService){
@@ -36,7 +36,7 @@ public class TeamFormCreateAlt {
         }
 
         List<Sprint> sprints = new ArrayList<Sprint>();
-        for(Long idIncommingSprint:people){
+        for(Long idIncommingSprint:team_sprints){
             sprints.add(sprintService.findById(idIncommingSprint));
         }
 

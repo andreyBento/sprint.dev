@@ -1,292 +1,286 @@
 @import "variaveis";
 
-.conteudo{
-	padding: 16px;
-	width: 100%;
-	flex: 1;
+.titulo{
+	margin-top: 16px;
+	margin-bottom: 8px;
 
 	@media (min-width: 992px){
-		padding: 32px 64px;
+		margin-top: 32px;
+		margin-bottom: 16px;
 	}
+}
 
-	.btnVoltar{
+.navPrincipal{
+	overflow: auto;
+
+	.listaLinks{
 		display: flex;
 		align-items: center;
-		max-width: 112px;
-		padding: 16px;
-		background-color: white;
-		font-size: 18px;
-		font-weight: 700;
-		border-radius: 32px;
-		transition: all ease 0.4s;
+		margin: 0;
 
-		&Icone{
-			margin-right: 8px;
-		}
-
-		&:hover,
-		&:focus{
-			opacity: 0.7;
-		}
-	}
-
-	.titulo{
-		margin-top: 16px;
-		margin-bottom: 8px;
-
-		@media (min-width: 992px){
-			margin-top: 32px;
-			margin-bottom: 16px;
-		}
-	}
-
-	.navPrincipal{
-		overflow: auto;
-
-		.listaLinks{
-			display: flex;
-			align-items: center;
-			margin: 0;
-
-			.item{
-				opacity: 0.6;
-				transition: all ease 0.4s;
-
-				& + .item{
-					margin-left: 16px;
-				}
-
-				&:hover,
-				&:focus{
-					opacity: 0.8;
-				}
-
-				&.active{
-					opacity: 1;
-				}
-			}
-
-			.link{
-				display: block;
-				padding: 8px 16px;
-				background-color: white;
-				font-size: 16px;
-				font-weight: 600;
-				color: $c-dark;
-				border: none;
-				border-radius: 32px;
-				white-space: nowrap;
-				cursor: pointer;
-
-				@media (min-width: 992px) {
-					padding: 16px 32px;
-					font-size: 18px;
-				}
-			}
-		}
-	}
-
-	.tasksWrapper{
-		display: flex;
-		flex-direction: column;
-		margin-top: 16px;
-
-		@media (min-width: 992px){
-			flex-direction: row;
-			margin-top: 32px;
-			height: calc(100% - 210px);
-		}
-
-		.column{
-			display: flex;
-			flex-direction: column;
-			flex: 1;
-
-			& + .column{
-				margin-top: 16px;
-
-				@media (min-width: 992px){
-					margin-top: 0;
-					margin-left: 16px;
-				}
-			}
-
-			&Titulo{
-				margin: 0;
-			}
-
-			&Header{
-				display: flex;
-				align-items: center;
-				margin-bottom: 16px;
-			}
-
-			&Length{
-				display: flex;
-				align-items: center;
-				justify-content: center;
-				margin-left: 8px;
-				width: 20px;
-				height: 20px;
-				background-color: white;
-				font-size: 14px;
-				border-radius: 50%;
-			}
-		}
-	}
-
-	.overflow{
-		display: flex;
-		flex-direction: row;
-		overflow: auto;
-
-		@media (min-width: 992px){
-			display: block;
-			overflow: hidden;
-		}
-
-	}
-
-	.btnAddTask,
-	.btnAddTeam{
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		flex-direction: column;
-		min-width: 176px;
-		min-height: 108px;
-		padding: 16px;
-		background-color: rgba(white, 0.35);
-		border: 1px dashed $c-gray;
-		border-radius: 16px;
-		transition: all ease 0.4s;
-
-		&Plus{
-			display: flex;
-			align-items: center;
-			justify-content: center;
-			width: 24px;
-			height: 24px;
-			background-color: $c-primary;
-			color: white;
-			font-size: 12px;
-			border: none;
-			border-radius: 50%;
-			cursor: pointer;
+		.item{
+			opacity: 0.6;
 			transition: all ease 0.4s;
+
+			& + .item{
+				margin-left: 16px;
+			}
 
 			&:hover,
 			&:focus{
-				background-color: lighten($c-primary, 8%);
+				opacity: 1;
+			}
+
+			&.active{
+				opacity: 1;
+
+				.link{
+					background-color: $c-primary;
+					color: white;
+				}
 			}
 		}
 
-		&Form{
-			display: none;
-		}
-
-		.label{
+		.link{
 			display: block;
-			margin-bottom: 2px;
-			font-size: 12px;
-		}
-
-		.input{
-			width: 100% !important;
-			max-width: 100%;
-			min-height: 26px;
-			padding: 6px 16px;
+			padding: 8px 16px;
 			background-color: white;
-			font-size: 12px;
-			font-family: 'Montserrat Alternates', sans-serif;
-			border-radius: 20px;
+			font-size: 16px;
+			font-weight: 600;
+			color: $c-dark;
 			border: none;
-		}
+			border-radius: 32px;
+			white-space: nowrap;
+			cursor: pointer;
 
-		.error{
-			.label{
-				color: $c-red;
-			}
-
-			.input{
-				box-shadow: 0 0 0 1px $c-red;
-			}
-		}
-
-		&.active{
-			min-width: 80vw;
-
-			@media (min-width: 992px){
-				min-width: 100%;
-			}
-
-			.btnAddTaskPlus{
-				display: none;
-			}
-
-			.btnAddTaskForm{
-				display: block;
+			@media (min-width: 992px) {
+				padding: 16px 32px;
+				font-size: 18px;
 			}
 		}
 	}
+}
 
-	.btnAddTeam{
+.tasksWrapper{
+	display: flex;
+	flex-direction: column;
+	margin-top: 16px;
+
+	@media (min-width: 992px){
+		flex-direction: row;
+		margin-top: 32px;
+		height: calc(100% - 210px);
+	}
+
+	.column{
+		display: flex;
+		flex-direction: column;
 		flex: 1;
-		margin-bottom: 16px;
+
+		& + .column{
+			margin-top: 16px;
+
+			@media (min-width: 992px){
+				margin-top: 0;
+				margin-left: 16px;
+			}
+		}
+
+		&Titulo{
+			margin: 0;
+		}
+
+		&Header{
+			display: flex;
+			align-items: center;
+			margin-bottom: 16px;
+		}
+
+		&Length{
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			margin-left: 8px;
+			width: 20px;
+			height: 20px;
+			background-color: white;
+			font-size: 14px;
+			border-radius: 50%;
+		}
+	}
+}
+
+.overflow{
+	display: flex;
+	flex-direction: row;
+	overflow: auto;
+
+	@media (min-width: 992px){
+		display: block;
+		overflow: hidden;
+	}
+
+}
+
+.btnAddTask,
+.btnAddTeam{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	min-width: 176px;
+	min-height: 108px;
+	padding: 16px;
+	background-color: rgba(white, 0.35);
+	border: 1px dashed $c-gray;
+	border-radius: 16px;
+	transition: all ease 0.4s;
+
+	&Plus{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 24px;
+		height: 24px;
+		background-color: $c-primary;
+		color: white;
+		font-size: 12px;
+		border: none;
+		border-radius: 50%;
+		cursor: pointer;
+		transition: all ease 0.4s;
+
+		&:hover,
+		&:focus{
+			background-color: lighten($c-primary, 8%);
+		}
+	}
+
+	&Form{
+		display: none;
+	}
+
+	.label{
+		display: block;
+		margin-bottom: 2px;
+		font-size: 12px;
+	}
+
+	.input{
+		width: 100% !important;
+		max-width: 100%;
+		min-height: 26px;
+		padding: 6px 16px;
+		background-color: white;
+		font-size: 12px;
+		font-family: 'Montserrat Alternates', sans-serif;
+		border-radius: 20px;
+		border: none;
+
+		&Color{
+			padding: 2px 16px;
+		}
+	}
+
+	.error{
+		.label{
+			color: $c-red;
+		}
+
+		.input{
+			box-shadow: 0 0 0 1px $c-red;
+		}
+	}
+
+	&.active{
+		min-width: 80vw;
+
+		@media (min-width: 992px){
+			min-width: 100%;
+		}
+
+		.btnAddTaskPlus{
+			display: none;
+		}
+
+		.btnAddTaskForm{
+			display: block;
+		}
+	}
+}
+
+.btnAddTeam{
+	margin-bottom: 16px;
+
+	@media (min-width: 992px){
+		flex: 1;
 		margin-left: 16px;
 		margin-right: 16px;
 	}
 
-	.listaTasks{
-		display: flex;
-		margin: 0 0 0 16px;
+	&Form{
+		width: 100%;
+	}
+}
 
-		@media (min-width: 992px) {
-			display: block;
-			margin: 16px 0 0;
+.listaTasks{
+	display: flex;
+	margin: 0 0 0 16px;
+
+	@media (min-width: 992px) {
+		display: block;
+		margin: 16px 0 0;
+	}
+
+	&Item{
+		height: 100%;
+
+		@media (min-width: 992px){
+			height: auto;
 		}
 
-		&Item{
+		& > div{
 			height: 100%;
+		}
+
+		& + .listaTasksItem{
+			margin-left: 16px;
 
 			@media (min-width: 992px){
-				height: auto;
-			}
-
-			& > div{
-				height: 100%;
-			}
-
-			& + .listaTasksItem{
-				margin-left: 16px;
-
-				@media (min-width: 992px){
-					margin-left: 0;
-					margin-top: 16px;
-				}
+				margin-left: 0;
+				margin-top: 16px;
 			}
 		}
+	}
 
-		&Alt{
-			margin: 0;
-			height: 100%;
-		}
+	&Alt{
+		margin: 0;
+		height: 100%;
 	}
 }
 
 .teamWrapper{
 	display: flex;
-	flex-wrap: wrap;
+	flex-direction: column;
 	margin-top: 32px;
+
+	@media (min-width: 992px){
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
 }
 
 .teamItem{
 	margin-bottom: 16px;
-	flex: 1;
-	min-width: calc(50% - 16px);
+	width: 100%;
 
-	& + .teamItem{
-		margin-left: 16px;
+	@media (min-width: 992px){
+		flex: 1;
+		min-width: calc(50% - 16px);
+
+		& + .teamItem{
+			margin-left: 16px;
+		}
 	}
 }
 

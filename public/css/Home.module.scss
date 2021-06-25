@@ -1,15 +1,5 @@
 @import "variaveis";
 
-.rightSide{
-	width: 100%;
-	//width: calc(50vw - 155px);
-	padding: 16px 16px 0;
-
-	@media (min-width: 992px){
-		padding: 32px 64px 0;
-	}
-}
-
 .btnAdd{
 	display: none;
 	margin-left: 12px;
@@ -75,5 +65,14 @@
 
 	& + .link{
 		margin-top: 8px;
+	}
+}
+
+.userbarMobile{
+	display: block;
+	margin-bottom: 16px;
+
+	@media (min-width: 992px) {
+		display: none;
 	}
 }

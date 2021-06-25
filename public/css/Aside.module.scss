@@ -1,3 +1,5 @@
+@import "variaveis";
+
 .aside{
 	display: none;
 	width: 310px;
@@ -40,4 +42,47 @@
 			opacity: 0.7;
 		}
 	}
+
+	.listaProjects{
+
+		.projetoNome{
+			font-size: 18px;
+			font-weight: 700;
+		}
+
+		li + li{
+			margin-top: 16px;
+		}
+	}
+
+	.listaBoxes{
+		margin-top: 8px;
+
+		.boxNome{
+			font-size: 16px;
+			font-weight: 600;
+		}
+
+		li{
+			padding: 8px;
+			background-color: $c-lightGray;
+			border-radius: 8px;
+		}
+
+		.listaSprints{
+			margin-top: 8px;
+
+			.linkSprint{
+				padding: 8px;
+				background-color: white;
+				cursor: pointer;
+				transition: all ease 0.4s;
+
+				&:hover{
+					opacity: 0.7;
+				}
+			}
+		}
+	}
+
 }

@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import BacklogPage from "../../components/BacklogPage";
 import TeamsPage from "../../components/TeamsPage";
+import EventPage from "../../components/EventPage";
 
 export default function SprintInterna() {
 
@@ -27,7 +28,9 @@ export default function SprintInterna() {
                 setUser(res);
             })
             .catch(err => console.error(err))
+    }, []);
 
+    useEffect(() => {
         updateSprint()
     }, []);
 
@@ -65,6 +68,8 @@ export default function SprintInterna() {
                 setColunm2Tasks(array2);
                 setColunm3Tasks(array3);
                 setColunm4Tasks(array4);
+
+                setTeams(res.teams);
             })
             .catch(err => console.error(err))
     }
@@ -254,16 +259,13 @@ export default function SprintInterna() {
         const options = {
             method: 'GET'
         };
-        fetch(`http://localhost:8080/teams/`, options)
+        fetch(`http://localhost:8080/sprints/${sprint.id}`, options)
             .then((res) => res.json())
             .then((res) => {
-                setTeams(res);
+                setTeams(res.teams);
             })
             .catch(err => console.error(err));
     }
-    useEffect(() => {
-        loadTeams();
-    }, []);
 
     const Content = function () {
         switch (activeUrl) {
@@ -282,17 +284,20 @@ export default function SprintInterna() {
 
             case 'teams':
                 return <TeamsPage teams={teams} updateTeams={() => loadTeams()} updateSprint={() => updateSprint()} />;
+
+            case 'meetings':
+                return <EventPage updateSprint={() => updateSprint()} />
         }
     };
 
     return (
         <div className="d-flex">
-            <Aside user={user}/>
-            <div className={styles.conteudo}>
+            <Aside/>
+            <div className={`conteudo`}>
                 <div>
                     <Link href={'/'}>
-                        <a className={styles.btnVoltar} tabIndex={0} aria-label={"Clique para retornar para a página inicial,"}>
-                            <FontAwesomeIcon icon={faArrowLeft} className={styles.btnVoltarIcone} />
+                        <a className={`btnVoltar`} tabIndex={0} aria-label={"Clique para retornar para a página inicial,"}>
+                            <FontAwesomeIcon icon={faArrowLeft} className={`btnVoltarIcone`} />
                             <span>Home</span>
                         </a>
                     </Link>

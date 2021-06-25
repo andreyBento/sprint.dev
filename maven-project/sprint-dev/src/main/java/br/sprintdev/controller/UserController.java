@@ -4,6 +4,7 @@ import java.net.URI;
 import java.util.List;
 
 import br.sprintdev.controller.form.UpdateUserOnlineForm;
+import br.sprintdev.controller.form.UpdateUserPasswordForm;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -12,6 +13,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 
 import br.sprintdev.model.service.UserService;
 import br.sprintdev.controller.dto.UserDto;
+import br.sprintdev.controller.dto.UserDtoAlt;
 import br.sprintdev.controller.form.UpdateUserForm;
 import br.sprintdev.controller.form.UserForm;
 import br.sprintdev.model.entity.User;
@@ -38,18 +40,25 @@ public class UserController {
 
 	@PostMapping("/add")
 	@Transactional
-	public ResponseEntity<UserDto> create(@RequestBody UserForm form, UriComponentsBuilder uriBuilder) {
+	public ResponseEntity<UserDtoAlt> create(@RequestBody UserForm form, UriComponentsBuilder uriBuilder) {
 		User user = form.convert();
 		service.create(user);
 		
 		URI uri = uriBuilder.path("/users/{id}").buildAndExpand(user.getId()).toUri();
 		
-		return ResponseEntity.created(uri).body(new UserDto(user));
+		return ResponseEntity.created(uri).body(new UserDtoAlt(user));
 	}
 	
 	@PutMapping("/{id}")
 	@Transactional
 	public ResponseEntity<UserDto> update(@PathVariable Long id, @RequestBody UpdateUserForm form) {
+		User user = form.update(id, service);
+		return ResponseEntity.ok(new UserDto(user));
+	}
+
+	@PutMapping("/{id}/password")
+	@Transactional
+	public ResponseEntity<UserDto> update(@PathVariable Long id, @RequestBody UpdateUserPasswordForm form) {
 		User user = form.update(id, service);
 		return ResponseEntity.ok(new UserDto(user));
 	}

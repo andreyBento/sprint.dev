@@ -50,7 +50,6 @@ export default function CadastroAuth() {
         fetch(`http://localhost:8080/users/add`, options)
             .then((res) => res.json())
             .then((res) => {
-                console.log(res);
                 window.localStorage.setItem('AUTH_TOKEN', res.id);
                 router.push('/home')
             })

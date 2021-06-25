@@ -10,6 +10,7 @@
 	color: $c-dark;
 	text-align: left;
 	border-radius: 12px;
+	box-shadow: 0 1px 4px rgba(0,0,0,0.16);
 
 	&.bottom{
 		bottom: -8px;
@@ -19,6 +20,18 @@
 	&.top{
 		top: -8px;
 		transform: translateY(-100%);
+	}
+
+	&.center{
+		&.bottom{
+			left: 50%;
+			transform: translate(-50%, 100%);
+		}
+
+		&.top{
+			left: 50%;
+			transform: translate(-50%, -100%);
+		}
 	}
 
 	&.open{

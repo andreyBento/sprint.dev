@@ -8,10 +8,10 @@ public class UpdateUserForm {
 	private String firstName;
 
 	private String lastName;
+
+	private String username;
 	
 	private String email;
-	
-	private String password;
 	
 	private String bgColor;
 
@@ -39,14 +39,6 @@ public class UpdateUserForm {
 		this.email = email;
 	}
 
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
 	public String getBgColor() {
 		return bgColor;
 	}
@@ -55,15 +47,23 @@ public class UpdateUserForm {
 		this.bgColor = bgColor;
 	}
 
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
 	public User update(Long id, UserService service) {
 		User user = service.findById(id);
 		
 		user.setFirstName(this.firstName);
 		user.setLastName(this.lastName);
+		user.setUsername(this.username);
 		user.setEmail(this.email);
-		user.setPassword(this.password);
 		user.setBgColor(this.bgColor);
-		
+
 		return user;
 	}
 }
