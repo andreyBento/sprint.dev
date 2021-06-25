@@ -1,9 +1,6 @@
 package br.sprintdev.model.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.List;
 
@@ -18,7 +15,7 @@ public class Team extends AbstractEntity<Long> {
     private String bgColor;
 
     @ManyToMany
-    private List<User> people;
+    private List<User> team_people;
 
     @ManyToMany
     private List<Sprint> team_sprints;
@@ -41,7 +38,7 @@ public class Team extends AbstractEntity<Long> {
     public Team(String name, String bgColor, List<User> people, List<Sprint> team_sprints) {
         this.name = name;
         this.bgColor = bgColor;
-        this.people = people;
+        this.team_people = people;
         this.team_sprints = team_sprints;
     }
 
@@ -53,12 +50,12 @@ public class Team extends AbstractEntity<Long> {
         this.name = name;
     }
 
-    public List<User> getPeople() {
-        return people;
+    public List<User> getTeam_people() {
+        return team_people;
     }
 
-    public void setPeople(List<User> people) {
-        this.people = people;
+    public void setTeam_people(List<User> team_people) {
+        this.team_people = team_people;
     }
 
     public List<Sprint> getTeam_sprints() {

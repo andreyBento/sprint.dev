@@ -20,11 +20,11 @@ public class TeamFormUpdatePeople {
         Team team = teamService.findById(id);
 
         List<User> listIncommingUser = new ArrayList<User>();
-        for(Long incommingIdUser:this.idPeople){
+        for(Long incommingIdUser:idPeople){
             listIncommingUser.add(userService.findById(incommingIdUser));
         }
 
-        team.setPeople(listIncommingUser);
+        team.setTeam_people(listIncommingUser);
 
         return team;
     }

@@ -307,6 +307,7 @@ export default function BacklogPage({dragEnd, colunm1Tasks, colunm2Tasks, colunm
                                                                     ref={providedDraggable.innerRef}
                                                                 >
                                                                     <TaskItem userId={user.id} task={item}
+                                                                              updateTeams={updateTeams}
                                                                               click={(status) => disableDrag(status, item, colunm1Tasks, 'setColunm1Tasks')}
                                                                               updateSprint={updateSprint}/>
                                                                 </li>
@@ -350,6 +351,7 @@ export default function BacklogPage({dragEnd, colunm1Tasks, colunm2Tasks, colunm
                                                                     ref={providedDraggable.innerRef}
                                                                 >
                                                                     <TaskItem userId={user.id} task={item}
+                                                                              updateTeams={updateTeams}
                                                                               click={(status) => disableDrag(status, item, colunm2Tasks, 'setColunm2Tasks')}
                                                                               updateSprint={updateSprint}/>
                                                                 </li>
@@ -372,7 +374,42 @@ export default function BacklogPage({dragEnd, colunm1Tasks, colunm2Tasks, colunm
                         {colunm3Tasks.length > 0 && <span className={styles.columnLength}>{colunm3Tasks.length}</span>}
                     </div>
                     <div className={styles.overflow}>
-
+                        <Droppable droppableId="revisão">
+                            {(provided) => (
+                                <ul id="revisão"
+                                    className={`${styles.listaTasks} ${styles.listaTasksAlt}`} {...provided.droppableProps}
+                                    ref={provided.innerRef}>
+                                    {
+                                        colunm3Tasks.map((item, index) => {
+                                            if (item.status === 'revisão') {
+                                                return (
+                                                    <Draggable key={`rt${index}`} draggableId={`rt${index}`}
+                                                               index={index}
+                                                               isDragDisabled={item.disabled === true}>
+                                                        {
+                                                            (providedDraggable) => (
+                                                                <li
+                                                                    className={styles.listaTasksItem}
+                                                                    {...providedDraggable.draggableProps}
+                                                                    {...providedDraggable.dragHandleProps}
+                                                                    ref={providedDraggable.innerRef}
+                                                                >
+                                                                    <TaskItem userId={user.id} task={item}
+                                                                              updateTeams={updateTeams}
+                                                                              click={(status) => disableDrag(status, item, colunm3Tasks, 'setColunm3Tasks')}
+                                                                              updateSprint={updateSprint}/>
+                                                                </li>
+                                                            )
+                                                        }
+                                                    </Draggable>
+                                                );
+                                            }
+                                        })
+                                    }
+                                    {provided.placeholder}
+                                </ul>
+                            )}
+                        </Droppable>
                     </div>
                 </div>
                 <div className={styles.column}>
@@ -381,7 +418,42 @@ export default function BacklogPage({dragEnd, colunm1Tasks, colunm2Tasks, colunm
                         {colunm4Tasks.length > 0 && <span className={styles.columnLength}>{colunm4Tasks.length}</span>}
                     </div>
                     <div className={styles.overflow}>
-
+                        <Droppable droppableId="feito">
+                            {(provided) => (
+                                <ul id="feito"
+                                    className={`${styles.listaTasks} ${styles.listaTasksAlt}`} {...provided.droppableProps}
+                                    ref={provided.innerRef}>
+                                    {
+                                        colunm4Tasks.map((item, index) => {
+                                            if (item.status === 'feito') {
+                                                return (
+                                                    <Draggable key={`ft${index}`} draggableId={`ft${index}`}
+                                                               index={index}
+                                                               isDragDisabled={item.disabled === true}>
+                                                        {
+                                                            (providedDraggable) => (
+                                                                <li
+                                                                    className={styles.listaTasksItem}
+                                                                    {...providedDraggable.draggableProps}
+                                                                    {...providedDraggable.dragHandleProps}
+                                                                    ref={providedDraggable.innerRef}
+                                                                >
+                                                                    <TaskItem userId={user.id} task={item}
+                                                                              updateTeams={updateTeams}
+                                                                              click={(status) => disableDrag(status, item, colunm4Tasks, 'setColunm4Tasks')}
+                                                                              updateSprint={updateSprint}/>
+                                                                </li>
+                                                            )
+                                                        }
+                                                    </Draggable>
+                                                );
+                                            }
+                                        })
+                                    }
+                                    {provided.placeholder}
+                                </ul>
+                            )}
+                        </Droppable>
                     </div>
                 </div>
             </div>

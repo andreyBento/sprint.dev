@@ -4,6 +4,7 @@
 	width: 100%;
 	background-color: white;
 	border-radius: 20px;
+	cursor: pointer;
 
 	p{
 		margin: 0;
@@ -68,4 +69,51 @@
 		color: $c-gray;
 		border-top: 1px solid $c-lightGray;
 	}
+
+	.teamPeopleMsg{
+		margin: 0;
+		font-size: 14px;
+		color: $c-gray;
+	}
+}
+
+.modalConteudo{
+
+	.cardHeader{
+		padding: 0;
+	}
+}
+
+.listaUsers{
+	display: flex;
+	align-items: center;
+}
+
+.btnDeletarUser{
+	position: absolute;
+	top: -4px;
+	right: -4px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 0;
+	width: 20px;
+	height: 20px;
+	font-size: 12px;
+
+	&.active{
+		display: none;
+	}
+
+	&Icone{
+
+	}
+}
+
+.inputBgColor{
+	width: 32px;
+	height: 32px;
+	padding: 4px;
+	border-radius: 50%;
+	background-color: white;
 }

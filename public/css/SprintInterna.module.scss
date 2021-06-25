@@ -91,7 +91,7 @@
 		flex-direction: column;
 		margin-top: 16px;
 
-		@media (min-width: 1200px){
+		@media (min-width: 992px){
 			flex-direction: row;
 			margin-top: 32px;
 			height: calc(100% - 210px);
@@ -105,7 +105,7 @@
 			& + .column{
 				margin-top: 16px;
 
-				@media (min-width: 1200px){
+				@media (min-width: 992px){
 					margin-top: 0;
 					margin-left: 16px;
 				}
@@ -153,7 +153,6 @@
 		align-items: center;
 		justify-content: center;
 		flex-direction: column;
-		width: 100%;
 		min-width: 176px;
 		min-height: 108px;
 		padding: 16px;
@@ -217,7 +216,7 @@
 		&.active{
 			min-width: 80vw;
 
-			@media (min-width: 1200px){
+			@media (min-width: 992px){
 				min-width: 100%;
 			}
 
@@ -232,7 +231,6 @@
 	}
 
 	.btnAddTeam{
-		width: auto;
 		flex: 1;
 		margin-bottom: 16px;
 		margin-left: 16px;
@@ -243,7 +241,7 @@
 		display: flex;
 		margin: 0 0 0 16px;
 
-		@media (min-width: 1200px) {
+		@media (min-width: 992px) {
 			display: block;
 			margin: 16px 0 0;
 		}
@@ -251,7 +249,7 @@
 		&Item{
 			height: 100%;
 
-			@media (min-width: 1200px){
+			@media (min-width: 992px){
 				height: auto;
 			}
 
@@ -262,7 +260,7 @@
 			& + .listaTasksItem{
 				margin-left: 16px;
 
-				@media (min-width: 1200px){
+				@media (min-width: 992px){
 					margin-left: 0;
 					margin-top: 16px;
 				}

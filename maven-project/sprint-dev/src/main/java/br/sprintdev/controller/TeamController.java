@@ -68,21 +68,38 @@ public class TeamController {
         return ResponseEntity.created(uri).body(new TeamDto(team));
     }
 
+    @PutMapping("/{id}")
+    @Transactional
+    public ResponseEntity<TeamDto> addTask(@PathVariable Long id, @RequestBody TeamFormUpdate form) {
+        Team team = form.convert(id, service);
+        return ResponseEntity.ok(new TeamDto(team));
+    }
+
     @PutMapping("/{id}/taskAdd")
+    @Transactional
     public ResponseEntity<TeamDto> addTask(@PathVariable Long id, @RequestBody TeamFormUpdateTasks form) {
         Team team = form.convert(id, service, taskService);
         return ResponseEntity.ok(new TeamDto(team));
     }
 
     @PutMapping("/{id}/peopleAdd")
+    @Transactional
     public ResponseEntity<TeamDto> addTask(@PathVariable Long id, @RequestBody TeamFormUpdatePeople form) {
         Team team = form.convert(id, service, userService);
         return ResponseEntity.ok(new TeamDto(team));
     }
 
     @PutMapping("/{id}/sprintsAdd")
+    @Transactional
     public ResponseEntity<TeamDto> addTask(@PathVariable Long id, @RequestBody TeamFormUpdateSprint form) {
         Team team = form.convert(id, service, sprintService);
+        return ResponseEntity.ok(new TeamDto(team));
+    }
+
+    @DeleteMapping("/{id}/people")
+    @Transactional
+    public ResponseEntity<TeamDto> delete(@PathVariable Long id, @RequestBody TeamFormRemovePeople form) {
+        Team team = form.convert(id, service);
         return ResponseEntity.ok(new TeamDto(team));
     }
 

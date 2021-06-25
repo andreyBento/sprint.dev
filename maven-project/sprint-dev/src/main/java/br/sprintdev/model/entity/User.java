@@ -39,7 +39,7 @@ public class User extends AbstractEntity<Long> {
 
 	private Boolean online;
 
-	@ManyToMany(mappedBy = "people")
+	@ManyToMany(mappedBy = "team_people")
 	private List<Team> teams;
 	
 	public User() {

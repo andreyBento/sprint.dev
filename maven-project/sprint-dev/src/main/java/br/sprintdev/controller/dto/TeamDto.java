@@ -18,7 +18,7 @@ public class TeamDto {
         this.id = team.getId();
         this.name = team.getName();
         this.bgColor = team.getBgColor();
-        this.people = UserDtoAlt.converter(team.getPeople());
+        this.people = UserDtoAlt.converter(team.getTeam_people());
         this.tasks = TaskDtoAlt.converter(team.getTeam_tasks());
         this.events = EventDtoAlt.converter(team.getTeam_events());
     }

@@ -4,7 +4,7 @@ import React, {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 
-export default function TeamsPage({teams}) {
+export default function TeamsPage({teams, updateTeams, updateSprint}) {
 
     const [teamName, setTeamName] = useState('');
     const [teamPeople, setTeamPeople] = useState([]);
@@ -36,7 +36,7 @@ export default function TeamsPage({teams}) {
                 teams.map((item, index) => {
                     return (
                         <div key={`team${index}`} className={styles.teamItem}>
-                            <TeamCard team={item}/>
+                            <TeamCard updateSprint={updateSprint} updateTeams={updateTeams} team={item}/>
                         </div>
                     )
                 })

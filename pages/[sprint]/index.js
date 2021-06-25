@@ -49,7 +49,7 @@ export default function SprintInterna() {
                         array1.push(item)
                     } else if(item.status === 'andamento'){
                         array2.push(item)
-                    } else if(item.status === 'revisao'){
+                    } else if(item.status === 'revisão'){
                         array3.push(item)
                     } else if(item.status === 'feito'){
                         array4.push(item)
@@ -281,7 +281,7 @@ export default function SprintInterna() {
                                     updateSprint={() => updateSprint()}/>;
 
             case 'teams':
-                return <TeamsPage teams={teams} />;
+                return <TeamsPage teams={teams} updateTeams={() => loadTeams()} updateSprint={() => updateSprint()} />;
         }
     };
 

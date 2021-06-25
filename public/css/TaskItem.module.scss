@@ -11,6 +11,7 @@
 		display: inline-block;
 		margin: 0;
 		padding: 6px 16px;
+		color: white;
 		font-size: 12px;
 		border-radius: 16px;
 	}
@@ -93,6 +94,9 @@
 	}
 
 	.infoSide{
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
 		margin-right: 16px;
 
 		.taskName{
@@ -102,9 +106,29 @@
 		}
 
 		.taskDesc{
+			font-family: inherit;
 			margin-top: 0;
 			margin-bottom: 16px;
 			color: $c-gray;
+		}
+
+		.formAlterar{
+
+			.taskName,
+			.taskDesc{
+				padding: 8px 12px;
+				border: 1px dashed $c-gray;
+			}
+		}
+
+		.infoView,
+		.formAlterar,
+		.actionWrapper{
+			display: none;
+
+			&.active{
+				display: block;
+			}
 		}
 	}
 
@@ -127,5 +151,8 @@
 		.comment{
 			transform: rotate(-180deg);
 		}
+	}
+
+	.actionWrapper{
 	}
 }

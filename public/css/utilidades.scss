@@ -233,6 +233,8 @@ fieldset{
 
 // Display
 .d-flex{ display: flex; }
+.d-none{ display: none; }
+.d-block{ display: block; }
 
 // Alinhamento
 .align-items-end{ align-items: flex-end !important; }
@@ -362,6 +364,26 @@ fieldset{
 		&:hover,
 		&:focus{
 			background-color: darken($c-gray, 8%)
+		}
+	}
+
+	&-success{
+		background-color: $c-green;
+		color: darken($c-green, 50%);
+
+		&:hover,
+		&:focus{
+			background-color: darken($c-green, 8%)
+		}
+	}
+
+	&-danger{
+		background-color: $c-red;
+		color: white;
+
+		&:hover,
+		&:focus{
+			background-color: darken($c-red, 8%)
 		}
 	}
 
