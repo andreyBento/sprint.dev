@@ -1,7 +1,7 @@
 import styles from '/public/css/Login.module.scss';
 import React, {useState, useEffect} from "react";
 import { useRouter } from 'next/router';
-import PasswordInput from "/PasswordInput";
+import PasswordInput from "./PasswordInput";
 
 export default function CadastroAuth() {
     const [email, setEmail] = useState('');
