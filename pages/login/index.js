@@ -1,7 +1,7 @@
 import styles from '/public/css/Login.module.scss';
 import React  from 'react';
 import Link from "next/link";
-import LoginAuth from "/components/loginAuth";
+import LoginAuth from "/components/LoginAuth";
 
 export default function Login() {
 
