@@ -17,7 +17,7 @@ import br.sprintdev.model.service.ProjectService;
 import br.sprintdev.model.entity.Box;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "https://sprint-dev-git-master-andreybento.vercel.app"})
 @RequestMapping("/boxes")
 public class BoxController {
 

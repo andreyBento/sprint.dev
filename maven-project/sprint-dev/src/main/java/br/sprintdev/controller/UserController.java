@@ -19,7 +19,7 @@ import br.sprintdev.controller.form.UserForm;
 import br.sprintdev.model.entity.User;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "https://sprint-dev-git-master-andreybento.vercel.app"})
 @RequestMapping("/users")
 public class UserController {
 

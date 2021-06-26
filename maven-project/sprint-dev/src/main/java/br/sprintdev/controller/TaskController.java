@@ -19,7 +19,7 @@ import br.sprintdev.model.service.SprintService;
 import br.sprintdev.model.service.TaskService;
 
 @RestController
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = {"http://localhost:3000", "https://sprint-dev-git-master-andreybento.vercel.app"})
 @RequestMapping("/tasks")
 public class TaskController {
 	

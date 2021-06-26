@@ -84,6 +84,13 @@ export default function Aside() {
         }
     }
 
+    function signOut() {
+        let auth2 = gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
+        });
+    }
+
     return(
         <aside className={styles.aside}>
             <div className={`d-flex align-items-center justify-content-between ${styles.logo}`}>
