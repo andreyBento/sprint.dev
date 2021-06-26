@@ -3,9 +3,11 @@ import UserBar from "./UserBar";
 import Link from "next/link";
 import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
+import { signOut, useSession } from 'next-auth/client';
 
 export default function Aside() {
     const router = useRouter();
+    const [session, loading] = useSession();
 
     const [user, setUser] = useState([]);
     useEffect(() => {
@@ -24,9 +26,30 @@ export default function Aside() {
             .catch(err => console.error(err))
     }, []);
 
+    const [hadSession, setHadSession] = useState(false);
+    useEffect(() => {
+        if(localStorage.getItem('COMMON') === 'true'){
+            setHadSession(false);
+        } else {
+            setHadSession(true);
+        }
+    }, []);
+    useEffect(() => {
+        if(session === null){
+            if(hadSession === true){
+                window.localStorage.removeItem('AUTH_TOKEN');
+                router.push(`/login`);
+            }
+        }
+    }, [session]);
+
     function logout() {
-        window.localStorage.removeItem('AUTH_TOKEN');
-        router.push(`/login`);
+        if(session !== null){
+            signOut();
+        } else {
+            window.localStorage.removeItem('AUTH_TOKEN');
+            router.push(`/login`);
+        }
     }
 
     function enterSprint(sprint) {
@@ -82,13 +105,6 @@ export default function Aside() {
         } else {
             setProjects(user.projects);
         }
-    }
-
-    function signOut() {
-        let auth2 = gapi.auth2.getAuthInstance();
-        auth2.signOut().then(function () {
-            console.log('User signed out.');
-        });
     }
 
     return(

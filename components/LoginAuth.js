@@ -16,6 +16,7 @@ export default function LoginAuth() {
         let exist = false;
         existingUsers.map((item, index) => {
             if(item.email === email && item.password === password){
+                localStorage.setItem('COMMON', true);
                 localStorage.setItem('AUTH_TOKEN', item.id);
                 exist = true;
             }

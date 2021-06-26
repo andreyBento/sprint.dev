@@ -441,6 +441,23 @@ fieldset{
 	}
 }
 
+.btn-github{
+	background-color: white;
+	color: $c-dark;
+
+	&:hover,
+	&:focus{
+		background-color: darken(white, 8%)
+	}
+
+	&_icon{
+		display: inline-block;
+		vertical-align: middle;
+		margin-right: 8px;
+		font-size: 20px;
+	}
+}
+
 .row{
 	display: flex;
 	flex-direction: column;
