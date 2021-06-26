@@ -266,7 +266,8 @@ export default function Home() {
         } else {
             const sprint = {
                 name: sprintName,
-                expiresAt: sprintDate,
+                createdAt: new Date().toString(),
+                expiresAt: new Date(`${sprintDate} 18:00`).toString(),
                 idBox: Number(sprintBox)
             };
             const options = {

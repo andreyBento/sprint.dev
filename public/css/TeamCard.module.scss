@@ -60,6 +60,10 @@
 			text-transform: uppercase;
 			border-radius: 50%;
 		}
+
+		li + li{
+			margin-left: 16px;
+		}
 	}
 
 	&Footer{

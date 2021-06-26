@@ -11,28 +11,30 @@ public class EventDto {
     private String name;
     private String msg;
     private String date;
+    private List<TeamDtoAlt> teams;
 
     public EventDto(Event event) {
         this.id = event.getId();
         this.name = event.getName();
         this.msg = event.getMsg();
         this.date = event.getDate();
+        this.teams = TeamDtoAlt.converter(event.getTeams());
     }
 
     public Long getId() {
         return id;
     }
-
     public String getName() {
         return name;
     }
-
     public String getMsg() {
         return msg;
     }
-
     public String getDate() {
         return date;
+    }
+    public List<TeamDtoAlt> getTeams() {
+        return teams;
     }
 
     public static List<EventDto> converter(List<Event> events) {

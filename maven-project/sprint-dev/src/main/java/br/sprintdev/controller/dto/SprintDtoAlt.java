@@ -9,6 +9,7 @@ public class SprintDtoAlt {
 
 	private Long id;
 	private String name;
+	private String createdAt;
 	private String expiresAt;
 	private BoxDtoAlt box;
 	private ProjectDtoAlt project;
@@ -16,6 +17,7 @@ public class SprintDtoAlt {
 	public SprintDtoAlt(Sprint sprint) {
 		this.id = sprint.getId();
 		this.name = sprint.getName();
+		this.createdAt = sprint.getCreatedAt();
 		this.expiresAt = sprint.getExpiresAt();
 		this.box = new BoxDtoAlt(sprint.getSprint_owner());
 		this.project = new ProjectDtoAlt(sprint.getSprint_owner().getBox_owner());
@@ -26,6 +28,9 @@ public class SprintDtoAlt {
 	}
 	public String getName() {
 		return name;
+	}
+	public String getCreatedAt() {
+		return createdAt;
 	}
 	public String getExpiresAt() {
 		return expiresAt;

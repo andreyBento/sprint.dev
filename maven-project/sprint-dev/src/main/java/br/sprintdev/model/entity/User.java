@@ -17,7 +17,6 @@ public class User extends AbstractEntity<Long> {
 	private String lastName;
 	
 	@NotBlank
-	@Column(unique = true)
 	private String email;
 	
 	@NotBlank

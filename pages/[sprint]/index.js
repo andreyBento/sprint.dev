@@ -7,6 +7,7 @@ import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
 import BacklogPage from "../../components/BacklogPage";
 import TeamsPage from "../../components/TeamsPage";
 import EventPage from "../../components/EventPage";
+import GraphPage from "../../components/GraphPage";
 
 export default function SprintInterna() {
 
@@ -252,6 +253,7 @@ export default function SprintInterna() {
     const [activeUrl, setActiveUrl] = useState('backlog');
     function changeUrl(url) {
         setActiveUrl(url);
+        updateSprint();
     }
 
     const [teams, setTeams] = useState([]);
@@ -286,7 +288,10 @@ export default function SprintInterna() {
                 return <TeamsPage teams={teams} updateTeams={() => loadTeams()} updateSprint={() => updateSprint()} />;
 
             case 'meetings':
-                return <EventPage updateSprint={() => updateSprint()} />
+                return <EventPage updateSprint={() => updateSprint()} sprint={sprint} />
+
+            case 'graphs':
+                return <GraphPage updateSprint={() => updateSprint()} sprint={sprint} />
         }
     };
 

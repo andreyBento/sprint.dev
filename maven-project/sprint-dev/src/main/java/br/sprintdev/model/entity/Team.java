@@ -23,7 +23,7 @@ public class Team extends AbstractEntity<Long> {
     @OneToMany(mappedBy = "area")
     private List<Task> team_tasks;
 
-    @ManyToMany
+    @ManyToMany(mappedBy = "teams")
     private List<Event> team_events;
 
     public Team() {

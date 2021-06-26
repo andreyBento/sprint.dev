@@ -7,6 +7,7 @@ import br.sprintdev.model.service.BoxService;
 public class SprintForm {
 	
 	private String name;
+	private String createdAt;
 	private String expiresAt;
 	private Long idBox;
 	
@@ -19,10 +20,13 @@ public class SprintForm {
 	public String getExpiresAt() {
 		return expiresAt;
 	}
-	
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
 	public Sprint convert(BoxService service) {
 		Box box = service.findById(idBox);
-		return new Sprint(name, expiresAt, box);
+		return new Sprint(name, createdAt, expiresAt, box);
 	}
 
 }

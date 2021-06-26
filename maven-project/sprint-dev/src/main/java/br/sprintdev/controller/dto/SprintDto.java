@@ -9,16 +9,20 @@ public class SprintDto {
 	
 	private Long id;
 	private String name;
+	private String createdAt;
 	private String expiresAt;
 	private List<TaskDto> tasks;
 	private List<TeamDto> teams;
+	private List<EventDto> events;
 	
 	public SprintDto(Sprint sprint) {
 		this.id = sprint.getId();
 		this.name = sprint.getName();
+		this.createdAt = sprint.getCreatedAt();
 		this.expiresAt = sprint.getExpiresAt();
 		this.tasks = TaskDto.converter(sprint.getTasks());
 		this.teams = TeamDto.converter(sprint.getTeams());
+		this.events = EventDto.converter(sprint.getEvents());
 	}
 	
 	public Long getId() {
@@ -26,6 +30,9 @@ public class SprintDto {
 	}
 	public String getName() {
 		return name;
+	}
+	public String getCreatedAt() {
+		return createdAt;
 	}
 	public String getExpiresAt() {
 		return expiresAt;
@@ -35,6 +42,9 @@ public class SprintDto {
 	}
 	public List<TaskDto> getTasks() {
 		return tasks;
+	}
+	public List<EventDto> getEvents() {
+		return events;
 	}
 
 	public static List<SprintDto> converter(List<Sprint> sprints) {

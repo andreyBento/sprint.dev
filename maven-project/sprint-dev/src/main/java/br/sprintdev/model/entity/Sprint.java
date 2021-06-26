@@ -20,7 +20,10 @@ public class Sprint extends AbstractEntity<Long> {
 	@ManyToOne
 	@JoinColumn(name = "project_sprint_id")
 	private Project project_sprint;
-	
+
+	@NotNull
+	private String createdAt;
+
 	@NotNull
 	private String expiresAt;
 
@@ -37,8 +40,9 @@ public class Sprint extends AbstractEntity<Long> {
 		
 	}
 	
-	public Sprint(String name, String expireAt, Box box) {
+	public Sprint(String name, String createdAt, String expireAt, Box box) {
 		this.name = name;
+		this.createdAt = createdAt;
 		this.expiresAt = expireAt;
 		this.sprint_owner = box;
 	}
@@ -97,5 +101,13 @@ public class Sprint extends AbstractEntity<Long> {
 
 	public void setTeams(List<Team> teams) {
 		this.teams = teams;
+	}
+
+	public String getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(String createdAt) {
+		this.createdAt = createdAt;
 	}
 }

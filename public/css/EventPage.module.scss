@@ -1,0 +1,172 @@
+@import "variaveis";
+
+.eventWrapper{
+	margin-top: 32px;
+}
+
+.btnAddEvent{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	flex-direction: column;
+	min-width: 176px;
+	min-height: 108px;
+	padding: 16px;
+	background-color: rgba(white, 0.35);
+	border: 1px dashed $c-gray;
+	border-radius: 16px;
+	transition: all ease 0.4s;
+
+	&Plus{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 24px;
+		height: 24px;
+		background-color: $c-primary;
+		color: white;
+		font-size: 12px;
+		border: none;
+		border-radius: 50%;
+		cursor: pointer;
+		transition: all ease 0.4s;
+
+		&:hover,
+		&:focus{
+			background-color: lighten($c-primary, 8%);
+		}
+	}
+
+	&Form{
+		display: none;
+	}
+
+	.label{
+		display: block;
+		margin-bottom: 2px;
+		font-size: 12px;
+	}
+
+	.input{
+		width: 100% !important;
+		max-width: 100%;
+		min-height: 26px;
+		padding: 6px 16px;
+		background-color: white;
+		font-size: 12px;
+		font-family: 'Montserrat Alternates', sans-serif;
+		border-radius: 20px;
+		border: none;
+
+		&Color{
+			padding: 2px 16px;
+		}
+	}
+
+	.error{
+		.label{
+			color: $c-red;
+		}
+
+		.input{
+			box-shadow: 0 0 0 1px $c-red;
+		}
+	}
+
+	&.active{
+		min-width: 80vw;
+
+		@media (min-width: 992px){
+			min-width: 100%;
+		}
+
+		.btnAddTaskPlus{
+			display: none;
+		}
+
+		.btnAddTaskForm{
+			display: block;
+		}
+	}
+}
+
+.cards{
+	display: flex;
+	flex-direction: column;
+
+	@media (min-width: 992px){
+		flex-direction: row;
+		flex-wrap: wrap;
+	}
+
+	.eventCard + .eventCard{
+		margin-top: 16px;
+
+		@media (min-width: 992px){
+			margin-top: 0;
+			margin-left: 16px;
+		}
+	}
+}
+
+.eventCard{
+	display: flex;
+	flex-direction: column;
+	width: 100%;
+
+	@media (min-width: 992px){
+		max-width: 240px;
+	}
+
+	.cardDate{
+		display: flex;
+		align-items: center;
+		font-size: 64px;
+		font-weight: 700;
+
+		&Info{
+			display: flex;
+			flex-direction: column;
+			margin-left: 8px;
+			font-size: 16px;
+			font-weight: 400;
+
+			&Hour{
+				color: $c-gray;
+			}
+		}
+	}
+
+	&Box{
+		flex: 1;
+		padding: 16px;
+		background-color: white;
+		border-radius: 16px;
+	}
+
+	&Name{
+		font-weight: 500;
+	}
+
+	&Msg{
+		margin-top: 8px;
+		font-size: 14px;
+		color: $c-gray;
+	}
+
+	&Teams{
+		display: flex;
+		align-items: center;
+		margin-top: 8px;
+
+		li + li {
+			margin-left: 8px;
+		}
+	}
+
+	&Team{
+		padding: 8px;
+		color: white;
+		border-radius: 8px;
+	}
+}

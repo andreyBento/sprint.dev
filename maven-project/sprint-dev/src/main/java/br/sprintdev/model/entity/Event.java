@@ -23,17 +23,18 @@ public class Event extends AbstractEntity<Long> {
     @JoinColumn(name = "event_sprint_id")
     private Sprint sprint;
 
-    @ManyToMany(mappedBy = "team_events")
+    @ManyToMany
     private List<Team> teams;
 
     public Event(){
 
     }
 
-    public Event(String name, String msg, String date, Sprint sprint){
+    public Event(String name, String msg, String date, List<Team> teams, Sprint sprint){
         this.name = name;
         this.msg = msg;
         this.date = date;
+        this.teams = teams;
         this.sprint = sprint;
     }
 

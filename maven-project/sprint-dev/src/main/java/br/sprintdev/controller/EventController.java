@@ -9,6 +9,7 @@ import br.sprintdev.model.entity.Comment;
 import br.sprintdev.model.entity.Event;
 import br.sprintdev.model.service.EventService;
 import br.sprintdev.model.service.SprintService;
+import br.sprintdev.model.service.TeamService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,6 +30,9 @@ public class EventController {
     @Autowired
     private SprintService sprintService;
 
+    @Autowired
+    private TeamService teamService;
+
     @GetMapping("/")
     public List<EventDto> listAll() {
         List<Event> events = service.findAll();
@@ -44,7 +48,7 @@ public class EventController {
     @PostMapping("/add")
     @Transactional
     public ResponseEntity<EventDto> create(@RequestBody EventForm form, UriComponentsBuilder uriBuilder) {
-        Event event = form.convert(sprintService);
+        Event event = form.convert(sprintService, teamService);
         service.create(event);
 
         URI uri = uriBuilder.path("/events/{id}").buildAndExpand(event.getId()).toUri();
