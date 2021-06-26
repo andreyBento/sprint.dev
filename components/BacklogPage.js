@@ -1,4 +1,4 @@
-import styles from "../public/css/SprintInterna.module.scss";
+import styles from "/public/css/SprintInterna.module.scss";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";

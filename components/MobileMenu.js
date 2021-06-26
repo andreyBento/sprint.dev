@@ -1,4 +1,4 @@
-import styles from '../public/css/MobileMenu.module.scss';
+import styles from '/public/css/MobileMenu.module.scss';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faPlus, faCalendar, faComment, faColumns, faHome } from '@fortawesome/free-solid-svg-icons'
 import Link from "next/link";

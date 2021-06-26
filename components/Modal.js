@@ -1,4 +1,4 @@
-import styles from "../public/css/Modal.module.scss";
+import styles from "/public/css/Modal.module.scss";
 import {faTimes} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import React from "react";

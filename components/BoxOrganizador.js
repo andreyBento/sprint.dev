@@ -1,4 +1,4 @@
-import styles from "../public/css/BoxOrganizador.module.scss";
+import styles from "/public/css/BoxOrganizador.module.scss";
 import SprintItem from "./SprintItem";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPencilAlt, faTrash} from "@fortawesome/free-solid-svg-icons";

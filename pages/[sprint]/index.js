@@ -1,13 +1,13 @@
-import styles from '../../public/css/SprintInterna.module.scss';
-import Aside from "../../components/Aside";
+import styles from '/public/css/SprintInterna.module.scss';
+import Aside from "/components/Aside";
 import React, {useState, useEffect} from "react";
 import Link from "next/link";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
-import BacklogPage from "../../components/BacklogPage";
-import TeamsPage from "../../components/TeamsPage";
-import EventPage from "../../components/EventPage";
-import GraphPage from "../../components/GraphPage";
+import BacklogPage from "/components/BacklogPage";
+import TeamsPage from "/components/TeamsPage";
+import EventPage from "/components/EventPage";
+import GraphPage from "/components/GraphPage";
 
 export default function SprintInterna() {
 

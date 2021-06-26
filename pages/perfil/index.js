@@ -1,10 +1,10 @@
-import styles from '../../public/css/Perfil.module.scss';
-import Aside from "../../components/Aside";
+import styles from '/public/css/Perfil.module.scss';
+import Aside from "/components/Aside";
 import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
-import PasswordInput from "../../components/PasswordInput";
+import PasswordInput from "/components/PasswordInput";
 import {useRouter} from "next/router";
 
 export default function Perfil() {

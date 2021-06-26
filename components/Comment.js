@@ -1,4 +1,4 @@
-import styles from '../public/css/Comment.module.scss';
+import styles from '/public/css/Comment.module.scss';
 
 export default function Comment({style, comment, isMine = false}) {
 

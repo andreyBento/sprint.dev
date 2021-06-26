@@ -1,4 +1,4 @@
-import styles from '../public/css/TeamCard.module.scss';
+import styles from '/public/css/TeamCard.module.scss';
 import React, {useEffect, useState} from "react";
 import Modal from "./Modal";
 import Select from 'react-select';

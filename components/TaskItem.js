@@ -1,4 +1,4 @@
-import styles from "../public/css/TaskItem.module.scss";
+import styles from "/public/css/TaskItem.module.scss";
 import React, {useRef, useState} from "react";
 import Modal from "./Modal";
 import Comment from "./Comment";

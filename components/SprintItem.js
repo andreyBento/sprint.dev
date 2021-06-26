@@ -1,4 +1,4 @@
-import styles from "../public/css/SprintItem.module.scss";
+import styles from "/public/css/SprintItem.module.scss";
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faPencilAlt, faTrash} from '@fortawesome/free-solid-svg-icons'
 import React, {useState} from "react";

@@ -1,4 +1,4 @@
-import styles from "../public/css/ModalSimple.module.scss";
+import styles from "/public/css/ModalSimple.module.scss";
 
 export default function ModalSimple({isVisible = false, children, position = 'bottom', center = false}) {
     return(

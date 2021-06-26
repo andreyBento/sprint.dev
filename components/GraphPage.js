@@ -1,4 +1,4 @@
-import styles from '../public/css/GraphPage.module.scss';
+import styles from '/public/css/GraphPage.module.scss';
 import Highcharts from 'highcharts'
 import HC_exporting from 'highcharts/modules/exporting'
 import HighchartsReact from 'highcharts-react-official'

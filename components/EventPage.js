@@ -1,4 +1,4 @@
-import styles from '../public/css/EventPage.module.scss';
+import styles from '/public/css/EventPage.module.scss';
 import React, {useEffect, useState} from "react";
 import Select from "react-select";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";

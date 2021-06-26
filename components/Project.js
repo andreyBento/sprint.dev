@@ -1,4 +1,4 @@
-import styles from "../public/css/Project.module.scss";
+import styles from "/public/css/Project.module.scss";
 import Modal from "./Modal";
 import React, {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";

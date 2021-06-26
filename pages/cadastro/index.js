@@ -1,7 +1,7 @@
-import styles from '../../public/css/Login.module.scss';
+import styles from '/public/css/Login.module.scss';
 import React  from 'react';
 import Link from "next/link";
-import CadastroAuth from "../../components/cadastroAuth";
+import CadastroAuth from "/components/cadastroAuth";
 
 export default function Cadastro() {
 

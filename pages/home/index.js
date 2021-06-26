@@ -1,14 +1,14 @@
-import styles from '../../public/css/Home.module.scss';
-import Aside from "../../components/Aside";
+import styles from '/public/css/Home.module.scss';
+import Aside from "/components/Aside";
 import React, {useState, useEffect} from "react";
-import MobileMenu from "../../components/MobileMenu";
-import Project from "../../components/Project";
-import BoxOrganizador from "../../components/BoxOrganizador";
+import MobileMenu from "/components/MobileMenu";
+import Project from "/components/Project";
+import BoxOrganizador from "/components/BoxOrganizador";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
-import ModalSimple from "../../components/ModalSimple";
-import Modal from "../../components/Modal";
-import UserBar from "../../components/UserBar";
+import ModalSimple from "/components/ModalSimple";
+import Modal from "/components/Modal";
+import UserBar from "/components/UserBar";
 
 export default function Home() {
 

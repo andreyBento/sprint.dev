@@ -1,4 +1,4 @@
-import styles from "../public/css/SprintInterna.module.scss";
+import styles from "/public/css/SprintInterna.module.scss";
 import TeamCard from "./TeamCard";
 import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
