@@ -62,6 +62,7 @@ export default function BacklogPage({dragEnd, colunm1Tasks, colunm2Tasks, colunm
                 idSprint: sprint.id,
                 status: 'backlog',
                 priority: taskPrioridade,
+                updatedAt: new Date().toString(),
                 idTeam: teamBox.id,
             };
             if(task.idTeam === undefined){
@@ -72,6 +73,7 @@ export default function BacklogPage({dragEnd, colunm1Tasks, colunm2Tasks, colunm
                     idSprint: sprint.id,
                     status: 'backlog',
                     priority: taskPrioridade,
+                    updatedAt: new Date().toString(),
                     idTeam: idTeam,
                 };
             }

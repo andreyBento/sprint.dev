@@ -126,14 +126,14 @@ export default function Home() {
                         listProjects.map((item, index) => {
                             if(projectActive.id === item.id){
                                 return(
-                                    <li className={styles.project} key={index} onClick={() => selectProject(item)} >
-                                        <Project project={item} active={true} />
+                                    <li className={styles.project} key={index} >
+                                        <Project project={item} active={true} onClick={() => selectProject(item)} />
                                     </li>
                                 )
                             } else {
                                 return(
-                                    <li className={styles.project} key={index} onClick={() => selectProject(item)} >
-                                        <Project project={item} />
+                                    <li className={styles.project} key={index} >
+                                        <Project project={item} onClick={() => selectProject(item)} />
                                     </li>
                                 )
                             }

@@ -15,6 +15,7 @@ public class TaskDto {
 	private TeamDtoAlt area;
 	private List<WorkerDto> workers;
     private List<CommentDto> comments;
+    private String updatedAt;
 	
 	public Long getId() {
 		return id;
@@ -38,6 +39,9 @@ public class TaskDto {
     public List<CommentDto> getComments() {
         return comments;
     }
+	public String getUpdatedAt() {
+		return updatedAt;
+	}
 
 	public TaskDto(Task task) {
 		this.id = task.getId();
@@ -48,6 +52,7 @@ public class TaskDto {
 		this.area = new TeamDtoAlt(task.getArea());
 		this.workers = WorkerDto.converter(task.getWorkers());
 		this.comments = CommentDto.converter(task.getComments());
+		this.updatedAt = task.getUpdatedAt();
 	}
 	
 	public static List<TaskDto> converter(List<Task> tasksP) {

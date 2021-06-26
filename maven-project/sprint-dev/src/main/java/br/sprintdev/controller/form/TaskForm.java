@@ -13,6 +13,7 @@ public class TaskForm {
 	private Long idSprint;
 	private String status;
 	private String priority;
+	private String updatedAt;
 	private Long idTeam;
 	
 	public String getName() {
@@ -33,11 +34,14 @@ public class TaskForm {
 	public Long getIdTeam() {
 		return idTeam;
 	}
+	public String getUpdatedAt() {
+		return updatedAt;
+	}
 
 	public Task convert(SprintService service, TeamService teamService) {
 		Sprint sprint = service.findById(idSprint);
 		Team area = teamService.findById(idTeam);
-		return new Task(name, desc, sprint, status, priority, area);
+		return new Task(name, desc, sprint, status, priority, updatedAt, area);
 	}
 
 }

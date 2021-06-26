@@ -6,7 +6,11 @@ import br.sprintdev.model.entity.Box;
 public class UpdateBoxForm {
 
 	private String name;
-	
+
+	public String getName() {
+		return name;
+	}
+
 	public Box update(Long id, BoxService service) {
 		Box box = service.findById(id);
 		

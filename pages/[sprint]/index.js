@@ -164,7 +164,8 @@ export default function SprintInterna() {
                     winner = [];
 
                 const updateStatus = {
-                    status: result.destination.droppableId
+                    status: result.destination.droppableId,
+                    updatedAt: new Date().toString()
                 }
                 const optionsUpdateStatus = {
                     method: 'PUT',
