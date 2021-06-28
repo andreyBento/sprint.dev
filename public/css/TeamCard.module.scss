@@ -121,3 +121,23 @@
 	border-radius: 50%;
 	background-color: white;
 }
+
+.actionWrapper{
+
+	&Btn{
+		width: 100%;
+
+		@media (min-width: 992px){
+			width: auto;
+		}
+
+		&.actionWrapperBtn{
+			margin-top: 16px;
+
+			@media (min-width: 992px) {
+				margin-top: 0;
+				margin-left: 16px;
+			}
+		}
+	}
+}

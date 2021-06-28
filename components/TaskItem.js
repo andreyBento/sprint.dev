@@ -2,7 +2,7 @@ import styles from "/public/css/TaskItem.module.scss";
 import React, {useRef, useState} from "react";
 import Modal from "./Modal";
 import Comment from "./Comment";
-import {faComment} from "@fortawesome/free-solid-svg-icons";
+import {faComment, faComments, faInfo} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import apiUrl from "../apiUrl/apiUrl";
 
@@ -114,6 +114,15 @@ export default function TaskItem ({task, keyValue, click, userId, updateSprint, 
         }
     }
 
+    const [section, setSection] = useState('info');
+    function changeSection(){
+        if(section === 'info'){
+            setSection('comments');
+        } else {
+            setSection('info');
+        }
+    }
+
     return (
         <div>
             <div className={styles.task} key={keyValue} onClick={() => openModal()}>
@@ -142,7 +151,10 @@ export default function TaskItem ({task, keyValue, click, userId, updateSprint, 
             </div>
             <Modal isVisible={task.modal === undefined ? false : task.modal} close={() => closeModal()} bigModal={true}>
                 <div className={styles.modalTask}>
-                    <div className={styles.infoSide}>
+                    <button className={`btn btn-primary ${styles.btnSwitch}`} onClick={() => changeSection()}>
+                        <FontAwesomeIcon icon={ section === 'comments' ? faInfo : faComments } />
+                    </button>
+                    <div className={`${styles.infoSide} ${section === 'info' ? styles.active : '' }`}>
                         <div className={styles.cima}>
                             <div className="d-flex align-items-center">
                                 <p className={styles.taskArea} style={{backgroundColor: task.area.bgColor}}>{task.area.name}</p>
@@ -150,7 +162,7 @@ export default function TaskItem ({task, keyValue, click, userId, updateSprint, 
                             </div>
                             <form className={`${styles.formAlterar} ${alterar === true ? styles.active : ''}`}>
                                 <input type="text" defaultValue={nomeNovo} className={`input ${styles.taskName}`} onKeyUp={(e) => setNomeNovo(e.target.value)}/>
-                                <textarea name="" id="" className={`input ${styles.taskDesc}`} defaultValue={descNovo} onKeyUp={(e) => setDescNovo(e.target.value)} />
+                                <textarea name="" id="" className={`input textarea ${styles.taskDesc}`} defaultValue={descNovo} onKeyUp={(e) => setDescNovo(e.target.value)} />
                             </form>
                             <div className={`${styles.infoView} ${alterar === false ? styles.active : ''}`}>
                                 <h3 className={styles.taskName}>{task.name}</h3>
@@ -170,15 +182,15 @@ export default function TaskItem ({task, keyValue, click, userId, updateSprint, 
                             }
                         </div>
                         <div className={`${styles.actionWrapper} ${alterar === true ? styles.active : ''}`}>
-                            <button className={`btn btn-primary`} onClick={() => submitForm()}>Confirmar alteração</button>
-                            <button className={`btn btn-cinza ml-2`} onClick={() => formAlterar()}>Cancelar alteração</button>
+                            <button className={`btn btn-primary ${styles.actionWrapperBtn}`} onClick={() => submitForm()}>Confirmar alteração</button>
+                            <button className={`btn btn-cinza ${styles.actionWrapperBtn}`} onClick={() => formAlterar()}>Cancelar alteração</button>
                         </div>
                         <div className={`${styles.actionWrapper} ${alterar === false ? styles.active : ''}`}>
-                            <button className={`btn btn-cinza`} onClick={() => formAlterar()}>Alterar task</button>
-                            <button className={`btn btn-danger ml-2`} onClick={() => deletarTask()}>Deletar task</button>
+                            <button className={`btn btn-cinza ${styles.actionWrapperBtn}`} onClick={() => formAlterar()}>Alterar task</button>
+                            <button className={`btn btn-danger ${styles.actionWrapperBtn}`} onClick={() => deletarTask()}>Deletar task</button>
                         </div>
                     </div>
-                    <div className={styles.commentsSide}>
+                    <div className={`${styles.commentsSide} ${section === 'comments' ? styles.active : '' }`}>
                         <div className={styles.comments}>
                             {comments.map((item, index) => {
                                 if(item.owner.id === userId){
@@ -197,9 +209,9 @@ export default function TaskItem ({task, keyValue, click, userId, updateSprint, 
                             })}
                         </div>
                         <form onSubmit={(event) => commentAdd(event)} ref={commentForm}>
-                            <fieldset className={`d-flex align-items-center ${commentValue === false ? 'error' : ''}`}>
-                                <input type="text" className="input mt-0 mr-3" id="comment" onKeyUp={(event) => setCommentValue(event.target.value)}/>
-                                <button className="btn btn-primary">Comentar</button>
+                            <fieldset className={`d-flex align-items-center ${styles.commentInputWrapper} ${commentValue === false ? 'error' : ''}`}>
+                                <input type="text" className={`input mt-0 ${styles.commentInput}`} id="comment" onKeyUp={(event) => setCommentValue(event.target.value)}/>
+                                <button className={`btn btn-primary ${styles.commentBtn}`}>Comentar</button>
                             </fieldset>
                         </form>
                     </div>

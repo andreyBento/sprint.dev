@@ -10,6 +10,7 @@ import ModalSimple from "/components/ModalSimple";
 import Modal from "/components/Modal";
 import UserBar from "/components/UserBar";
 import apiUrl from "../../apiUrl/apiUrl";
+import Loading from "../../components/Loading";
 
 export default function Home() {
 
@@ -38,6 +39,9 @@ export default function Home() {
             fetch(`${url}/users/${res.id}`, { method: 'GET' })
                 .then((res) => res.json())
                 .then((res) => {
+                    if(document.getElementById('loader').length > 0){
+                        document.getElementById('loader').remove();
+                    }
                     setProjects(res.projects);
                 })
                 .catch(err => console.error(err))
@@ -45,6 +49,9 @@ export default function Home() {
             fetch(`${url}/users/${user.id}`, { method: 'GET' })
                 .then((res) => res.json())
                 .then((res) => {
+                    if(document.getElementById('loader').length > 0){
+                        document.getElementById('loader').remove();
+                    }
                     setProjects(res.projects);
                 })
                 .catch(err => console.error(err))
@@ -316,7 +323,7 @@ export default function Home() {
     return (
         <div className="d-flex">
             <Aside/>
-
+            <Loading id={'loader'} />
             <div className={`conteudo`}>
                 <div className={styles.userbarMobile}>
                     <UserBar user={user}/>

@@ -4,6 +4,7 @@ import Select from "react-select";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import apiUrl from "../apiUrl/apiUrl";
+import EventCard from "./EventCard";
 
 export default function EventPage({updateSprint, sprint}){
 
@@ -83,51 +84,6 @@ export default function EventPage({updateSprint, sprint}){
         setEventTeams(selectedArray);
     }
 
-    function EventDate({data}) {
-        const dataFinal = new Date(data);
-        let diaDaSemana = '';
-
-        switch (dataFinal.getDay()){
-            case 0:
-                diaDaSemana = 'Domingo';
-                break;
-
-            case 1:
-                diaDaSemana = 'Segunda';
-                break;
-
-            case 2:
-                diaDaSemana = 'Terça';
-                break;
-
-            case 3:
-                diaDaSemana = 'Quarta';
-                break;
-
-            case 4:
-                diaDaSemana = 'Quinta';
-                break;
-
-            case 5:
-                diaDaSemana = 'Sexta';
-                break;
-
-            case 6:
-                diaDaSemana = 'Sábado';
-                break;
-        }
-
-        return (
-            <div className={styles.cardDate}>
-                <p>{dataFinal.getDate()}</p>
-                <div className={styles.cardDateInfo}>
-                    <p>{diaDaSemana}</p>
-                    <p className={styles.cardDateInfoHour}>{dataFinal.getHours() < 10 ? '0' + dataFinal.getHours() : dataFinal.getHours()} : {dataFinal.getMinutes() < 10 ? '0' + dataFinal.getMinutes() : dataFinal.getMinutes()}</p>
-                </div>
-            </div>
-        )
-    }
-
     return (
         <div className={styles.eventWrapper}>
             <div className={styles.btnAddEvent}>
@@ -176,27 +132,10 @@ export default function EventPage({updateSprint, sprint}){
                 sprintEvents.length > 0 &&
                     <ul className={styles.cards}>
                         {
-                            sprintEvents.map((item) => {
+                            sprintEvents.map((item, index) => {
                                 return (
-                                    <li className={styles.eventCard}>
-                                        <EventDate data={item.date} />
-                                        <div className={styles.eventCardBox}>
-                                            <p className={styles.eventCardName}>{item.name}</p>
-                                            <p className={styles.eventCardMsg}>{item.msg}</p>
-                                            <ul className={styles.eventCardTeams}>
-                                                {
-                                                    item.teams.map((team) => {
-                                                        return (
-                                                            <li>
-                                                                <div className={styles.eventCardTeam} style={{backgroundColor: team.bgColor}}>
-                                                                    {team.name}
-                                                                </div>
-                                                            </li>
-                                                        )
-                                                    })
-                                                }
-                                            </ul>
-                                        </div>
+                                    <li key={`ec${index}`} className={styles.cardsLi}>
+                                        <EventCard updateSprint={updateSprint} options={teamsOptions} item={item} />
                                     </li>
                                 )
                             })

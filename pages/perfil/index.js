@@ -7,6 +7,7 @@ import Link from "next/link";
 import PasswordInput from "/components/PasswordInput";
 import {useRouter} from "next/router";
 import apiUrl from "../../apiUrl/apiUrl";
+import Loading from "../../components/Loading";
 
 export default function Perfil() {
     const router = useRouter();
@@ -82,6 +83,9 @@ export default function Perfil() {
                 setUsername(res.username);
                 setEmail(res.email);
                 setBgColor(res.bgColor);
+                if(document.getElementById('loader').length > 0){
+                    document.getElementById('loader').remove();
+                }
             })
             .catch(err => console.error(err))
     }
@@ -138,6 +142,7 @@ export default function Perfil() {
     return (
         <div className="d-flex">
             <Aside/>
+            <Loading id={'loader'} />
             <div className={`conteudo`}>
                 <Link href={'/'}>
                     <a className={`btnVoltar`} tabIndex={0} aria-label={"Clique para retornar para a página inicial,"}>

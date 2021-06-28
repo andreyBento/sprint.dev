@@ -189,8 +189,10 @@ export default function TeamCard({team, updateTeams, updateSprint}) {
             <Modal isVisible={modalOpen} close={() => toggleModal()}>
                 <div className={styles.modalConteudo}>
                     <div className={`${styles.cardHeader}`}>
-                        <div className={styles.cardColor} style={{backgroundColor: teamBgColor}} />
-                        <input type="color" value={teamBgColor} className={`${styles.inputBgColor} ${updateTeam === false ? 'd-none' : ''}`} onChange={(e) => setTeamBgColor(e.target.value)}/>
+                        <div className="d-flex align-items-center">
+                            <div className={styles.cardColor} style={{backgroundColor: teamBgColor}} />
+                            <input type="color" value={teamBgColor} className={`${styles.inputBgColor} ${updateTeam === false ? 'd-none' : ''}`} onChange={(e) => setTeamBgColor(e.target.value)}/>
+                        </div>
                         <div className={`${updateTeam === true ? 'ml-2' : ''}`}>
                             <p className={`${styles.cardHeaderInfo} ${updateTeam === true ? 'pl-2' : ''}`}>
                                 <span className={styles.cardLabel}>{updateTeam === true ? 'Novo nome do time' : 'Time'}</span>
@@ -235,13 +237,13 @@ export default function TeamCard({team, updateTeams, updateSprint}) {
                         />
                         <button className={`btn btn-primary mt-2 ${styles.btnAdd}`}>Adicionar</button>
                     </form>
-                    <div className={`mt-6 ${updateTeam === false ? 'd-none' : 'd-block'}`}>
-                        <button className={`btn btn-success`} onClick={() => alterarTime()}>Confirmar atualização</button>
-                        <button className={`btn btn-cinza ml-2`} onClick={() => atualizarForm()}>Cancelar atualização</button>
+                    <div className={`mt-6 ${styles.actionWrapper} ${updateTeam === false ? 'd-none' : 'd-block'}`}>
+                        <button className={`btn btn-success ${styles.actionWrapperBtn}`} onClick={() => alterarTime()}>Confirmar atualização</button>
+                        <button className={`btn btn-cinza ${styles.actionWrapperBtn}`} onClick={() => atualizarForm()}>Cancelar atualização</button>
                     </div>
-                    <div className={`mt-6 ${updateTeam === true ? 'd-none' : 'd-block'}`}>
-                        <button className={`btn btn-cinza`} onClick={() => atualizarForm()}>Alterar time</button>
-                        <button className={`btn btn-danger ml-2`} onClick={() => deletarTime()}>Deletar time</button>
+                    <div className={`mt-6 ${styles.actionWrapper} ${updateTeam === true ? 'd-none' : 'd-block'}`}>
+                        <button className={`btn btn-cinza ${styles.actionWrapperBtn}`} onClick={() => atualizarForm()}>Alterar time</button>
+                        <button className={`btn btn-danger ${styles.actionWrapperBtn}`} onClick={() => deletarTime()}>Deletar time</button>
                     </div>
                 </div>
             </Modal>

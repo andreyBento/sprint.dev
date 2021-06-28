@@ -9,6 +9,7 @@ import TeamsPage from "/components/TeamsPage";
 import EventPage from "/components/EventPage";
 import GraphPage from "/components/GraphPage";
 import apiUrl from "../../apiUrl/apiUrl";
+import Loading from "../../components/Loading";
 
 export default function SprintInterna() {
 
@@ -73,6 +74,9 @@ export default function SprintInterna() {
                 setColunm4Tasks(array4);
 
                 setTeams(res.teams);
+                if(document.getElementById('loader').length > 0){
+                    document.getElementById('loader').remove();
+                }
             })
             .catch(err => console.error(err))
     }
@@ -252,7 +256,6 @@ export default function SprintInterna() {
                 setColunm4Tasks(newArray);
                 break;
         }
-        // updateArray(newArray);
     }
 
     const [activeUrl, setActiveUrl] = useState('backlog');
@@ -304,6 +307,7 @@ export default function SprintInterna() {
     return (
         <div className="d-flex">
             <Aside/>
+            <Loading id={'loader'} />
             <div className={`conteudo`}>
                 <div>
                     <Link href={'/'}>

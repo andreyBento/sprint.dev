@@ -99,7 +99,7 @@
 		flex-wrap: wrap;
 	}
 
-	.eventCard + .eventCard{
+	.cardsLi + .cardsLi{
 		margin-top: 16px;
 
 		@media (min-width: 992px){
@@ -108,6 +108,8 @@
 		}
 	}
 }
+
+
 
 .eventCard{
 	display: flex;
@@ -157,11 +159,12 @@
 	&Teams{
 		display: flex;
 		align-items: center;
+		flex-wrap: wrap;
 		margin-top: 8px;
 
-		li + li {
-			margin-left: 8px;
-		}
+		li{ margin-bottom: 8px; }
+
+		li + li { margin-left: 8px; }
 	}
 
 	&Team{
@@ -169,4 +172,30 @@
 		color: white;
 		border-radius: 8px;
 	}
+}
+
+.listaActions{
+	display: flex;
+	align-items: center;
+
+	.item{
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 24px;
+		height: 24px;
+		padding: 0;
+		font-size: 10px;
+		color: white;
+		border-radius: 50px;
+
+		& + .item{
+			margin-left: 8px;
+		}
+	}
+}
+
+.modalBox{
+	margin-top: 16px;
+	padding: 0;
 }

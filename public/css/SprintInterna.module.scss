@@ -227,10 +227,13 @@
 .listaTasks{
 	display: flex;
 	margin: 0 0 0 16px;
+	min-height: 120px;
+	width: 100%;
 
 	@media (min-width: 992px) {
 		display: block;
 		margin: 16px 0 0;
+		min-height: auto;
 	}
 
 	&Item{
