@@ -39,9 +39,7 @@ export default function Home() {
             fetch(`${url}/users/${res.id}`, { method: 'GET' })
                 .then((res) => res.json())
                 .then((res) => {
-                    if(document.getElementById('loader').length > 0){
-                        document.getElementById('loader').remove();
-                    }
+                    document.getElementById('loader').remove();
                     setProjects(res.projects);
                 })
                 .catch(err => console.error(err))
@@ -49,9 +47,7 @@ export default function Home() {
             fetch(`${url}/users/${user.id}`, { method: 'GET' })
                 .then((res) => res.json())
                 .then((res) => {
-                    if(document.getElementById('loader').length > 0){
-                        document.getElementById('loader').remove();
-                    }
+                    document.getElementById('loader').remove();
                     setProjects(res.projects);
                 })
                 .catch(err => console.error(err))
