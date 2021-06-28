@@ -4,6 +4,7 @@ import Link from "next/link";
 import {useRouter} from "next/router";
 import {useEffect, useState} from "react";
 import { signOut, useSession } from 'next-auth/client';
+import apiUrl from "../apiUrl/apiUrl";
 
 export default function Aside() {
     const router = useRouter();
@@ -16,8 +17,8 @@ export default function Aside() {
         };
 
         const userID = window.localStorage.getItem('AUTH_TOKEN');
-
-        fetch(`http://localhost:8080/users/${userID}`, options)
+        const url = apiUrl(window.location.origin);
+        fetch(`${url}/users/${userID}`, options)
             .then((res) => res.json())
             .then((res) => {
                 setUser(res);

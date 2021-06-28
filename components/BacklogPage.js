@@ -4,6 +4,7 @@ import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import {DragDropContext, Draggable, Droppable} from "react-beautiful-dnd";
 import TaskItem from "./TaskItem";
 import React, {useEffect, useRef, useState} from "react";
+import apiUrl from "../apiUrl/apiUrl";
 
 
 export default function BacklogPage({dragEnd, colunm1Tasks, colunm2Tasks, colunm3Tasks, colunm4Tasks, maxHeight, updateSprint, user, disableDrag, teams, updateTeams, sprint}) {
@@ -95,7 +96,8 @@ export default function BacklogPage({dragEnd, colunm1Tasks, colunm2Tasks, colunm
             },
             body: JSON.stringify(newTeam)
         };
-        return fetch(`http://localhost:8080/teams/add`, optionsTeam)
+        const url = apiUrl(window.location.origin);
+        return fetch(`${url}/teams/add`, optionsTeam)
             .then((res) => res.json())
             .then((res) => {
                 updateTeams();
@@ -113,7 +115,8 @@ export default function BacklogPage({dragEnd, colunm1Tasks, colunm2Tasks, colunm
             },
             body: JSON.stringify(task)
         };
-        fetch(`http://localhost:8080/tasks/add`, optionsTask)
+        const url = apiUrl(window.location.origin);
+        fetch(`${url}/tasks/add`, optionsTask)
             .then((res) => res.json())
             .then((res) => {
                 updateSprint();

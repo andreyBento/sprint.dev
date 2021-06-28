@@ -4,6 +4,7 @@ import Modal from "./Modal";
 import Comment from "./Comment";
 import {faComment} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import apiUrl from "../apiUrl/apiUrl";
 
 export default function TaskItem ({task, keyValue, click, userId, updateSprint, updateTeams}) {
     const commentForm = useRef(null);
@@ -43,7 +44,8 @@ export default function TaskItem ({task, keyValue, click, userId, updateSprint, 
             },
             body: JSON.stringify(updateTask)
         };
-        fetch(`http://localhost:8080/tasks/${task.id}/simples`, options)
+        const url = apiUrl(window.location.origin);
+        fetch(`${url}/tasks/${task.id}/simples`, options)
             .then((res) => res.json())
             .then((res) => {
                 updateSprint();
@@ -56,7 +58,8 @@ export default function TaskItem ({task, keyValue, click, userId, updateSprint, 
         const options = {
             method: 'GET',
         };
-        fetch(`http://localhost:8080/tasks/${task.id}`, options)
+        const url = apiUrl(window.location.origin);
+        fetch(`${url}/tasks/${task.id}`, options)
             .then((res) => res.json())
             .then((res) => {
                 setComments(res.comments);
@@ -84,7 +87,8 @@ export default function TaskItem ({task, keyValue, click, userId, updateSprint, 
                 },
                 body: JSON.stringify(comment)
             };
-            fetch(`http://localhost:8080/comments/add`, options)
+            const url = apiUrl(window.location.origin);
+            fetch(`${url}/comments/add`, options)
                 .then((res) => res.json())
                 .then((res) => {
                     updateComments();
@@ -100,7 +104,8 @@ export default function TaskItem ({task, keyValue, click, userId, updateSprint, 
             const options = {
                 method: 'DELETE'
             };
-            fetch(`http://localhost:8080/tasks/${task.id}`, options)
+            const url = apiUrl(window.location.origin);
+            fetch(`${url}/tasks/${task.id}`, options)
                 .then((res) => {
                     updateTeams();
                     updateSprint();

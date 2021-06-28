@@ -3,6 +3,7 @@ import React, {useState, useEffect} from "react";
 import Link from "next/link";
 import { useRouter } from 'next/router';
 import PasswordInput from "./PasswordInput";
+import apiUrl from "../apiUrl/apiUrl";
 
 export default function LoginAuth() {
     const [email, setEmail] = useState('');
@@ -33,8 +34,8 @@ export default function LoginAuth() {
         const options = {
             method: 'GET'
         };
-
-        fetch(`http://localhost:8080/users/`, options)
+        const url = apiUrl(window.location.origin);
+        fetch(`${url}/users/`, options)
             .then((res) => res.json())
             .then((res) => {
                 setExistingUsers(res);

@@ -4,6 +4,7 @@ import {faPencilAlt, faTrash} from '@fortawesome/free-solid-svg-icons'
 import React, {useState} from "react";
 import {useRouter} from 'next/router';
 import Modal from "./Modal";
+import apiUrl from "../apiUrl/apiUrl";
 
 export default function SprintItem({sprint, keyValue}) {
     const router = useRouter();
@@ -39,7 +40,8 @@ export default function SprintItem({sprint, keyValue}) {
             const options = {
                 method: 'DELETE'
             };
-            fetch(`http://localhost:8080/sprints/${sprint.id}`, options)
+            const url = apiUrl(window.location.origin);
+            fetch(`${url}/sprints/${sprint.id}`, options)
                 .then((res) => {
                     location.reload();
                 })
@@ -66,7 +68,8 @@ export default function SprintItem({sprint, keyValue}) {
                 },
                 body: JSON.stringify(update)
             };
-            return fetch(`http://localhost:8080/sprints/${sprint.id}`, optionsTeam)
+            const url = apiUrl(window.location.origin);
+            return fetch(`${url}/sprints/${sprint.id}`, optionsTeam)
                 .then((res) => res.json())
                 .then((res) => {
                     location.reload();

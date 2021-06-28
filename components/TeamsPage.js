@@ -12,7 +12,8 @@ export default function TeamsPage({teams, updateTeams, updateSprint}) {
         const options = {
             method: 'GET'
         };
-        fetch(`http://localhost:8080/users/`, options)
+        const url = apiUrl(window.location.origin);
+        fetch(`${url}/users/`, options)
             .then((res) => res.json())
             .then((res) => {
                 let newArray = [];
@@ -50,7 +51,8 @@ export default function TeamsPage({teams, updateTeams, updateSprint}) {
             },
             body: JSON.stringify(createTeam)
         };
-        return fetch(`http://localhost:8080/teams/addComplete`, optionsWorkersStatus)
+        const url = apiUrl(window.location.origin);
+        return fetch(`${url}/teams/addComplete`, optionsWorkersStatus)
             .then((res) => res.json())
             .then((res) => {
                 updateTeams();

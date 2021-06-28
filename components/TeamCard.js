@@ -4,6 +4,7 @@ import Modal from "./Modal";
 import Select from 'react-select';
 import {faTimes} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import apiUrl from "../apiUrl/apiUrl";
 
 export default function TeamCard({team, updateTeams, updateSprint}) {
 
@@ -22,7 +23,8 @@ export default function TeamCard({team, updateTeams, updateSprint}) {
         const options = {
             method: 'GET'
         };
-        fetch(`http://localhost:8080/users/`, options)
+        const url = apiUrl(window.location.origin);
+        fetch(`${url}/users/`, options)
             .then((res) => res.json())
             .then((res) => {
                 let newArray = [];
@@ -56,7 +58,8 @@ export default function TeamCard({team, updateTeams, updateSprint}) {
             const options = {
                 method: 'DELETE'
             };
-            fetch(`http://localhost:8080/teams/${team.id}`, options)
+            const url = apiUrl(window.location.origin);
+            fetch(`${url}/teams/${team.id}`, options)
                 .then((res) => {
                     toggleModal();
                     updateTeams();
@@ -86,7 +89,8 @@ export default function TeamCard({team, updateTeams, updateSprint}) {
             },
             body: JSON.stringify(updateTeam)
         };
-        return fetch(`http://localhost:8080/teams/${team.id}/peopleAdd`, optionsTeam)
+        const url = apiUrl(window.location.origin);
+        return fetch(`${url}/teams/${team.id}/peopleAdd`, optionsTeam)
             .then((res) => res.json())
             .then((res) => {
                 updateTeams();
@@ -114,7 +118,8 @@ export default function TeamCard({team, updateTeams, updateSprint}) {
             },
             body: JSON.stringify(novaInfo)
         };
-        return fetch(`http://localhost:8080/teams/${team.id}`, optionsTeam)
+        const url = apiUrl(window.location.origin);
+        return fetch(`${url}/teams/${team.id}`, optionsTeam)
             .then((res) => res.json())
             .then((res) => {
                 updateTeams();
@@ -136,7 +141,8 @@ export default function TeamCard({team, updateTeams, updateSprint}) {
                 },
                 body: JSON.stringify(userToDelete)
             };
-            fetch(`http://localhost:8080/teams/${team.id}/people`, options)
+            const url = apiUrl(window.location.origin);
+            fetch(`${url}/teams/${team.id}/people`, options)
                 .then((res) => {
                     toggleModal();
                     updateTeams();

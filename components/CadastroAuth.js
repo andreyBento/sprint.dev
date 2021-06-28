@@ -2,6 +2,7 @@ import styles from '/public/css/Login.module.scss';
 import React, {useState, useEffect} from "react";
 import { useRouter } from 'next/router';
 import PasswordInput from "./PasswordInput";
+import apiUrl from "../apiUrl/apiUrl";
 
 export default function CadastroAuth() {
     const [email, setEmail] = useState('');
@@ -46,8 +47,8 @@ export default function CadastroAuth() {
             },
             body: JSON.stringify(user)
         };
-
-        fetch(`http://localhost:8080/users/add`, options)
+        const url = apiUrl(window.location.origin);
+        fetch(`${url}/users/add`, options)
             .then((res) => res.json())
             .then((res) => {
                 window.localStorage.setItem('AUTH_TOKEN', res.id);
@@ -61,8 +62,8 @@ export default function CadastroAuth() {
         const options = {
             method: 'GET'
         };
-
-        fetch(`http://localhost:8080/users/`, options)
+        const url = apiUrl(window.location.origin);
+        fetch(`${url}/users/`, options)
             .then((res) => res.json())
             .then((res) => {
                 setExistingUsers(res);

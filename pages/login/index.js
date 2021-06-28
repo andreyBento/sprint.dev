@@ -6,6 +6,7 @@ import { signIn, useSession } from 'next-auth/client';
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faGithub} from "@fortawesome/free-brands-svg-icons";
 import {useRouter} from "next/router";
+import apiUrl from "../../apiUrl/apiUrl";
 
 export default function Login(){
     const [session, loading] = useSession();
@@ -36,6 +37,7 @@ export default function Login(){
             username: username,
             bgColor: colors[color]
         };
+        const url = apiUrl(window.location.origin);
         const options = {
             method: 'POST',
             headers: {
@@ -44,7 +46,7 @@ export default function Login(){
             },
             body: JSON.stringify(newUser)
         };
-        fetch(`http://localhost:8080/users/add`, options)
+        fetch(`${url}/users/add`, options)
             .then((res) => res.json())
             .then((res) => {
                 window.localStorage.setItem('AUTH_TOKEN', res.id);
@@ -58,8 +60,8 @@ export default function Login(){
         const options = {
             method: 'GET'
         };
-
-        fetch(`http://localhost:8080/users/`, options)
+        const url = apiUrl(window.location.origin);
+        fetch(`${url}/users/`, options)
             .then((res) => res.json())
             .then((res) => {
                 setUsers(res);
@@ -72,8 +74,9 @@ export default function Login(){
         const options = {
             method: 'GET'
         };
+        const url = apiUrl(window.location.origin);
 
-        fetch(`http://localhost:8080/users/`, options)
+        fetch(`${url}/users/`, options)
             .then((res) => res.json())
             .then((res) => {
                 res.map((item) => {

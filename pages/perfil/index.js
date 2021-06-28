@@ -6,6 +6,7 @@ import {faArrowLeft} from "@fortawesome/free-solid-svg-icons";
 import Link from "next/link";
 import PasswordInput from "/components/PasswordInput";
 import {useRouter} from "next/router";
+import apiUrl from "../../apiUrl/apiUrl";
 
 export default function Perfil() {
     const router = useRouter();
@@ -44,7 +45,8 @@ export default function Perfil() {
             },
             body: JSON.stringify(update)
         };
-        return fetch(`http://localhost:8080/users/${user.id}`, optionsBasic)
+        const url = apiUrl(window.location.origin);
+        return fetch(`${url}/users/${user.id}`, optionsBasic)
             .then((res) => res.json())
             .then((res) => {
                 atualizarUser();
@@ -70,8 +72,8 @@ export default function Perfil() {
             method: 'GET'
         };
         const userID = window.localStorage.getItem('AUTH_TOKEN');
-
-        fetch(`http://localhost:8080/users/${userID}`, options)
+        const url = apiUrl(window.location.origin);
+        fetch(`${url}/users/${userID}`, options)
             .then((res) => res.json())
             .then((res) => {
                 setUser(res);
@@ -105,7 +107,8 @@ export default function Perfil() {
                     },
                     body: JSON.stringify(updatePassword)
                 };
-                return fetch(`http://localhost:8080/users/${user.id}/password`, optionsPassword)
+                const url = apiUrl(window.location.origin);
+                return fetch(`${url}/users/${user.id}/password`, optionsPassword)
                     .then((res) => res.json())
                     .then((res) => {
                         atualizarUser();
@@ -122,7 +125,8 @@ export default function Perfil() {
             const options = {
                 method: 'DELETE'
             };
-            fetch(`http://localhost:8080/users/${user.id}`, options)
+            const url = apiUrl(window.location.origin);
+            fetch(`${url}/users/${user.id}`, options)
                 .then((res) => {
                     window.localStorage.removeItem('AUTH_TOKEN');
                     router.push(`/login`);

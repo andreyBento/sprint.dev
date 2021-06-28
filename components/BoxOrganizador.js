@@ -4,6 +4,7 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPencilAlt, faTrash} from "@fortawesome/free-solid-svg-icons";
 import React, {useState} from "react";
 import Modal from "./Modal";
+import apiUrl from "../apiUrl/apiUrl";
 
 export default function BoxOrganizador({box}) {
 
@@ -34,7 +35,8 @@ export default function BoxOrganizador({box}) {
                 },
                 body: JSON.stringify(update)
             };
-            return fetch(`http://localhost:8080/boxes/${box.id}`, options)
+            const url = apiUrl(window.location.origin);
+            return fetch(`${url}/boxes/${box.id}`, options)
                 .then((res) => res.json())
                 .then((res) => {
                     location.reload();
@@ -48,7 +50,8 @@ export default function BoxOrganizador({box}) {
             const options = {
                 method: 'DELETE'
             };
-            fetch(`http://localhost:8080/boxes/${box.id}`, options)
+            const url = apiUrl(window.location.origin);
+            fetch(`${url}/boxes/${box.id}`, options)
                 .then((res) => {
                     location.reload();
                 })

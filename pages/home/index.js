@@ -9,6 +9,7 @@ import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import ModalSimple from "/components/ModalSimple";
 import Modal from "/components/Modal";
 import UserBar from "/components/UserBar";
+import apiUrl from "../../apiUrl/apiUrl";
 
 export default function Home() {
 
@@ -20,7 +21,8 @@ export default function Home() {
 
         const userID = window.localStorage.getItem('AUTH_TOKEN');
 
-        fetch(`http://localhost:8080/users/${userID}`, options)
+        const url = apiUrl(window.location.origin);
+        fetch(`${url}/users/${userID}`, options)
             .then((res) => res.json())
             .then((res) => {
                 setUser(res);
@@ -31,15 +33,16 @@ export default function Home() {
 
     const [ projects, setProjects ] = useState(user.projects);
     function updateProjects(res) {
+        const url = apiUrl(window.location.origin);
         if(res !== undefined){
-            fetch(`http://localhost:8080/users/${res.id}`, { method: 'GET' })
+            fetch(`${url}/users/${res.id}`, { method: 'GET' })
                 .then((res) => res.json())
                 .then((res) => {
                     setProjects(res.projects);
                 })
                 .catch(err => console.error(err))
         } else {
-            fetch(`http://localhost:8080/users/${user.id}`, { method: 'GET' })
+            fetch(`${url}/users/${user.id}`, { method: 'GET' })
                 .then((res) => res.json())
                 .then((res) => {
                     setProjects(res.projects);
@@ -170,7 +173,8 @@ export default function Home() {
                 body: JSON.stringify(project)
             };
 
-            fetch(`http://localhost:8080/projects/add`, options)
+            const url = apiUrl(window.location.origin);
+            fetch(`${url}/projects/add`, options)
                 .then((res) => res.json())
                 .then((res) => {
                     updateProjects();
@@ -230,7 +234,8 @@ export default function Home() {
                 },
                 body: JSON.stringify(box)
             };
-            fetch(`http://localhost:8080/boxes/add`, options)
+            const url = apiUrl(window.location.origin);
+            fetch(`${url}/boxes/add`, options)
                 .then((res) => res.json())
                 .then((res) => {
                     updateProjects();
@@ -278,7 +283,8 @@ export default function Home() {
                 },
                 body: JSON.stringify(sprint)
             };
-            fetch(`http://localhost:8080/sprints/add`, options)
+            const url = apiUrl(window.location.origin);
+            fetch(`${url}/sprints/add`, options)
                 .then((res) => res.json())
                 .then((res) => {
                     updateProjects();

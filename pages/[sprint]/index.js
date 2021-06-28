@@ -8,6 +8,7 @@ import BacklogPage from "/components/BacklogPage";
 import TeamsPage from "/components/TeamsPage";
 import EventPage from "/components/EventPage";
 import GraphPage from "/components/GraphPage";
+import apiUrl from "../../apiUrl/apiUrl";
 
 export default function SprintInterna() {
 
@@ -22,8 +23,8 @@ export default function SprintInterna() {
             method: 'GET'
         };
         const userID = window.localStorage.getItem('AUTH_TOKEN');
-
-        fetch(`http://localhost:8080/users/${userID}`, options)
+        const url = apiUrl(window.location.origin);
+        fetch(`${url}/users/${userID}`, options)
             .then((res) => res.json())
             .then((res) => {
                 setUser(res);
@@ -40,7 +41,8 @@ export default function SprintInterna() {
             method: 'GET'
         };
         const sprintId = window.localStorage.getItem('SPRINT_TOKEN');
-        fetch(`http://localhost:8080/sprints/${sprintId}`, options)
+        const url = apiUrl(window.location.origin);
+        fetch(`${url}/sprints/${sprintId}`, options)
             .then((res) => res.json())
             .then((res) => {
                 setSprint(res);
@@ -146,7 +148,8 @@ export default function SprintInterna() {
             },
             body: JSON.stringify(updateWorkers)
         };
-        return fetch(`http://localhost:8080/tasks/${id}/workers`, optionsWorkersStatus)
+        const url = apiUrl(window.location.origin);
+        return fetch(`${url}/tasks/${id}/workers`, optionsWorkersStatus)
             .then((res) => res.json())
             .then((res) => {
                 return res.workers;
@@ -185,7 +188,8 @@ export default function SprintInterna() {
                         });
                         item.status = result.destination.droppableId;
                         winner.push(item);
-                        fetch(`http://localhost:8080/tasks/${item.id}/status`, optionsUpdateStatus)
+                        const url = apiUrl(window.location.origin);
+                        fetch(`${url}/tasks/${item.id}/status`, optionsUpdateStatus)
                             .catch(err => console.error(err));
 
                         let newWorkers = [];
@@ -262,7 +266,8 @@ export default function SprintInterna() {
         const options = {
             method: 'GET'
         };
-        fetch(`http://localhost:8080/sprints/${sprint.id}`, options)
+        const url = apiUrl(window.location.origin);
+        fetch(`${url}/sprints/${sprint.id}`, options)
             .then((res) => res.json())
             .then((res) => {
                 setTeams(res.teams);

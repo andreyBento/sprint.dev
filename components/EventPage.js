@@ -3,6 +3,7 @@ import React, {useEffect, useState} from "react";
 import Select from "react-select";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPlus} from "@fortawesome/free-solid-svg-icons";
+import apiUrl from "../apiUrl/apiUrl";
 
 export default function EventPage({updateSprint, sprint}){
 
@@ -65,7 +66,8 @@ export default function EventPage({updateSprint, sprint}){
             },
             body: JSON.stringify(newEvent)
         };
-        fetch(`http://localhost:8080/events/add`, optionsWorkersStatus)
+        const url = apiUrl(window.location.origin);
+        fetch(`${url}/events/add`, optionsWorkersStatus)
             .then((res) => res.json())
             .then((res) => {
                 updateSprint();

@@ -3,6 +3,7 @@ import Modal from "./Modal";
 import React, {useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {faPencilAlt, faTrash} from "@fortawesome/free-solid-svg-icons";
+import apiUrl from "../apiUrl/apiUrl";
 
 export default function Project({project, small = false, active, onClick}) {
 
@@ -35,7 +36,8 @@ export default function Project({project, small = false, active, onClick}) {
                 },
                 body: JSON.stringify(update)
             };
-            return fetch(`http://localhost:8080/projects/${project.id}`, options)
+            const url = apiUrl(window.location.origin);
+            return fetch(`${url}/projects/${project.id}`, options)
                 .then((res) => res.json())
                 .then((res) => {
                     location.reload();
@@ -49,7 +51,8 @@ export default function Project({project, small = false, active, onClick}) {
             const options = {
                 method: 'DELETE'
             };
-            fetch(`http://localhost:8080/projects/${project.id}`, options)
+            const url = apiUrl(window.location.origin);
+            fetch(`${url}/projects/${project.id}`, options)
                 .then((res) => {
                     location.reload();
                 })
