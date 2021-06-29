@@ -74,7 +74,7 @@ export default function SprintInterna() {
                 setColunm4Tasks(array4);
 
                 setTeams(res.teams);
-                document.getElementById('loader').remove();
+                document.getElementById('loader').style.display = 'none';
             })
             .catch(err => console.error(err))
     }
@@ -162,6 +162,10 @@ export default function SprintInterna() {
     async function dragEnd(result) {
         if(result.destination !== null){
             if(result.source.droppableId !== result.destination.droppableId){
+                if(document.getElementById('loader').getAttribute('style') !== null){
+                    document.getElementById('loader').removeAttribute('style');
+                }
+
                 let sourceArray = defineColumn(result.source.droppableId),
                     destinationArray = defineColumn(result.destination.droppableId);
 
@@ -221,7 +225,7 @@ export default function SprintInterna() {
 
                 await updateColumn(sourceArray.array, loser);
                 await updateColumn(destinationArray.array, winner);
-                updateSprint();
+                location.reload();
             }
         }
     }

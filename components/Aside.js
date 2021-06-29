@@ -65,9 +65,6 @@ export default function Aside() {
         });
         window.localStorage.setItem('SPRINT_TOKEN', sprint.id);
         router.push(`/${url}`);
-        setTimeout(() => {
-            location.reload();
-        }, 100);
     }
 
     const [projects, setProjects] = useState([]);
