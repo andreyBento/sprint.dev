@@ -84,6 +84,7 @@ export default function Perfil() {
                 setEmail(res.email);
                 setBgColor(res.bgColor);
                 document.getElementById('loader').remove();
+                location.reload();
             })
             .catch(err => console.error(err))
     }
