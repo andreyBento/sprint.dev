@@ -6,7 +6,7 @@ import {faTimes} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import apiUrl from "../apiUrl/apiUrl";
 
-export default function TeamCard({team, updateTeams, updateSprint}) {
+export default function TeamCard({team, updateTeams, updateSprint, expiredSprint}) {
 
     const [modalOpen, setModalOpen] = useState(false);
     function toggleModal(){
@@ -228,6 +228,7 @@ export default function TeamCard({team, updateTeams, updateSprint}) {
                     <form className={team.people.length === 0 ? 'mt-4' : ''} onSubmit={(e) => adicionarPessoas(e)}>
                         <label htmlFor="pessoas" className={`label mb-1`}>Adicionar pessoas:</label>
                         <Select
+                            disabled={expiredSprint && 'disabled'}
                             className="basic-single"
                             isSearchable
                             name="pessoas"
@@ -235,15 +236,15 @@ export default function TeamCard({team, updateTeams, updateSprint}) {
                             options={users}
                             onChange={(e) => selectedOption(e)}
                         />
-                        <button className={`btn btn-primary mt-2 ${styles.btnAdd}`}>Adicionar</button>
+                        <button disabled={expiredSprint && 'disabled'} className={`btn btn-primary mt-2 ${styles.btnAdd}`}>Adicionar</button>
                     </form>
                     <div className={`mt-6 ${styles.actionWrapper} ${updateTeam === false ? 'd-none' : 'd-block'}`}>
                         <button className={`btn btn-success ${styles.actionWrapperBtn}`} onClick={() => alterarTime()}>Confirmar atualização</button>
                         <button className={`btn btn-cinza ${styles.actionWrapperBtn}`} onClick={() => atualizarForm()}>Cancelar atualização</button>
                     </div>
                     <div className={`mt-6 ${styles.actionWrapper} ${updateTeam === true ? 'd-none' : 'd-block'}`}>
-                        <button className={`btn btn-cinza ${styles.actionWrapperBtn}`} onClick={() => atualizarForm()}>Alterar time</button>
-                        <button className={`btn btn-danger ${styles.actionWrapperBtn}`} onClick={() => deletarTime()}>Deletar time</button>
+                        <button disabled={expiredSprint && 'disabled'} className={`btn btn-cinza ${styles.actionWrapperBtn}`} onClick={() => atualizarForm()}>Alterar time</button>
+                        <button disabled={expiredSprint && 'disabled'} className={`btn btn-danger ${styles.actionWrapperBtn}`} onClick={() => deletarTime()}>Deletar time</button>
                     </div>
                 </div>
             </Modal>

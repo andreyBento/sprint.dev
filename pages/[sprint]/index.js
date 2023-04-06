@@ -1,9 +1,9 @@
 import styles from '/public/css/SprintInterna.module.scss';
 import Aside from "/components/Aside";
-import React, {useState, useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import Link from "next/link";
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
+import {faArrowLeft} from '@fortawesome/free-solid-svg-icons'
 import BacklogPage from "/components/BacklogPage";
 import TeamsPage from "/components/TeamsPage";
 import EventPage from "/components/EventPage";
@@ -19,6 +19,7 @@ export default function SprintInterna() {
     const [colunm2Tasks, setColunm2Tasks] = useState([]);
     const [colunm3Tasks, setColunm3Tasks] = useState([]);
     const [colunm4Tasks, setColunm4Tasks] = useState([]);
+    const [expiredSprint, setExpiredSprint] = useState(false);
     useEffect(() => {
         const options = {
             method: 'GET'
@@ -37,6 +38,11 @@ export default function SprintInterna() {
         updateSprint()
     }, []);
 
+    function diferencaEmDias(inicio, fim) {
+        const time = fim.getTime() - inicio.getTime();
+        return Math.floor(time / (1000 * 3600 * 24));
+    }
+
     function updateSprint(){
         const options = {
             method: 'GET'
@@ -51,7 +57,19 @@ export default function SprintInterna() {
                 let array2 = [];
                 let array3 = [];
                 let array4 = [];
+
+                const expiresAt = new Date(res.expiresAt);
+                const today = new Date();
+
+                if(diferencaEmDias(today, expiresAt) <= 0){
+                    setExpiredSprint(true);
+                }
+
                 res.tasks.map((item, index) => {
+                    if(diferencaEmDias(today, expiresAt) <= 0){
+                        item.disabled = true;
+                    }
+
                     if(item.status === 'backlog'){
                         array1.push(item)
                     } else if(item.status === 'andamento'){
@@ -291,18 +309,19 @@ export default function SprintInterna() {
                                     user={user}
                                     teams={teams}
                                     sprint={sprint}
+                                    expiredSprint={expiredSprint}
                                     updateTeams={() => loadTeams()}
                                     disableDrag={(status, taskIncomming, array, updateArray) => disableDrag(status, taskIncomming, array, updateArray)}
                                     updateSprint={() => updateSprint()}/>;
 
             case 'teams':
-                return <TeamsPage teams={teams} updateTeams={() => loadTeams()} updateSprint={() => updateSprint()} />;
+                return <TeamsPage expiredSprint={expiredSprint} teams={teams} updateTeams={() => loadTeams()} updateSprint={() => updateSprint()} />;
 
             case 'meetings':
-                return <EventPage updateSprint={() => updateSprint()} sprint={sprint} />
+                return <EventPage expiredSprint={expiredSprint} updateSprint={() => updateSprint()} sprint={sprint} />
 
             case 'graphs':
-                return <GraphPage updateSprint={() => updateSprint()} sprint={sprint} />
+                return <GraphPage expiredSprint={expiredSprint} updateSprint={() => updateSprint()} sprint={sprint} />
         }
     };
 

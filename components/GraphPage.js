@@ -4,7 +4,7 @@ import HC_exporting from 'highcharts/modules/exporting'
 import HighchartsReact from 'highcharts-react-official'
 import {useEffect, useRef, useState} from "react";
 
-export default function GraphPage({updateSprint, sprint}){
+export default function GraphPage({updateSprint, sprint, expiredSprint}){
     HC_exporting(Highcharts);
 
     function diferencaEmDias(inicio, fim) {
@@ -41,22 +41,38 @@ export default function GraphPage({updateSprint, sprint}){
         ]
     });
     useEffect(() => {
+        // const createdAt = new Date(new Date(sprint.createdAt).setHours(24,0,0));
         const createdAt = new Date(sprint.createdAt);
         const expiresAt = new Date(sprint.expiresAt);
 
+        // console.log(new Date(new Date(sprint.createdAt).setHours(new Date(sprint.createdAt).getHours() - 24)))
+
         // Mundo Ideal
         let mundoIdealArray = [];
-        const calcIdeal = sprint.tasks.length/diferencaEmDias(createdAt, expiresAt);
+        const calcIdeal = Math.round(sprint.tasks.length/diferencaEmDias(createdAt, expiresAt));
         let valorIdeal = sprint.tasks.length;
         for(let i = 1; i <= diferencaEmDias(createdAt, expiresAt); i++){
-            valorIdeal -= calcIdeal;
+            if(i === diferencaEmDias(createdAt, expiresAt)){
+                valorIdeal = 0;
+            } else {
+                valorIdeal -= calcIdeal;
+            }
+
             mundoIdealArray.push(valorIdeal);
         }
 
         // Progresso
         let progressoArray = [];
         for(let i = 1; i <= diferencaEmDias(createdAt, expiresAt);){
-            progressoArray.push(sprint.tasks.length);
+            let tasks = 0;
+
+            sprint.tasks.map((item) => {
+                if(item.status === 'feito'){
+                    tasks ++;
+                }
+            });
+
+            progressoArray.push(tasks);
 
             if(i === (diferencaEmDias(createdAt, new Date()) + 1)){
                 i = diferencaEmDias(createdAt, expiresAt) + 1;
@@ -64,11 +80,6 @@ export default function GraphPage({updateSprint, sprint}){
                 i++;
             }
         }
-        sprint.tasks.map((item) => {
-            if(item.status === 'feito'){
-                progressoArray[diferencaEmDias(createdAt, new Date(item.updatedAt))] -= 1;
-            }
-        });
 
         setBurndowOptions({
             series: [

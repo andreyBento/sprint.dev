@@ -64,6 +64,10 @@
 				& + .linkItem{
 					margin-left: 16px;
 				}
+
+				&.disabled{
+					opacity: 0.7;
+				}
 			}
 
 			.link{

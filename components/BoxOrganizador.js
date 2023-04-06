@@ -75,7 +75,9 @@ export default function BoxOrganizador({box}) {
             {
                 box.sprints !== undefined && box.sprints.map(((item, index) => {
                     return(
-                        <SprintItem sprint={item} keyValue={`sp${index}`} />
+                        <div key={`sp${index}`}>
+                            <SprintItem sprint={item} keyValue={`spi${index}`} />
+                        </div>
                     )
                 }))
             }

@@ -92,14 +92,14 @@ export default function SprintItem({sprint, keyValue}) {
         <div className={styles.sprint} key={keyValue} >
             <div className={styles.sprintBox} onClick={() => changePage()}>
                 <p className={styles.sprintName}>{sprint.name}</p>
-                <p className={styles.sprintTime}>Faltam {diasRestantes()} dias pro fim do Sprint!</p>
+                <p className={styles.sprintTime}>{diasRestantes() > 0 ? `Faltam ${diasRestantes()} dias pro fim do sprint!` : 'Este sprint ja terminou.'}</p>
             </div>
             <div className={styles.nav}>
                 <ul className={styles.listaLinks}>
-                    <li className={styles.linkItem} onClick={() => toggleModal()}>
+                    <li className={`${styles.linkItem} ${diasRestantes() > 0 && styles.disabled}`} onClick={diasRestantes() > 0 ? () => toggleModal() : undefined}>
                         <FontAwesomeIcon icon={faPencilAlt} className={styles.link} />
                     </li>
-                    <li className={styles.linkItem} onClick={() => deleteSprint()}>
+                    <li className={`${styles.linkItem} ${diasRestantes() > 0 && styles.disabled}`} onClick={diasRestantes() > 0 ? () => deleteSprint() : undefined}>
                         <FontAwesomeIcon icon={faTrash} className={styles.link} />
                     </li>
                 </ul>

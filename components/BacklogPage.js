@@ -7,7 +7,7 @@ import React, {useEffect, useRef, useState} from "react";
 import apiUrl from "../apiUrl/apiUrl";
 
 
-export default function BacklogPage({dragEnd, colunm1Tasks, colunm2Tasks, colunm3Tasks, colunm4Tasks, maxHeight, updateSprint, user, disableDrag, teams, updateTeams, sprint}) {
+export default function BacklogPage({dragEnd, colunm1Tasks, colunm2Tasks, colunm3Tasks, colunm4Tasks, maxHeight, updateSprint, user, disableDrag, teams, updateTeams, sprint, expiredSprint}) {
     const form = useRef(null);
     const floaterRef = useRef(null);
 
@@ -287,11 +287,11 @@ export default function BacklogPage({dragEnd, colunm1Tasks, colunm2Tasks, colunm
                                     </select>
                                 </fieldset>
                                 <fieldset className={`mt-1`}>
-                                    <button type="submit" className="btn btn-primary btn-sm">Criar</button>
+                                    <button disabled={expiredSprint && 'disabled'} type="submit" className="btn btn-primary btn-sm">Criar</button>
                                     <button type="reset" className="btn btn-cinza btn-sm ml-1" onClick={(event) => toggleTaskForm(event)}>Cancelar</button>
                                 </fieldset>
                             </form>
-                            <button className={`${styles.btnAddTaskPlus}`} onClick={() => toggleTaskForm()}>
+                            <button disabled={expiredSprint && 'disabled'} className={`${styles.btnAddTaskPlus}`} onClick={() => toggleTaskForm()}>
                                 <FontAwesomeIcon icon={faPlus} />
                             </button>
                         </div>
@@ -314,7 +314,7 @@ export default function BacklogPage({dragEnd, colunm1Tasks, colunm2Tasks, colunm
                                                                     {...providedDraggable.dragHandleProps}
                                                                     ref={providedDraggable.innerRef}
                                                                 >
-                                                                    <TaskItem userId={user.id} task={item}
+                                                                    <TaskItem expiredSprint={expiredSprint} userId={user.id} task={item}
                                                                               updateTeams={updateTeams}
                                                                               click={(status) => disableDrag(status, item, colunm1Tasks, 'setColunm1Tasks')}
                                                                               updateSprint={updateSprint}/>
@@ -358,7 +358,7 @@ export default function BacklogPage({dragEnd, colunm1Tasks, colunm2Tasks, colunm
                                                                     {...providedDraggable.dragHandleProps}
                                                                     ref={providedDraggable.innerRef}
                                                                 >
-                                                                    <TaskItem userId={user.id} task={item}
+                                                                    <TaskItem expiredSprint={expiredSprint} userId={user.id} task={item}
                                                                               updateTeams={updateTeams}
                                                                               click={(status) => disableDrag(status, item, colunm2Tasks, 'setColunm2Tasks')}
                                                                               updateSprint={updateSprint}/>
@@ -402,7 +402,7 @@ export default function BacklogPage({dragEnd, colunm1Tasks, colunm2Tasks, colunm
                                                                     {...providedDraggable.dragHandleProps}
                                                                     ref={providedDraggable.innerRef}
                                                                 >
-                                                                    <TaskItem userId={user.id} task={item}
+                                                                    <TaskItem expiredSprint={expiredSprint} userId={user.id} task={item}
                                                                               updateTeams={updateTeams}
                                                                               click={(status) => disableDrag(status, item, colunm3Tasks, 'setColunm3Tasks')}
                                                                               updateSprint={updateSprint}/>
@@ -446,7 +446,7 @@ export default function BacklogPage({dragEnd, colunm1Tasks, colunm2Tasks, colunm
                                                                     {...providedDraggable.dragHandleProps}
                                                                     ref={providedDraggable.innerRef}
                                                                 >
-                                                                    <TaskItem userId={user.id} task={item}
+                                                                    <TaskItem expiredSprint={expiredSprint} userId={user.id} task={item}
                                                                               updateTeams={updateTeams}
                                                                               click={(status) => disableDrag(status, item, colunm4Tasks, 'setColunm4Tasks')}
                                                                               updateSprint={updateSprint}/>

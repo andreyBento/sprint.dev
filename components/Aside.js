@@ -121,25 +121,25 @@ export default function Aside() {
                         <ul className={styles.listaProjects}>
                             {
                                 projects.length > 0 &&
-                                projects.map((project) => {
+                                projects.map((project, index) => {
                                     return (
-                                        <li>
+                                        <li key={`ap${index}`}>
                                             <p className={styles.projetoNome}>{project.name}</p>
                                             {
                                                 project.boxes.length > 0 &&
                                                 <ul className={styles.listaBoxes}>
                                                     {
-                                                        project.boxes.map((box) => {
+                                                        project.boxes.map((box, indexBox) => {
                                                             return (
-                                                                <li>
+                                                                <li key={`ab${indexBox}`}>
                                                                     <p className={styles.boxNome}>{box.name}</p>
                                                                     {
                                                                         box.sprints.length > 0 &&
                                                                         <ul className={styles.listaSprints}>
                                                                             {
-                                                                                box.sprints.map((sprint) => {
+                                                                                box.sprints.map((sprint, indexSprint) => {
                                                                                     return (
-                                                                                        <li className={styles.linkSprint} onClick={() => enterSprint(sprint)}>
+                                                                                        <li key={`as${indexSprint}`} className={styles.linkSprint} onClick={() => enterSprint(sprint)}>
                                                                                             <p>{sprint.name}</p>
                                                                                         </li>
                                                                                     )

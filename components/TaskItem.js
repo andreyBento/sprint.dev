@@ -6,7 +6,7 @@ import {faComment, faComments, faInfo} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import apiUrl from "../apiUrl/apiUrl";
 
-export default function TaskItem ({task, keyValue, click, userId, updateSprint, updateTeams}) {
+export default function TaskItem ({task, keyValue, click, userId, updateSprint, updateTeams, expiredSprint}) {
     const commentForm = useRef(null);
 
     const [commentValue, setCommentValue] = useState('');
@@ -186,8 +186,8 @@ export default function TaskItem ({task, keyValue, click, userId, updateSprint, 
                             <button className={`btn btn-cinza ${styles.actionWrapperBtn}`} onClick={() => formAlterar()}>Cancelar alteração</button>
                         </div>
                         <div className={`${styles.actionWrapper} ${alterar === false ? styles.active : ''}`}>
-                            <button className={`btn btn-cinza ${styles.actionWrapperBtn}`} onClick={() => formAlterar()}>Alterar task</button>
-                            <button className={`btn btn-danger ${styles.actionWrapperBtn}`} onClick={() => deletarTask()}>Deletar task</button>
+                            <button disabled={expiredSprint && 'disabled'} className={`btn btn-cinza ${styles.actionWrapperBtn}`} onClick={() => formAlterar()}>Alterar task</button>
+                            <button disabled={expiredSprint && 'disabled'} className={`btn btn-danger ${styles.actionWrapperBtn}`} onClick={() => deletarTask()}>Deletar task</button>
                         </div>
                     </div>
                     <div className={`${styles.commentsSide} ${section === 'comments' ? styles.active : '' }`}>
@@ -211,7 +211,7 @@ export default function TaskItem ({task, keyValue, click, userId, updateSprint, 
                         <form onSubmit={(event) => commentAdd(event)} ref={commentForm}>
                             <fieldset className={`d-flex align-items-center ${styles.commentInputWrapper} ${commentValue === false ? 'error' : ''}`}>
                                 <input type="text" className={`input mt-0 ${styles.commentInput}`} id="comment" onKeyUp={(event) => setCommentValue(event.target.value)}/>
-                                <button className={`btn btn-primary ${styles.commentBtn}`}>Comentar</button>
+                                <button disabled={expiredSprint && 'disabled'} className={`btn btn-primary ${styles.commentBtn}`}>Comentar</button>
                             </fieldset>
                         </form>
                     </div>

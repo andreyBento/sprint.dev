@@ -155,6 +155,12 @@
 		&:focus{
 			background-color: lighten($c-primary, 8%);
 		}
+
+		&[disabled]{
+			background-color: $c-lightGray;
+			color: $c-dark;
+			cursor: not-allowed;
+		}
 	}
 
 	&Form{

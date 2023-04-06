@@ -6,7 +6,7 @@ import Modal from "./Modal";
 import Select from "react-select";
 import apiUrl from "../apiUrl/apiUrl";
 
-export default function EventCard({item, options, updateSprint}){
+export default function EventCard({item, options, updateSprint, expiredSprint}){
 
     const [defaultValueSelect, setDefaultValueSelect] = useState(options);
     const [teamsOptions, setTeamsOptions] = useState(options);
@@ -145,10 +145,10 @@ export default function EventCard({item, options, updateSprint}){
             <div className="d-flex align-items-center justify-content-between">
                 <EventDate data={item.date} />
                 <ul className={styles.listaActions}>
-                    <li className={`${styles.item} btn btn-primary`} onClick={() => toggleModal()}>
+                    <li className={`${styles.item} btn btn-primary ${expiredSprint && 'disabled'}`} onClick={expiredSprint ? undefined : () => toggleModal()}>
                         <FontAwesomeIcon icon={faPencilAlt} className={styles.action} />
                     </li>
-                    <li className={`${styles.item} btn btn-danger`} onClick={() => deleteEvent()}>
+                    <li className={`${styles.item} btn btn-danger ${expiredSprint && 'disabled'}`} onClick={expiredSprint ? undefined : () => deleteEvent()}>
                         <FontAwesomeIcon icon={faTrash} className={styles.action} />
                     </li>
                 </ul>
@@ -205,7 +205,7 @@ export default function EventCard({item, options, updateSprint}){
                         />
                     </fieldset>
                     <div className="d-flex mt-2">
-                        <button className="btn btn-sm btn-primary">Alterar Reunião</button>
+                        <button disabled={expiredSprint && 'disabled'} className="btn btn-sm btn-primary">Alterar Reunião</button>
                         <button className="btn btn-sm btn-cinza ml-2" type="reset" onClick={() => toggleModal()}>Cancelar</button>
                     </div>
                 </form>

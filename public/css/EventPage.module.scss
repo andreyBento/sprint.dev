@@ -35,6 +35,12 @@
 		&:focus{
 			background-color: lighten($c-primary, 8%);
 		}
+
+		&[disabled]{
+			background-color: $c-lightGray;
+			color: $c-dark;
+			cursor: not-allowed;
+		}
 	}
 
 	&Form{
@@ -160,11 +166,9 @@
 		display: flex;
 		align-items: center;
 		flex-wrap: wrap;
+		column-gap: 8px;
+		row-gap: 8px;
 		margin-top: 8px;
-
-		li{ margin-bottom: 8px; }
-
-		li + li { margin-left: 8px; }
 	}
 
 	&Team{

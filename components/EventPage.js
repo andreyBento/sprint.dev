@@ -6,7 +6,7 @@ import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import apiUrl from "../apiUrl/apiUrl";
 import EventCard from "./EventCard";
 
-export default function EventPage({updateSprint, sprint}){
+export default function EventPage({updateSprint, sprint, expiredSprint}){
 
     const [teamsOptions, setTeamsOptions] = useState([]);
     const [eventTeams, setEventTeams] = useState([]);
@@ -120,11 +120,11 @@ export default function EventPage({updateSprint, sprint}){
                         />
                     </fieldset>
                     <div className="d-flex mt-2">
-                        <button className="btn btn-sm btn-primary">Criar Reunião</button>
+                        <button disabled={expiredSprint && 'disabled'} className="btn btn-sm btn-primary">Criar Reunião</button>
                         <button className="btn btn-sm btn-cinza ml-2" type="reset" onClick={() => toggleTaskForm()}>Cancelar</button>
                     </div>
                 </form>
-                <button className={`${styles.btnAddEventPlus} ${createEventForm === true ? 'd-none' : ''}`} onClick={() => toggleTaskForm()}>
+                <button disabled={expiredSprint && 'disabled'} className={`${styles.btnAddEventPlus} ${createEventForm === true ? 'd-none' : ''}`} onClick={() => toggleTaskForm()}>
                     <FontAwesomeIcon icon={faPlus} />
                 </button>
             </div>
@@ -135,7 +135,7 @@ export default function EventPage({updateSprint, sprint}){
                             sprintEvents.map((item, index) => {
                                 return (
                                     <li key={`ec${index}`} className={styles.cardsLi}>
-                                        <EventCard updateSprint={updateSprint} options={teamsOptions} item={item} />
+                                        <EventCard expiredSprint={expiredSprint} updateSprint={updateSprint} options={teamsOptions} item={item} />
                                     </li>
                                 )
                             })

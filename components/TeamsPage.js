@@ -6,7 +6,7 @@ import {faPlus} from "@fortawesome/free-solid-svg-icons";
 import Select from "react-select";
 import apiUrl from "../apiUrl/apiUrl";
 
-export default function TeamsPage({teams, updateTeams, updateSprint}) {
+export default function TeamsPage({teams, updateTeams, updateSprint, expiredSprint}) {
 
     const [users, setUsers] = useState([]);
     useEffect(() => {
@@ -99,9 +99,9 @@ export default function TeamsPage({teams, updateTeams, updateSprint}) {
                             onChange={(e) => selectedOption(e)}
                         />
                     </fieldset>
-                    <button className="btn btn-sm btn-primary mt-2">Criar time</button>
+                    <button disabled={expiredSprint && 'disabled'} className="btn btn-sm btn-primary mt-2">Criar time</button>
                 </form>
-                <button className={`${styles.btnAddTaskPlus} ${createTeamForm === true ? 'd-none' : ''}`} onClick={() => toggleTaskForm()}>
+                <button disabled={expiredSprint && 'disabled'} className={`${styles.btnAddTaskPlus} ${createTeamForm === true ? 'd-none' : ''}`} onClick={() => toggleTaskForm()}>
                     <FontAwesomeIcon icon={faPlus} />
                 </button>
             </div>
@@ -109,7 +109,7 @@ export default function TeamsPage({teams, updateTeams, updateSprint}) {
                 teams.map((item, index) => {
                     return (
                         <div key={`team${index}`} className={styles.teamItem}>
-                            <TeamCard updateSprint={updateSprint} updateTeams={updateTeams} team={item}/>
+                            <TeamCard expiredSprint={expiredSprint} updateSprint={updateSprint} updateTeams={updateTeams} team={item}/>
                         </div>
                     )
                 })
